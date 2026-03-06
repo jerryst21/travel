@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Itinerary Singapore 2026 - Family</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --bg-body: #f0f2f5;
@@ -22,8 +23,7 @@
             line-height: 1.5;
         }
         .container { max-width: 700px; margin: 0 auto; }
-        
-        /* Header Style */
+
         .main-header {
             background: linear-gradient(105deg, #0052D4 0%, #85D8CE 100%);
             color: white;
@@ -36,7 +36,6 @@
         .main-header h1 { margin: 0; font-size: 1.8rem; }
         .main-header p { margin: 5px 0 0; opacity: 0.9; }
 
-        /* Card Style */
         .card {
             background: var(--white);
             border-radius: 12px;
@@ -56,8 +55,6 @@
             padding-bottom: 10px;
         }
         .card-title span { margin-right: 10px; }
-
-        /* Flight & Hotel Info */
         .info-box {
             background: #f8f9fa;
             border-left: 4px solid #ddd;
@@ -67,20 +64,19 @@
             font-size: 0.95rem;
         }
         .status-ok { color: #27ae60; font-weight: bold; }
-        
-        /* Timeline/Schedule */
         .schedule-item {
             display: flex;
-            margin-bottom: 12px;
+            margin-bottom: 5px;
+            padding: 5px 0; /* Memberi ruang sedikit lebih lega */
+            border-bottom: 0.5px solid #ccc;
         }
+
         .time {
             min-width: 110px;
             font-weight: bold;
             color: var(--accent-blue);
         }
         .activity { flex: 1; }
-
-        /* Table Style */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -89,13 +85,10 @@
         }
         th { background: #eee; text-align: left; padding: 10px; }
         td { padding: 10px; border-bottom: 1px solid #eee; }
-
-        /* Section Specific Colors */
         .border-thailand { border-top-color: #ef5350; }
         .border-papa { border-top-color: #2980b9; }
         .border-mama { border-top-color: #8e44ad; }
         .border-jb { border-top-color: #27ae60; }
-
         .important-note {
             background: #fff3cd;
             border: 1px dashed #ffeeba;
@@ -104,157 +97,285 @@
             font-size: 0.9rem;
             color: #856404;
         }
-
-        /* Link Styling */
         .pdf-link {
             color: #0052D4;
             font-weight: bold;
             text-decoration: underline;
         }
+        .countdown{
+            margin-top:10px;
+            background:rgba(255,255,255,0.15);
+            padding:10px;
+            border-radius:10px;
+            font-weight:600;
+        }
+        .countdown-title{
+            font-size:14px;
+            opacity:0.9;
+        }
+        /* Bottom Navigation SPA */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0; right: 0;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            background: #fff;
+            z-index: 10;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
+            border-top: 1px solid #f0f0f0;
+            padding: 0;
+            height: 60px;
+        }
+        .bottom-nav button {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            font: inherit;
+            font-size: 1.05rem;
+            color: #666;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 5px 0 0 0;
+            transition: color 0.2s;
+            cursor:pointer;
+            border-radius:0;
+            height:100%;
+        }
+        .bottom-nav button.active {
+            color: #0052D4;
+            font-weight: bold;
+            background: #f6fbff;
+            position: relative;
+        }
+        .bottom-nav button .icon {
+            font-size: 1.35rem;
+            display:block;
+            margin-bottom:2px;
+        }
+        .page-spa { display:none; animation: fadeIn .2s;}
+        .page-spa.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: none;}
+        }
+        /* Spacer for nav bar */
+        .body-spacer { height:65px;}
+
+.pdf-link i {
+    color: #0052D4; /* Ini warna biru link */
+    font-size: 1.1rem;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.pdf-link:hover i {
+    color: #e74c3c; /* Merah saat kursor di atasnya */
+}
+
+.awe-icon {
+    font-size: 1.1rem; /* Ukuran icon sedikit lebih besar */
+    vertical-align: middle;
+    color: #0052D4;
+    margin-right: 8px; /* Memberi jarak dengan teks */
+    text-shadow: 1px 1px 2px 
+    rgba(0,0,0,0.2)
+}
+
+.awe-icon-h {
+    font-size: 1.8rem; /* Ukuran icon sedikit lebih besar */
+    color: #ffffff;
+    margin-right: 8px; /* Memberi jarak dengan teks */
+    text-shadow: 1px 1px 2px 
+    rgba(0,0,0,0.2)
+}
+
     </style>
 </head>
 <body>
-
 <div class="container">
-    <div class="main-header">
-        <h1>Singapore Trip 2026</h1>
-        <p>Jadwal Perjalanan & Pemeriksaan Medis</p>
+    <!-- ==== PAGE: PERJALANAN ==== -->
+    <div id="page-perjalanan" class="page-spa active">
+        <div class="main-header">
+            <h1>Singapore Trip 2026</h1>
+            <p>Jadwal Perjalanan & Pemeriksaan Medis</p>
+        </div>
+        <div class="card">
+            <div class="card-title"><span>📊</span> Ringkasan Timeline</div>
+            <table>
+                <thead>
+                    <tr><th>Tanggal</th><th>Agenda Utama</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>5 Mar</td><td><i class="fa-solid fa-plane-departure awe-icon"></i>Keberangkatan ke Thailand</td></tr>
+                    <tr><td>5–9 Mar</td><td>Tur Thailand (Papa & Mama)</td></tr>
+                    <tr><td>9 Mar</td><td>🛬 Tiba di Singapore (Check-in Hotel)</td></tr>
+                    <tr><td>10 Mar</td><td><i class="fa-solid fa-book-medical awe-icon"></i>Appointment Papa</td></tr>
+                    <tr><td>11 Mar</td><td><i class="fa-solid fa-stethoscope awe-icon"></i>Pemeriksaan Mama</td></tr>
+                    <tr><td>12 Mar</td><td><i class="fa-solid fa-user-doctor awe-icon"></i>Review Medis + <i class="fa-solid fa-car-side awe-icon"></i>Trip Johor Bahru</td></tr>
+                    <tr><td>13 Mar</td><td>🛫 Kepulangan ke Manado</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card border-thailand">
+            <div class="card-title"><span>📅</span> 5 Maret 2026 – Keberangkatan</div>
+            <div class="schedule-item">
+                <div class="time">04.00</div>
+                <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>mulai perjalanan ke airport (Est. 15-25 menit)</div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">06.55 - 10.30</div>
+                <div class="activity">✈️ Penerbangan Manado ➤ Singapore</div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">10.30 - 16.00</div>
+                <div class="activity"><i class="fa-solid fa-clock-rotate-left awe-icon"></i>Transit di Changi Airport</div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">16.00 - 17.25</div>
+                <div class="activity">✈️ Penerbangan Singapore ➤ Bangkok, Thailand</div>
+            </div>
+            <p style="margin-top:15px; font-style: italic; color: #666;">Ikuti agenda tur.</p>
+        </div>
+
+        <div class="card border-papa">
+            <div class="card-title"><span>📅</span> 10 Maret 2026 – Appointment Papa</div>
+            <div class="schedule-item">
+                <div class="time">10.05 - 10.15</div>
+                <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Taxi berangkat (Est. 15-25 menit)</div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">10.40</div>
+                <div class="activity"><i class="fa-solid fa-map-location awe-icon"></i>Target Tiba di Lokasi</div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">11.00</div>
+                <div class="activity"><strong>Periksa Kalsium Tulang</strong></div>
+            </div>
+            <p style="margin-top:15px; font-style: italic; color: #666;">Sore hari bebas / istirahat.</p>
+        </div>
+        <div class="card border-mama">
+            <div class="card-title"><span>📅</span> 11 Maret 2026 – Pemeriksaan Mama</div>
+            <div class="schedule-item">
+                <div class="time">08.55 - 09.05</div>
+                <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Taxi berangkat (Est. 15-25 menit)</div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">09.25</div>
+                <div class="activity">🚩 Target Tiba di Lokasi</div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">09.45</div>
+                <div class="activity">🩸 <strong>Blood Test</strong></div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">11.30</div>
+                <div class="activity">☢️ <strong>CT Pelvis</strong> (Renal-friendly contrast)</div>
+            </div>
+            <div class="important-note" style="background: #f8d7da; color: #721c24;">
+                ⚠️ <strong>PENTING:</strong> Puasa 6 jam sebelum CT Scan.
+            </div>
+            <p style="margin-top:10px;">Setelah CT: Makan siang, kembali ke hotel, dan istirahat.</p>
+        </div>
+        <div class="card border-jb">
+            <div class="card-title"><span>📅</span> 12 Maret 2026 – Review + Johor Bahru</div>
+            <p><strong><i class="fa-solid fa-stethoscope awe-icon"></i>Review Medis:</strong></p>
+            <div class="schedule-item">
+                <div class="time">09.15</div>
+                <div class="activity">Tiba & Konsultasi Medis</div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">10.30</div>
+                <div class="activity">Ambil obat & Pembayaran</div>
+            </div>
+            <p><strong><i class="fa-solid fa-car-side awe-icon"></i>Trip Johor Bahru (Sewa Mobil):</strong></br>
+            <small>Tujuan: Mid Valley Mall JB (Makan Siang, Jalan Santai, Alpro Pharmacy)</small></p>
+            <div class="schedule-item"><div class="time">11.45</div><div class="activity">Berangkat dari Hotel</div></div>
+            <div class="schedule-item"><div class="time">11.45 - 13.30</div><div class="activity">Perjalanan ke JB</div></div>
+            <div class="schedule-item"><div class="time">13.30</div><div class="activity">Makan Siang di JB</div></div>
+            <div class="schedule-item"><div class="time">15.00 - 17.00</div><div class="activity">💊 Belanja Vitamin/Obat (Alpro Paradigm Mall)</div></div>
+            <div class="schedule-item"><div class="time">16.30</div><div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Persiapan kembali ke Singapore</div></div>
+            <div class="schedule-item"><div class="time">18.30</div><div class="activity">Tiba di Hotel (tergantung kondisi Imigrasi)</div></div>
+            <p style="font-size: 0.8rem; color: #7f8c8d; margin-top: 10px;">Total aktivitas hari itu: ± 8–9 jam</p>
+        </div>
     </div>
 
-    <div class="card">
-        <div class="card-title"><span>📊</span> Ringkasan Timeline</div>
-        <table>
-            <thead>
-                <tr><th>Tanggal</th><th>Agenda Utama</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>5 Mar</td><td>✈️ Keberangkatan ke Thailand</td></tr>
-                <tr><td>5–9 Mar</td><td>Tur Thailand (Papa & Mama)</td></tr>
-                <tr><td>9 Mar</td><td>🛬 Tiba di Singapore (Check-in Hotel)</td></tr>
-                <tr><td>10 Mar</td><td>🏥 Appointment Papa</td></tr>
-                <tr><td>11 Mar</td><td>🏥 Pemeriksaan Mama</td></tr>
-                <tr><td>12 Mar</td><td>🚕 Review Medis + Trip Johor Bahru</td></tr>
-                <tr><td>13 Mar</td><td>🛫 Kepulangan ke Manado</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="card border-thailand">
-        <div class="card-title"><span>✈️</span> 5 Maret 2026 – Keberangkatan</div>
-        <div class="info-box">
-            <strong>Papa & Mama:</strong><br>
-            06.55 - 10.30: MDC ➤ SIN <span class="status-ok">✅</span><br>
-            16.00 - 17.25: SIN ➤ BKK. Tur Thailand dimulai.
+    <!-- ==== PAGE: PENERBANGAN ==== -->
+    <div id="page-penerbangan" class="page-spa">
+        <div class="main-header">
+            <h1>✈️ Penerbangan</h1>
+            <p>Jadwal dan Detail Penerbangan</p>
+        </div>
+        <div class="card border-thailand">
+            <div class="card-title"><span>✈️</span> 5 Maret 2026 – Keberangkatan</div>
+            <div class="info-box">
+                <strong>Papa & Mama:</strong><br>
+                06.55 - 10.30: MDC ➤ SIN <span class="status-ok">✅</span><br>
+                16.00 - 17.25: SIN ➤ BKK. Tur Thailand dimulai.
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><span>🛬</span> 9 Maret 2026 – Tiba di Singapore</div>
+            <div class="countdown">
+                <div class="countdown-title">✈️ Flight to Singapore</div>
+                <div id="flightCountdown"></div>
+            </div>
+            <div class="info-box">
+                <strong>Papa & Mama (BKK ➤ SIN):</strong><br>
+                Scoot TR 611 | 18.25 – 22.10 <br>
+                <span class="map-location">🗺️ Terminal 1 – Changi Airport</span><span class="status-ok">✅</span>
+                <br>Berangkat dalam: <span id="flight1"></span>
+            </div>
+            <div class="info-box">
+                <strong>Linda & Charlie (MDC ➤ SIN):</strong><br>
+                Scoot TR 247 | 19.05 – 22.40 <br>
+                <span class="map-location">🗺️ Terminal 1 – Changi Airport</span><span class="status-ok">✅</span>
+                <br>Berangkat dalam: <span id="flight2"></span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><span>🛫</span> 13 Maret – Kepulangan ke Manado</div>
+            <div class="info-box">
+                <strong>Scoot TR 246</strong><br>
+                SIN 14.45 (SGT) ➤ MDC 18.30 (WITA)<br>
+                <span class="map-location">🗺️ Terminal 1 – Changi Airport</span>
+                <br>Berangkat dalam: <span id="flight3"></span>
+            </div>
+            <p><small>⏰ Disarankan tiba minimal 2–2,5 jam sebelum keberangkatan.</small></p>
+            <div class="schedule-item">
+                <div class="time">11.15 - 11.30 </div>
+                <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i><strong>Disarankan Berangkat Hotel</strong></div>
+            </div>
+            <div class="schedule-item">
+                <div class="time">11.45 - 12.00 </div>
+                <div class="activity">🚩 <strong>Target Tiba di Changi</strong> (Buffer Aman: 30-35 menit)</div>
+            </div>
         </div>
     </div>
+    <!-- ==== PAGE: HOTEL ==== -->
+    <div id="page-hotel" class="page-spa">
+        <div class="main-header">
+            <h1><i class="fa-solid fa-hotel awe-icon-h"></i>Reservasi Hotel</h1>
+            <p>Jadwal dan Detail Penerbangan</p>
+        </div>
 
-    <div class="card">
-        <div class="card-title"><span>🛬</span> 9 Maret 2026 – Tiba di Singapore</div>
-        <div class="info-box">
-            <strong>Papa & Mama (BKK ➤ SIN):</strong><br>
-            Scoot TR 611 | 18.25 – 22.10 <br>
-            Terminal 1 – Changi Airport <span class="status-ok">✅</span>
-        </div>
-        <div class="info-box">
-            <strong>Linda & Charlie (MDC ➤ SIN):</strong><br>
-            Scoot TR 247 | 19.05 – 22.40 <br>
-            Terminal 1 – Changi Airport <span class="status-ok">✅</span>
-        </div>
-    </div>
+        <div class="card border-jb">
+            <div class="card-title"><span>🏨</span> V Hotel Lavender</div>
+            <p>
+                🛎️ <strong>Check-in:</strong> Senin, 9 Maret<br>
+                👋 <strong>Check-out:</strong> Jumat, 13 Maret (4 Malam – 2 Kamar)<br>
+                👥 <strong>Tamu:</strong> Papa, Mama, Charlie, Linda 
+            </p>
+            <p class="important-note">
+                📍 <strong>Hotel E-Voucher:</strong>
+                <a class="pdf-link" href="https://file.notion.so/f/f/4179d7c2-b7ce-4dc0-82e8-ee29ddcb0566/e8d887b0-3066-4820-b499-1572e964fe6a/Hotel_E-Voucher_-_Order_ID_1337833521.pdf?table=block&id=311a7d88-a25a-803e-8119-f0eb0698c563&spaceId=4179d7c2-b7ce-4dc0-82e8-ee29ddcb0566&expirationTimestamp=1772654400000&signature=XbwqRTazityygy2-MNeoUKLbtnOeYiTWg_4UonPN_mQ&downloadName=Hotel+E-Voucher+-+Order+ID+1337833521.pdf" target="_blank">
+                   <i class="fa-solid fa-file-pdf" margin-right: 5px;"> </i>Order ID 1337833521.pdf</a><br>
+                ⏱️ Est. Changi ➔ Hotel: 20–30 menit
+            </p>
 
-    <div class="card border-jb">
-        <div class="card-title"><span>🏨</span> V Hotel Lavender</div>
-        <p>
-            🛎️ <strong>Check-in:</strong> Senin, 9 Maret<br>
-            👋 <strong>Check-out:</strong> Jumat, 13 Maret (4 Malam – 2 Kamar)<br>
-            👥 <strong>Tamu:</strong> Papa, Mama, Charlie, Linda
-        </p>
-        <p class="important-note">
-            📍 <strong>Hotel E-Voucher:</strong>
-            <a class="pdf-link" href="https://file.notion.so/f/f/4179d7c2-b7ce-4dc0-82e8-ee29ddcb0566/e8d887b0-3066-4820-b499-1572e964fe6a/Hotel_E-Voucher_-_Order_ID_1337833521.pdf?table=block&id=311a7d88-a25a-803e-8119-f0eb0698c563&spaceId=4179d7c2-b7ce-4dc0-82e8-ee29ddcb0566&expirationTimestamp=1772654400000&signature=XbwqRTazityygy2-MNeoUKLbtnOeYiTWg_4UonPN_mQ&downloadName=Hotel+E-Voucher+-+Order+ID+1337833521.pdf" target="_blank">Order ID 1337833521.pdf</a><br>
-            🚗 Est. Changi ➔ Hotel: 20–30 menit
-        </p>
-    </div>
-
-    <div class="card border-papa">
-        <div class="card-title"><span>📅</span> 10 Maret 2026 – Appointment Papa</div>
-        <div class="schedule-item">
-            <div class="time">10.05 - 10.15</div>
-            <div class="activity">🚕 Taxi berangkat (Est. 15-25 menit)</div>
-        </div>
-        <div class="schedule-item">
-            <div class="time">10.40</div>
-            <div class="activity">📍 Target Tiba di Lokasi</div>
-        </div>
-        <div class="schedule-item">
-            <div class="time">11.00</div>
-            <div class="activity"><strong>Periksa Kalsium Tulang</strong></div>
-        </div>
-        <p style="margin-top:15px; font-style: italic; color: #666;">Sore hari bebas / istirahat.</p>
-    </div>
-
-    <div class="card border-mama">
-        <div class="card-title"><span>📅</span> 11 Maret 2026 – Pemeriksaan Mama</div>
-        <div class="schedule-item">
-            <div class="time">08.55 - 09.05</div>
-            <div class="activity">🚕 Taxi berangkat (Est. 15-25 menit)</div>
-        </div>
-        <div class="schedule-item">
-            <div class="time">09.25</div>
-            <div class="activity">📍 Target Tiba di Lokasi</div>
-        </div>
-        <div class="schedule-item">
-            <div class="time">09.45</div>
-            <div class="activity">🩸 <strong>Blood Test</strong></div>
-        </div>
-        <div class="schedule-item">
-            <div class="time">11.30</div>
-            <div class="activity">🩺 <strong>CT Pelvis</strong> (Renal-friendly contrast)</div>
-        </div>
-        <div class="important-note" style="background: #f8d7da; color: #721c24;">
-            ⚠️ <strong>PENTING:</strong> Puasa 6 jam sebelum CT Scan.
-        </div>
-        <p style="margin-top:10px;">Setelah CT: Makan siang, kembali ke hotel, dan istirahat.</p>
-    </div>
-
-    <div class="card border-jb">
-        <div class="card-title"><span>📅</span> 12 Maret 2026 – Review + Johor Bahru</div>
-        <p><strong>🏥 Review Medis:</strong></p>
-        <div class="schedule-item">
-            <div class="time">09.15</div>
-            <div class="activity">Tiba & Konsultasi Medis</div>
-        </div>
-        <div class="schedule-item">
-            <div class="time">10.30</div>
-            <div class="activity">Ambil obat & Pembayaran</div>
-        </div>
-        <hr>
-        <p><strong>🚗 Trip Johor Bahru (Sewa Mobil):</strong></br>
-        <small>Tujuan: Mid Valley Mall JB (Makan Siang, Jalan Santai, Alpro Pharmacy)</small></p>
-        <div class="schedule-item"><div class="time">11.45</div><div class="activity">Berangkat dari Hotel</div></div>
-        <div class="schedule-item"><div class="time">11.45 - 13.30</div><div class="activity">Perjalanan ke JB</div></div>
-        <div class="schedule-item"><div class="time">13.30</div><div class="activity">Makan Siang di JB</div></div>
-        <div class="schedule-item"><div class="time">15.00 - 17.00</div><div class="activity">Belanja Vitamin/Obat (Alpro Paradigm Mall)</div></div>
-        <div class="schedule-item"><div class="time">16.30</div><div class="activity"><span>🚗</span> Persiapan kembali ke Singapore</div></div>
-        <div class="schedule-item"><div class="time">18.30</div><div class="activity">Tiba di Hotel (tergantung kondisi Imigrasi)</div></div>
-        <p style="font-size: 0.8rem; color: #7f8c8d; margin-top: 10px;">Total aktivitas hari itu: ± 8–9 jam</p>
-    </div>
-
-    <div class="card">
-        <div class="card-title"><span>🛫</span> 13 Maret – Kepulangan ke Manado</div>
-        <div class="info-box">
-            <strong>Scoot TR 246</strong><br>
-            SIN 14.45 (SGT) ➤ MDC 18.30 (WITA)<br>
-            Terminal 1 – Changi Airport
-        </div>
-        <p><small>⏰ Disarankan tiba minimal 2–2,5 jam sebelum keberangkatan.</small></p>
-        <div class="schedule-item">
-            <div class="time">11.15 - 11.30 </div>
-            <div class="activity">🚕 <strong>Disarankan Berangkat Hotel</strong></div>
-        </div>
-        <div class="schedule-item">
-            <div class="time">11.45 - 12.00 </div>
-            <div class="activity">🚩 <strong>Target Tiba di Changi</strong> (Buffer Aman: 30-35 menit)</div>
         </div>
     </div>
 
@@ -262,6 +383,78 @@
         <p>Update terakhir: Maret 2026<br>Safe Flight & Stay Healthy!</p>
     </div>
 </div>
+<div class="body-spacer"></div>
+<!-- Bottom Navigation SPA -->
+<nav class="bottom-nav" id="nav">
+    <button type="button" class="active" data-page="perjalanan"><span class="icon">🗓️</span>Perjalanan</button>
+    <button type="button" data-page="penerbangan"><span class="icon">🛫</span>Penerbangan</button>
+    <button type="button" data-page="hotel"><span class="icon">🏨</span>Hotel</button>
+</nav>
+<script>
+function startCountdown(id, datetime) {
+    const el = document.getElementById(id);
+    if(!el) return;
+    function update() {
+        const now = new Date().getTime();
+        const target = new Date(datetime).getTime();
+        const diff = target - now;
+        if (diff <= 0) {
+            el.innerHTML = "Departed";
+            return;
+        }
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+        const seconds = Math.floor((diff % (1000*60)) / 1000);
 
+        // Bahasa Indonesia, singkatan umum
+        el.innerHTML =
+            days + "h " +
+            hours + "j " +
+            minutes + "m " +
+            seconds + "d";
+    }
+    update();
+    setInterval(update,1000);
+}
+
+function convertLocationsToMaps() {
+    const locations = document.querySelectorAll(".map-location");
+    locations.forEach(function(el){
+        const place = el.innerText;
+        const link = document.createElement("a");
+        link.href =
+            "https://www.google.com/maps/search/?api=1&query=" +
+            encodeURIComponent(place);
+        link.target = "_blank";
+        link.innerText = place;
+        el.replaceWith(link);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    convertLocationsToMaps();
+    // ===== FLIGHT COUNTDOWN =====
+    startCountdown("flight1","2026-03-09T18:25:00");
+    startCountdown("flight2","2026-03-09T19:05:00");
+    startCountdown("flight3","2026-03-13T14:45:00");
+
+    // ===== BOTTOM NAV SPA =====
+    const navLinks = document.querySelectorAll('.bottom-nav button');
+    const pages = document.querySelectorAll('.page-spa');
+    navLinks.forEach(btn => {
+        btn.addEventListener('click', function() {
+            navLinks.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const p = btn.getAttribute('data-page');
+            pages.forEach(pg => {
+                if(pg.id === 'page-'+p) pg.classList.add('active');
+                else pg.classList.remove('active');
+            });
+            window.scrollTo(0,0); // Scroll to top after tab switch
+        });
+    });
+});
+</script>
 </body>
 </html>
