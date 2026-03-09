@@ -6,421 +6,421 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Itinerary Singapore 2026 - Family</title>
         <link rel="icon" href="uploads/2026-03-08-travelicon.png" type="image/png" />
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <!-- ICON LIBRARIES -->
         <script src="https://unpkg.com/lucide@latest"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" />
         <style>
-        /* =========================================================
-         CSS VARIABLES
-         ========================================================= */
-        
-        :root {
-            --bg-body: #f8f9fc;
-            --card-bg: #ffffff;
-            --text-primary: #111827;
-            --text-secondary: #4b5563;
-            --accent: #1d4ed8;
-            --accent-dark: #1e40af;
-            --headerBg: #4b5563;
-            --headerTxt: #f8f9fc;
-            --border: #e5e7eb;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            --status-ok: #15803d;
-            --warning-bg: #fef2f2;
-            --warning-border: #fecaca;
-            --warning-text: #991b1b;
-        }
-        
-        [data-theme="dark"] {
-            --bg-body: #0f172a;
-            --card-bg: #4b5563;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --accent: #60a5fa;
-            --accent-dark: #3b82f6;
-            --border: #334155;
-            --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-            --status-ok: #4ade80;
-            --warning-bg: #7f1d1d;
-            --warning-border: #991b1b;
-            --warning-text: #fecaca;
-        }
-        /* =========================================================
-         BASE
-         ========================================================= */
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-body);
-            color: var(--text-primary);
-            margin: 0;
-            padding: clamp(12px, 4vw, 20px);
-            line-height: 1.6;
-            min-height: 100vh;
-            transition: background 0.3s, color 0.3s;
-        }
-        
-        .container {
-            max-width: 760px;
-            margin: auto;
-        }
-        /* =========================================================
-         HEADER
-         ========================================================= */
-        
-        .header-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-        
-        .main-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--headerBg);
-            color: var(--headerTxt);
-            padding: clamp(10px, 5vw, 2px) 20px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            flex: 1;
-        }
-        
-        .main-header h1 {
-            margin: 0;
-            font-size: clamp(1.6rem, 5vw, 2rem);
-            font-weight: 700;
-        }
-        
-        .main-header p {
-            margin: 6px 0 0;
-            opacity: 0.95;
-            font-size: clamp(0.95rem, 3vw, 1.05rem);
-        }
-        
-        .theme-toggle {
-            width: 44px;
-            height: 44px;
-            border: none;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 1.4rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-        
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.35);
-        }
-        /* =========================================================
-         CARD
-         ========================================================= */
-        
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: clamp(16px, 4vw, 22px);
-            margin-bottom: 24px;
-            box-shadow: var(--shadow);
-            border-left: 4px solid transparent;
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-        
-        .border-neutral {
-            border-left-color: #334155;
-        }
-        
-        .border-flight {
-            border-left-color: #b91c1c;
-        }
-        
-        .border-hotel {
-            border-left-color: var(--status-ok);
-        }
-        
-        .border-activity {
-            border-left-color: var(--accent);
-        }
-        
-        .border-catatan {
-            border-left-color: var(--status-ok);
-        }
-        
-        .card-title {
-            display: flex;
-            align-items: center;
-            height: 36px;
-            font-size: clamp(1.2rem, 4vw, 1.35rem);
-            font-weight: 700;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .card-title span {
-            margin-right: 10px;
-            font-size: 1.3rem;
-        }
-        
-        .card-title-icon {
-            font-size: 1.8rem;
-            padding-bottom: 0px;
-        }
-        
-        .title-text {
-            font-size: 1.2rem;
-            font-weight: 700;
-            padding-bottom: 6px;
-        }
-        
-        .note-text {
-            margin-top: 15px;
-            font-style: italic;
-            color: var(--text-secondary);
-        }
-        /* =========================================================
-         CONTENT ELEMENTS
-         ========================================================= */
-        
-        .info-box {
-            background: rgba(0, 0, 0, 0.03);
-            border-left: 4px solid var(--border);
-            padding: 14px 16px;
-            margin: 12px 0;
-            border-radius: 8px;
-            font-size: 0.97rem;
-        }
-        
-        [data-theme="dark"] .info-box {
-            background: rgba(255, 255, 255, 0.06);
-        }
-        
-        .status-ok {
-            color: var(--status-ok);
-            font-weight: 600;
-        }
-        /* =========================================================
-         SCHEDULE
-         ========================================================= */
-        
-        .schedule-item {
-            display: flex;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-            font-size: clamp(0.95rem, 3.5vw, 1rem);
-        }
-        
-        .schedule-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        
-        .time {
-            min-width: 120px;
-            flex-shrink: 0;
-            font-weight: 600;
-            color: var(--accent);
-        }
-        
-        .activity {
-            flex: 1;
-        }
-        /* =========================================================
-         TABLE
-         ========================================================= */
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0;
-            font-size: clamp(0.9rem, 3.2vw, 0.95rem);
-        }
-        
-        th {
-            background: rgba(0, 0, 0, 0.04);
-            text-align: left;
-            padding: 12px;
-            font-weight: 600;
-        }
-        
-        [data-theme="dark"] th {
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-        /* =========================================================
-         LINK STYLES
-         ========================================================= */
-        
-        .pdf-link {
-            color: var(--accent);
-            font-weight: 600;
-            text-decoration: underline;
-        }
-        
-        .pdf-link i {
-            font-size: 1.15rem;
-            margin-right: 6px;
-            vertical-align: middle;
-        }
-        
-        .pdf-link:hover i {
-            color: #e74c3c;
-        }
-        
-        .wa-link {
-            color: #25d366;
-            font-weight: bold;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .wa-link:hover {
-            color: #128c7e;
-            text-decoration: underline;
-        }
-        /* =========================================================
-         COUNTDOWN
-         ========================================================= */
-        
-        .countdown {
-            margin: 15px 0;
-            background: var(--card-bg);
-            color: var(--accent);
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-        }
-        
-        #flightCountdown {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        /* =========================================================
-         BOTTOM NAV
-         ========================================================= */
-        
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            max-width: 760px;
-            margin: auto;
-            display: flex;
-            height: 64px;
-            background: var(--card-bg);
-            border-top: 1px solid var(--border);
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.12);
-            z-index: 100;
-        }
-        
-        .bottom-nav button {
-            flex: 1;
-            border: none;
-            background: none;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-        
-        .bottom-nav button.active {
-            color: var(--accent);
-            font-weight: 600;
-            border-top: 3px solid #94a3b8;
-        }
-        
-        .bottom-nav .icon {
-            font-size: 1.5rem;
-            margin-bottom: 2px;
-        }
-        
-        .footer-note {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-        }
-        /* =========================================================
-         SPA
-         ========================================================= */
-        
-        .page-spa {
-            display: none;
-            animation: fadeIn 0.25s ease;
-        }
-        
-        .page-spa.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
+            /* =========================================================
+            CSS VARIABLES
+            ========================================================= */
+
+            :root {
+                --bg-body: #f8f9fc;
+                --card-bg: #ffffff;
+                --text-primary: #111827;
+                --text-secondary: #4b5563;
+                --accent: #1d4ed8;
+                --accent-dark: #1e40af;
+                --headerBg: #4b5563;
+                --headerTxt: #f8f9fc;
+                --border: #e5e7eb;
+                --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                --status-ok: #15803d;
+                --warning-bg: #fef2f2;
+                --warning-border: #fecaca;
+                --warning-text: #991b1b;
             }
-            to {
-                opacity: 1;
-                transform: none;
+
+            [data-theme="dark"] {
+                --bg-body: #0f172a;
+                --card-bg: #4b5563;
+                --text-primary: #f1f5f9;
+                --text-secondary: #94a3b8;
+                --accent: #60a5fa;
+                --accent-dark: #3b82f6;
+                --border: #334155;
+                --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+                --status-ok: #4ade80;
+                --warning-bg: #7f1d1d;
+                --warning-border: #991b1b;
+                --warning-text: #fecaca;
             }
-        }
-        
-        .body-spacer {
-            height: 50px;
-        }
-        /* =========================================================
-         ICON UTILITY
-         ========================================================= */
-        
-        .awe-icon {
-            font-size: 1.15rem;
-            vertical-align: middle;
-            color: var(--accent);
-            margin-right: 8px;
-        }
-        
-        .awe-icon-h {
-            font-size: 1.9rem;
-            color: white;
-            margin-right: 10px;
-        }
-        /* =========================================================
-         MOBILE
-         ========================================================= */
-        
-        @media (max-width: 480px) {
-            .time {
-                min-width: 100px;
-                font-size: 0.92rem;
+            /* =========================================================
+            BASE
+            ========================================================= */
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background: var(--bg-body);
+                color: var(--text-primary);
+                margin: 0;
+                padding: clamp(12px, 4vw, 20px);
+                line-height: 1.6;
+                min-height: 100vh;
+                transition: background 0.3s, color 0.3s;
             }
+
+            .container {
+                max-width: 760px;
+                margin: auto;
+            }
+            /* =========================================================
+            HEADER
+            ========================================================= */
+
+            .header-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 24px;
+            }
+
+            .main-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--headerBg);
+                color: var(--headerTxt);
+                padding: clamp(10px, 5vw, 2px) 20px;
+                border-radius: 12px;
+                box-shadow: var(--shadow);
+                flex: 1;
+            }
+
+            .main-header h1 {
+                margin: 0;
+                font-size: clamp(1.6rem, 5vw, 2rem);
+                font-weight: 700;
+            }
+
+            .main-header p {
+                margin: 6px 0 0;
+                opacity: 0.95;
+                font-size: clamp(0.95rem, 3vw, 1.05rem);
+            }
+
+            .theme-toggle {
+                width: 44px;
+                height: 44px;
+                border: none;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                font-size: 1.4rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s;
+            }
+
+            .theme-toggle:hover {
+                background: rgba(255, 255, 255, 0.35);
+            }
+            /* =========================================================
+            CARD
+            ========================================================= */
+
+            .card {
+                background: var(--card-bg);
+                border-radius: 12px;
+                padding: clamp(16px, 4vw, 22px);
+                margin-bottom: 24px;
+                box-shadow: var(--shadow);
+                border-left: 4px solid transparent;
+                transition: background 0.3s, box-shadow 0.3s;
+            }
+
+            .border-neutral {
+                border-left-color: #334155;
+            }
+
+            .border-flight {
+                border-left-color: #b91c1c;
+            }
+
+            .border-hotel {
+                border-left-color: var(--status-ok);
+            }
+
+            .border-activity {
+                border-left-color: var(--accent);
+            }
+
+            .border-catatan {
+                border-left-color: var(--status-ok);
+            }
+
+            .card-title {
+                display: flex;
+                align-items: center;
+                height: 36px;
+                font-size: clamp(1.2rem, 4vw, 1.35rem);
+                font-weight: 700;
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .card-title span {
+                margin-right: 10px;
+                font-size: 1.3rem;
+            }
+
+            .card-title-icon {
+                font-size: 1.8rem;
+                padding-bottom: 0px;
+            }
+
+            .title-text {
+                font-size: 1.2rem;
+                font-weight: 700;
+                padding-bottom: 6px;
+            }
+
+            .note-text {
+                margin-top: 15px;
+                font-style: italic;
+                color: var(--text-secondary);
+            }
+            /* =========================================================
+            CONTENT ELEMENTS
+            ========================================================= */
+
+            .info-box {
+                background: rgba(0, 0, 0, 0.03);
+                border-left: 4px solid var(--border);
+                padding: 14px 16px;
+                margin: 12px 0;
+                border-radius: 8px;
+                font-size: 0.97rem;
+            }
+
+            [data-theme="dark"] .info-box {
+                background: rgba(255, 255, 255, 0.06);
+            }
+
+            .status-ok {
+                color: var(--status-ok);
+                font-weight: 600;
+            }
+            /* =========================================================
+            SCHEDULE
+            ========================================================= */
+
             .schedule-item {
-                font-size: 0.94rem;
+                display: flex;
+                margin-bottom: 12px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border);
+                font-size: clamp(0.95rem, 3.5vw, 1rem);
             }
+
+            .schedule-item:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .time {
+                min-width: 105px;
+                flex-shrink: 0;
+                font-weight: 600;
+                color: var(--accent);
+            }
+
+            .activity {
+                flex: 1;
+            }
+            /* =========================================================
+            TABLE
+            ========================================================= */
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 12px 0;
+                font-size: clamp(0.9rem, 3.2vw, 0.95rem);
+            }
+
+            th {
+                background: rgba(0, 0, 0, 0.04);
+                text-align: left;
+                padding: 12px;
+                font-weight: 600;
+            }
+
+            [data-theme="dark"] th {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            td {
+                padding: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+            /* =========================================================
+            LINK STYLES
+            ========================================================= */
+
+            .pdf-link {
+                color: var(--accent);
+                font-weight: 600;
+                text-decoration: underline;
+            }
+
+            .pdf-link i {
+                font-size: 1.15rem;
+                margin-right: 6px;
+                vertical-align: middle;
+            }
+
+            .pdf-link:hover i {
+                color: #e74c3c;
+            }
+
+            .wa-link {
+                color: #25d366;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .wa-link:hover {
+                color: #128c7e;
+                text-decoration: underline;
+            }
+            /* =========================================================
+            COUNTDOWN
+            ========================================================= */
+
+            .countdown {
+                margin: 15px 0;
+                background: var(--card-bg);
+                color: var(--accent);
+                padding: 12px 16px;
+                border-radius: 8px;
+                font-weight: 600;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+            }
+
+            #flightCountdown {
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+            /* =========================================================
+            BOTTOM NAV
+            ========================================================= */
+
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 760px;
+                margin: auto;
+                display: flex;
+                height: 64px;
+                background: var(--card-bg);
+                border-top: 1px solid var(--border);
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.12);
+                z-index: 100;
+            }
+
             .bottom-nav button {
-                font-size: 0.82rem;
+                flex: 1;
+                border: none;
+                background: none;
+                color: var(--text-primary);
+                font-size: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
             }
+
+            .bottom-nav button.active {
+                color: var(--accent);
+                font-weight: 600;
+                border-top: 3px solid #94a3b8;
+            }
+
             .bottom-nav .icon {
-                font-size: 1.35rem;
+                font-size: 1.5rem;
+                margin-bottom: 2px;
             }
-        }
+
+            .footer-note {
+                text-align: center;
+                color: var(--text-secondary);
+                font-size: 0.85rem;
+                margin-bottom: 20px;
+            }
+            /* =========================================================
+            SPA
+            ========================================================= */
+
+            .page-spa {
+                display: none;
+                animation: fadeIn 0.25s ease;
+            }
+
+            .page-spa.active {
+                display: block;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(6px);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+
+            .body-spacer {
+                height: 50px;
+            }
+            /* =========================================================
+            ICON UTILITY
+            ========================================================= */
+
+            .awe-icon {
+                font-size: 1.15rem;
+                vertical-align: middle;
+                color: var(--accent);
+                margin-right: 8px;
+            }
+
+            .awe-icon-h {
+                font-size: 1.9rem;
+                color: white;
+                margin-right: 10px;
+            }
+            /* =========================================================
+            MOBILE
+            ========================================================= */
+
+            @media (max-width: 480px) {
+                .time {
+                    min-width: 100px;
+                    font-size: 0.92rem;
+                }
+                .schedule-item {
+                    font-size: 0.94rem;
+                }
+                .bottom-nav button {
+                    font-size: 0.82rem;
+                }
+                .bottom-nav .icon {
+                    font-size: 1.35rem;
+                }
+            }
 
         </style>
     </head>
@@ -490,15 +490,15 @@
                         <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>mulai perjalanan ke airport (Est. 15-25 menit) </div>
                     </div>
                     <div class="schedule-item">
-                        <div class="time">06.55 - 10.30</div>
+                        <div class="time">06.55-10.30</div>
                         <div class="activity">✈️ Penerbangan Manado ➤ Singapore</div>
                     </div>
                     <div class="schedule-item">
-                        <div class="time">10.30 - 16.00</div>
+                        <div class="time">10.30-16.00</div>
                         <div class="activity"><i class="fa-solid fa-clock-rotate-left awe-icon"></i>Transit di Changi Airport </div>
                     </div>
                     <div class="schedule-item">
-                        <div class="time">16.00 - 17.25</div>
+                        <div class="time">16.00-17.25</div>
                         <div class="activity"> ✈️ Penerbangan Singapore ➤ Bangkok, Thailand </div>
                     </div>
                     <p class="note-text"> Ikuti agenda tur. </p>
@@ -510,11 +510,11 @@
                         <div class="activity">🚩 Target Charlie Linda tiba di Bandara</div>
                     </div>
                     <div class="schedule-item">
-                        <div class="time">18.25 - 22.10</div>
+                        <div class="time">18.25-22.10</div>
                         <div class="activity">✈️ Penerbangan Papa Mama. Bangkok ➤ Singapura</div>
                     </div>
                     <div class="schedule-item">
-                        <div class="time">19.05 - 22.40</div>
+                        <div class="time">19.05-22.40</div>
                         <div class="activity">✈️ Penerbangan Charlie Linda. Manado ➤ Singapura</div>
                     </div>
                     <p style="margin-top:15px; font-style: color: var(--text-secondary);">⏱️ Est. Changi ➔ Hotel: 20–30 menit</p>
@@ -522,7 +522,7 @@
                 <div class="card border-activity">
                     <div class="card-title"><span>📅</span>Sel, 10 Maret – Appointment Papa</div>
                     <div class="schedule-item">
-                        <div class="time">10.05 - 10.15</div>
+                        <div class="time">10.05-10.15</div>
                         <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Taxi berangkat (Est. 15-25 menit)</div>
                     </div>
                     <div class="schedule-item">
@@ -538,7 +538,7 @@
                 <div class="card border-activity">
                     <div class="card-title"><span>📅</span>Rab, 11 Maret – Pemeriksaan Mama</div>
                     <div class="schedule-item">
-                        <div class="time">08.55 - 09.05</div>
+                        <div class="time">08.55-09.05</div>
                         <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Taxi berangkat (Est. 15-25 menit)</div>
                     </div>
                     <div class="schedule-item">
@@ -574,7 +574,7 @@
                         <div class="activity">Berangkat dari Hotel</div>
                     </div>
                     <div class="schedule-item">
-                        <div class="time">11.45 - 13.30</div>
+                        <div class="time">11.45-13.30</div>
                         <div class="activity">Perjalanan ke JB</div>
                     </div>
                     <div class="schedule-item">
@@ -582,7 +582,7 @@
                         <div class="activity">Makan Siang di JB</div>
                     </div>
                     <div class="schedule-item">
-                        <div class="time">15.00 - 17.00</div>
+                        <div class="time">15.00-17.00</div>
                         <div class="activity">💊 Belanja Vitamin/Obat (Alpro Paradigm Mall)</div>
                     </div>
                     <div class="schedule-item">
@@ -606,7 +606,7 @@
                         <div class="activity"> 🚩 <strong>Target Tiba di Changi</strong> (Buffer Aman: 30-35 menit) </div>
                     </div>
                     <div class="schedule-item">
-                        <div class="time">14.45 - 18.30</div>
+                        <div class="time">14.45-18.30</div>
                         <div class="activity"> ✈️ Penerbangan Singapore ➤ Manado
                             <br /><small>⏰ Disarankan tiba minimal 2–2,5 jam sebelum keberangkatan.</small></div>
                     </div>
@@ -713,58 +713,58 @@
             <button data-page="catatan"><span class="icon"><i data-lucide="notebook-pen" style="width:24px;height:24px;vertical-align:bottom"></i></span> Catatan</button>
         </nav>
         <script>
-        /* ======================================================
+            /* ======================================================
                  THEME
                  ====================================================== */
-        const html = document.documentElement;
-        const themeToggle = document.getElementById("themeToggle");
-        const setTheme = (theme) => {
-            html.setAttribute("data-theme", theme);
-            localStorage.setItem("theme", theme);
-            themeToggle.innerHTML = theme === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-        };
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) {
-            setTheme(savedTheme);
-        }
-        else if (window.matchMedia("(prefers-color-scheme:dark)")
-            .matches) {
-            setTheme("dark");
-        }
-        themeToggle.addEventListener("click", () => {
-            const current = html.getAttribute("data-theme") || "light";
-            setTheme(current === "light" ? "dark" : "light");
-        });
-        /* ======================================================
-        COUNTDOWN
-        ====================================================== */
-        function startCountdown(id, datetime) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const update = () => {
-                const now = Date.now();
-                const target = new Date(datetime)
-                    .getTime();
-                const diff = target - now;
-                if (diff <= 0) {
-                    el.innerHTML = '<i class="fa-solid fa-plane-departure awe-icon"></i>';
-                    return;
-                }
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                el.innerHTML = `${days}h ${hours}j ${minutes}m ${seconds}d`;
+            const html = document.documentElement;
+            const themeToggle = document.getElementById("themeToggle");
+            const setTheme = (theme) => {
+                html.setAttribute("data-theme", theme);
+                localStorage.setItem("theme", theme);
+                themeToggle.innerHTML = theme === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
             };
-            update();
-            setInterval(update, 1000);
-        }
-        /* ======================================================
-        MAP LINK
-        ====================================================== */
-        function convertLocationsToMaps() {
-            document.querySelectorAll(".map-location")
-                .forEach((el) => {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                setTheme(savedTheme);
+            }
+            else if (window.matchMedia("(prefers-color-scheme:dark)")
+                     .matches) {
+                setTheme("dark");
+            }
+            themeToggle.addEventListener("click", () => {
+                const current = html.getAttribute("data-theme") || "light";
+                setTheme(current === "light" ? "dark" : "light");
+            });
+            /* ======================================================
+			COUNTDOWN
+			====================================================== */
+            function startCountdown(id, datetime) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const update = () => {
+                    const now = Date.now();
+                    const target = new Date(datetime)
+                    .getTime();
+                    const diff = target - now;
+                    if (diff <= 0) {
+                        el.innerHTML = '<i class="fa-solid fa-plane-departure awe-icon"></i>';
+                        return;
+                    }
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    el.innerHTML = `${days}h ${hours}j ${minutes}m ${seconds}d`;
+                };
+                update();
+                setInterval(update, 1000);
+            }
+            /* ======================================================
+			MAP LINK
+			====================================================== */
+            function convertLocationsToMaps() {
+                document.querySelectorAll(".map-location")
+                    .forEach((el) => {
                     const place = el.textContent.trim();
                     const a = document.createElement("a");
                     a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
@@ -774,32 +774,32 @@
                     a.textContent = place;
                     el.replaceWith(a);
                 });
-        }
-        /* ======================================================
-        SPA NAV
-        ====================================================== */
-        document.addEventListener("DOMContentLoaded", () => {
-            lucide.createIcons();
-            convertLocationsToMaps();
-            startCountdown("flight0", "2026-03-05T06:55:00");
-            startCountdown("flight1", "2026-03-09T18:25:00");
-            startCountdown("flight2", "2026-03-09T19:05:00");
-            startCountdown("flight3", "2026-03-13T14:45:00");
-            const navBtns = document.querySelectorAll(".bottom-nav button");
-            const pages = document.querySelectorAll(".page-spa");
-            navBtns.forEach((btn) => {
-                btn.addEventListener("click", () => {
-                    navBtns.forEach((b) => b.classList.remove("active"));
-                    btn.classList.add("active");
-                    const pageId = "page-" + btn.dataset.page;
-                    pages.forEach((p) => p.classList.toggle("active", p.id === pageId), );
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
+            }
+            /* ======================================================
+			SPA NAV
+			====================================================== */
+            document.addEventListener("DOMContentLoaded", () => {
+                lucide.createIcons();
+                convertLocationsToMaps();
+                startCountdown("flight0", "2026-03-05T06:55:00");
+                startCountdown("flight1", "2026-03-09T18:25:00");
+                startCountdown("flight2", "2026-03-09T19:05:00");
+                startCountdown("flight3", "2026-03-13T14:45:00");
+                const navBtns = document.querySelectorAll(".bottom-nav button");
+                const pages = document.querySelectorAll(".page-spa");
+                navBtns.forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        navBtns.forEach((b) => b.classList.remove("active"));
+                        btn.classList.add("active");
+                        const pageId = "page-" + btn.dataset.page;
+                        pages.forEach((p) => p.classList.toggle("active", p.id === pageId), );
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
                     });
                 });
             });
-        });
 
         </script>
     </body>
