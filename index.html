@@ -185,6 +185,11 @@
                 font-style: italic;
                 color: var(--text-secondary);
             }
+			
+            .important-note {
+                vertical-align: middle;
+                align-items: center;
+            }
             /* =========================================================
             CONTENT ELEMENTS
             ========================================================= */
@@ -291,6 +296,25 @@
                 color: #128c7e;
                 text-decoration: underline;
             }
+			
+            .web-link {
+                color: #FFC738;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+				vertical-align: middle;
+				flex: 1;
+				justify-content: center;
+            }
+			
+            .highlight {
+                color: #FFC738;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+				vertical-align: middle;
+            }
+
             /* =========================================================
             COUNTDOWN
             ========================================================= */
@@ -401,6 +425,12 @@
                 font-size: 1.9rem;
                 color: white;
                 margin-right: 10px;
+            }
+			
+            .emoji-link {
+				font-size: 1.1rem;
+                vertical-align: top;
+				margin-right: 10px;
             }
             /* =========================================================
             MOBILE
@@ -636,7 +666,7 @@
                 <div class="card border-flight">
                     <div class="card-title"><span>✈️</span>Sen, 9 Maret – Tiba di Singapore</div>
                     <div class="info-box"><strong>Papa & Mama (BKK ➤ SIN):</strong>
-                        <br> Scoot TR 611 | 18.25 – 22.10
+                        <br><span class="highlight">Scoot TR 611</span> | 18.25 – 22.10
                         <br><span class="map-location">🗺️ Terminal 1 – Changi Airport</span>
                         <p><a class="pdf-link" href="uploads/2026-03-Airline Ticket AL.25121559309645.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>Airline Ticket AL.25121559309645.pdf</a></p>
                         <div class="countdown">
@@ -651,18 +681,23 @@
                         <div class="countdown">
                             <div>Berangkat dalam: <span id="flight2"></span></div>
                         </div>
+						<span class="important-note"><a class="web-link" href="https://manage.flyscoot.com/" target="_blank"><i class="fi fi-rr-edit emoji-link"></i>Manage Booking</a></span>
                     </div>
                 </div>
                 <div class="card border-flight">
                     <div class="card-title"><span>✈️</span>Jum, 13 Maret – Kepulangan ke Manado</div>
-                    <div class="info-box"><strong>Scoot TR 246</strong>
-                        <br> SIN 14.45 (SGT) ➤ MDC 18.30 (WITA)
+                    <div class="info-box"><strong>MDC ➤ SIN</strong>
+                        <br><span class="highlight">Scoot TR 246</span> | 14.45 - 18.30</span>
                         <br><span class="map-location">🗺️ Terminal 1 – Changi Airport</span>
                         <p><a class="pdf-link" href="uploads/2026-03-Airline Ticket AL.25121559309645.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>Airline Ticket AL.25121559309645.pdf</a>
                             <br><a class="pdf-link" href="uploads/2026-03-13-Sin-Mdc-Charlie-Linda.png" target="_blank"><i class="fa-solid fa-file-image"></i>13Mar-Sin-Mdc-Charlie-Linda</a></p>
                         <div class="countdown">
                             <div>Berangkat dalam: <span id="flight3"></span></div>
-                        </div><span>⏰ Disarankan tiba minimal 2–2,5 jam sebelum keberangkatan.</span></div>
+                        </div>
+						<p class="important-note"><a class="web-link" href="https://manage.flyscoot.com/" target="_blank"><i class="fi fi-rr-edit emoji-link"></i>Manage Booking</a>
+						<br>⏰ Disarankan tiba minimal 2–2,5 jam sebelum keberangkatan.
+						</p>
+					</div>
                 </div>
             </div>
             <!-- ==== PAGE: CATATAN ==== -->
