@@ -1,49 +1,853 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi Travel</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f8f9fa;
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            padding: 20px;
-            max-width: 400px;
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #555;
-        }
-        p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #777;
-        }
-        .icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-            display: block;
-        }
-    </style>
-</head>
-<body>
 
-    <div class="container">
-        <span class="icon">📅</span>
-        <h1>Belum Ada Jadwal</h1>
-        <p>Mohon maaf, saat ini tidak ada jadwal travel untuk sementara waktu. Silakan cek kembali nanti.</p>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Itinerary Singapore 2026 - Family</title>
+        <link rel="icon" href="uploads/2026-03-08-travelicon.png" type="image/png" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <!-- ICON LIBRARIES -->
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" />
+        <style>
+            /* =========================================================
+            CSS VARIABLES
+            ========================================================= */
 
-</body>
+            :root {
+                --bg-body: #f8f9fc;
+                --card-bg: #ffffff;
+                --text-primary: #111827;
+                --text-secondary: #4b5563;
+                --accent: #1d4ed8;
+                --accent-dark: #1e40af;
+                --headerBg: #4b5563;
+                --headerTxt: #f8f9fc;
+                --border: #e5e7eb;
+                --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                --status-ok: #15803d;
+                --warning-bg: #fef2f2;
+                --warning-border: #fecaca;
+                --warning-text: #991b1b;
+            }
+
+            [data-theme="dark"] {
+                --bg-body: #0f172a;
+                --card-bg: #4b5563;
+                --text-primary: #f1f5f9;
+                --text-secondary: #94a3b8;
+                --accent: #60a5fa;
+                --accent-dark: #3b82f6;
+                --border: #334155;
+                --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+                --status-ok: #4ade80;
+                --warning-bg: #7f1d1d;
+                --warning-border: #991b1b;
+                --warning-text: #fecaca;
+            }
+            /* =========================================================
+            BASE
+            ========================================================= */
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background: var(--bg-body);
+                color: var(--text-primary);
+                margin: 0;
+                padding: clamp(12px, 4vw, 20px);
+                line-height: 1.6;
+                min-height: 100vh;
+                transition: background 0.3s, color 0.3s;
+            }
+
+            .container {
+                max-width: 760px;
+                margin: auto;
+            }
+            /* =========================================================
+            HEADER
+            ========================================================= */
+
+            .header-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 24px;
+            }
+
+            .main-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--headerBg);
+                color: var(--headerTxt);
+                padding: clamp(10px, 5vw, 2px) 20px;
+                border-radius: 12px;
+                box-shadow: var(--shadow);
+                flex: 1;
+            }
+
+            .main-header h1 {
+                margin: 0;
+                font-size: clamp(1.6rem, 5vw, 2rem);
+                font-weight: 700;
+            }
+
+            .main-header p {
+                margin: 6px 0 0;
+                opacity: 0.95;
+                font-size: clamp(0.95rem, 3vw, 1.05rem);
+            }
+
+            .theme-toggle {
+                width: 44px;
+                height: 44px;
+                border: none;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                font-size: 1.4rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s;
+            }
+
+            .theme-toggle:hover {
+                background: rgba(255, 255, 255, 0.35);
+            }
+            /* =========================================================
+            CARD
+            ========================================================= */
+
+            .card {
+                background: var(--card-bg);
+                border-radius: 12px;
+                padding: clamp(16px, 4vw, 22px);
+                margin-bottom: 24px;
+                box-shadow: var(--shadow);
+                border-left: 4px solid transparent;
+                transition: background 0.3s, box-shadow 0.3s;
+            }
+
+            .border-neutral {
+                border-left-color: #334155;
+            }
+
+            .border-flight {
+                border-left-color: #b91c1c;
+            }
+
+            .border-hotel {
+                border-left-color: var(--status-ok);
+            }
+
+            .border-activity {
+                border-left-color: var(--accent);
+            }
+
+            .border-catatan {
+                border-left-color: var(--status-ok);
+            }
+
+            .card-title {
+                display: flex;
+                align-items: center;
+                height: 36px;
+                font-size: clamp(1.2rem, 4vw, 1.35rem);
+                font-weight: 700;
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .card-title span {
+                margin-right: 10px;
+                font-size: 1.3rem;
+            }
+
+            .card-title-icon {
+                font-size: 1.8rem;
+                padding-bottom: 0px;
+            }
+
+            .title-text {
+                font-size: 1.2rem;
+                font-weight: 700;
+                padding-bottom: 6px;
+            }
+
+            .note-text {
+                margin-top: 15px;
+                font-style: italic;
+                color: var(--text-secondary);
+            }
+			
+            .important-note {
+                vertical-align: middle;
+                align-items: center;
+            }
+            /* =========================================================
+            CONTENT ELEMENTS
+            ========================================================= */
+
+            .info-box {
+                background: rgba(0, 0, 0, 0.03);
+                border-left: 4px solid var(--border);
+                padding: 14px 16px;
+                margin: 12px 0;
+                border-radius: 8px;
+                font-size: 0.97rem;
+            }
+
+            [data-theme="dark"] .info-box {
+                background: rgba(255, 255, 255, 0.06);
+            }
+
+            .status-ok {
+                color: var(--status-ok);
+                font-weight: 600;
+            }
+            /* =========================================================
+            SCHEDULE
+            ========================================================= */
+
+            .schedule-item {
+                display: flex;
+                margin-bottom: 12px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border);
+                font-size: clamp(0.95rem, 3.5vw, 1rem);
+            }
+
+            .schedule-item:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .time {
+                min-width: 105px;
+                flex-shrink: 0;
+                font-weight: 600;
+                color: var(--accent);
+            }
+
+            .activity {
+                flex: 1;
+            }
+            /* =========================================================
+            TABLE
+            ========================================================= */
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 12px 0;
+                font-size: clamp(0.9rem, 3.2vw, 0.95rem);
+            }
+
+            th {
+                background: rgba(0, 0, 0, 0.04);
+                text-align: left;
+                padding: 12px;
+                font-weight: 600;
+            }
+
+            [data-theme="dark"] th {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            td {
+                padding: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+            /* =========================================================
+            LINK STYLES
+            ========================================================= */
+
+            .pdf-link {
+                color: var(--accent);
+                font-weight: 600;
+                text-decoration: underline;
+            }
+
+            .pdf-link i {
+                font-size: 1.15rem;
+                margin-right: 6px;
+                vertical-align: middle;
+            }
+
+            .pdf-link:hover i {
+                color: #e74c3c;
+            }
+
+            .wa-link {
+                color: #25d366;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .wa-link:hover {
+                color: #128c7e;
+                text-decoration: underline;
+            }
+			
+            .web-link {
+                color: #B8860B;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+				vertical-align: middle;
+				flex: 1;
+				justify-content: center;
+            }
+			
+            [data-theme="dark"] .web-link {
+                color: #FFCC00;
+            }
+			
+            .highlight {
+                color: #B8860B;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+				vertical-align: middle;
+            }
+			
+            [data-theme="dark"] .highlight {
+                color: #FFCC00;
+            }
+
+            /* =========================================================
+            COUNTDOWN
+            ========================================================= */
+
+            .countdown {
+                margin: 15px 0;
+                background: var(--card-bg);
+                color: var(--accent);
+                padding: 12px 16px;
+                border-radius: 8px;
+                font-weight: 600;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+            }
+
+            #flightCountdown {
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+            /* =========================================================
+            BOTTOM NAV
+            ========================================================= */
+
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 760px;
+                margin: auto;
+                display: flex;
+                height: 64px;
+                background: var(--card-bg);
+                border-top: 1px solid var(--border);
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.12);
+                z-index: 100;
+            }
+
+            .bottom-nav button {
+                flex: 1;
+                border: none;
+                background: none;
+                color: var(--text-primary);
+                font-size: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+
+            .bottom-nav button.active {
+                color: var(--accent);
+                font-weight: 600;
+                border-top: 3px solid #94a3b8;
+            }
+
+            .bottom-nav .icon {
+                font-size: 1.5rem;
+                margin-bottom: 2px;
+            }
+
+            .footer-note {
+                text-align: center;
+                color: var(--text-secondary);
+                font-size: 0.85rem;
+                margin-bottom: 20px;
+            }
+            /* =========================================================
+            SPA
+            ========================================================= */
+
+            .page-spa {
+                display: none;
+                animation: fadeIn 0.25s ease;
+            }
+
+            .page-spa.active {
+                display: block;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(6px);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+
+            .body-spacer {
+                height: 50px;
+            }
+            /* =========================================================
+            ICON UTILITY
+            ========================================================= */
+
+            .awe-icon {
+                font-size: 1.15rem;
+                vertical-align: middle;
+                color: var(--accent);
+                margin-right: 8px;
+            }
+
+            .awe-icon-h {
+                font-size: 1.9rem;
+                color: white;
+                margin-right: 10px;
+            }
+			
+            .emoji-link {
+				font-size: 1.1rem;
+                vertical-align: top;
+				margin-right: 10px;
+            }
+            /* =========================================================
+            MOBILE
+            ========================================================= */
+
+            @media (max-width: 480px) {
+                .time {
+                    min-width: 100px;
+                    font-size: 0.92rem;
+                }
+                .schedule-item {
+                    font-size: 0.94rem;
+                }
+                .bottom-nav button {
+                    font-size: 0.82rem;
+                }
+                .bottom-nav .icon {
+                    font-size: 1.35rem;
+                }
+            }
+
+        </style>
+    </head>
+
+    <body data-theme="light">
+        <div class="container">
+            <!-- HEADER -->
+            <div class="header-wrapper">
+                <div class="main-header">
+                    <div class="activity">
+                        <h1>Trip SIN-KL 2026</h1>
+                        <p> Jadwal Perjalanan & Pemeriksaan Medis
+                            <br />Kam, 9 Apr - Jum, 16 Apr </p>
+                    </div>
+                    <div style="min-width: 60px">
+                        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema"><i class="fa-solid fa-moon"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- ==== PAGE: PERJALANAN ==== -->
+            <div id="page-perjalanan" class="page-spa active">
+                <div class="card border-neutral">
+                    <div class="card-title"><span>📊</span>Ringkasan Timeline</div>
+					<p style="margin-top:10px;">Peserta: Papa, Mama & Linda</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Agenda Utama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kam, 9 Apr</td>
+                                <td><i class="fa-solid fa-plane-departure awe-icon"></i>Keberangkatan Manado - Kuala Lumpur</td>
+                            </tr>
+                            <tr>
+                                <td>Jum, 10 Apr</td>
+                                <td><i class="fa-solid fa-stethoscope awe-icon"></i>Pemeriksaan Kaki Mama</td>
+                            </tr>
+                            <tr>
+                                <td>Sab, 11 Apr</td>
+                                <td>Bebas</td>
+                            </tr>
+                            <tr>
+                                <td>Min, 12 Mar</td>
+                                <td><i class="fa-solid fa-plane-departure awe-icon"></i>Penerbangan Kuala Lumpur - Singapura</td>
+                            </tr>
+                            <tr>
+                                <td>Sen, 13 Mar</td>
+                                <td><i class="fa-solid fa-stethoscope awe-icon"></i>Pemeriksaan & Konsultasi Paru</td>
+                            </tr>
+                            <tr>
+                                <td>Sel, 14 Mar</td>
+                                <td>Bebas/Follow Up</td>
+                            </tr>
+                            <tr>
+                                <td>Rab, 15 Mar</td>
+                                <td><i class="fa-solid fa-stethoscope awe-icon"></i>Konsultasi dengan Dr. Whang</td>
+                            </tr>
+                            <tr>
+                                <td>Kam, 16 Mar</td>
+                                <td><i class="fa-solid fa-plane-arrival awe-icon"></i>Kepulangan ke Manado?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+				<!-- ==== Kam, 9 April ==== -->
+                <div class="card border-flight">
+                    <div class="card-title"><span>📅</span>Kam, 9 Apr - Penerbangan MDC - KL</div>
+                    <div class="schedule-item">
+                        <div class="time">04.30</div>
+                        <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>mulai perjalanan ke airport (Est. 30 menit) </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">05.00</div>
+                        <div class="activity">Tiba di Airport dan proses Checkin</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">08.00-11.30</div>
+                        <div class="activity">✈️ Penerbangan Manado ➤ Singapore</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">11.30-16.00</div>
+                        <div class="activity"><i class="fa-solid fa-clock-rotate-left awe-icon"></i>Transit di Changi Airport (4 jam 30 min)</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">16.00-17.25</div>
+                        <div class="activity"> ✈️ Penerbangan Singapore ➤ Kuala Lumpur </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">18.00-19.00</div>
+                        <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Perjalanan ke Banyan Tree KL (Samping Mall Pavilion) Est. 30 menit</div>
+                    </div>
+                </div>
+				<!-- ==== Jum, 10 April ==== -->
+                <div class="card border-activity">
+                    <div class="card-title"><span>📅</span>Jum, 10 Apr - Pemeriksaan Kaki Mama</div>
+                    <div class="schedule-item">
+                        <div class="time">__.__-__.__</div>
+                        <div class="activity">Pemeriksaan kaki Mama</div>
+                    </div>
+                </div>
+				<!-- ==== Sab, 11 April ==== -->
+                <div class="card border-activity">
+                    <div class="card-title"><span>📅</span>Sab, 11 Apr - Bebas</div>
+                    <div class="schedule-item">
+                        <div class="time">__.__-__.__</div>
+                        <div class="activity">Kegiatan Bebas</div>
+                    </div>
+                </div>
+				<!-- ==== Min, 12 April ==== -->
+                <div class="card border-flight">
+                    <div class="card-title"><span>📅</span>Min, 12 Apr - Penerbangan ke Singapura</div>
+                    <div class="schedule-item">
+                        <div class="time">10.25-11.25</div>
+                        <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Perjalanan ke KL International Airport (Est. 1 jam)</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">11.25</div>
+                        <div class="activity">Tiba di Airport dan proses Checkin</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">14.25-15.40</div>
+                        <div class="activity"> ✈️ Penerbangan Kuala Lumpur ➤ Singapore</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">16.10-16.40</div>
+                        <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Perjalanan ke One Farrer Hotel, Farrer Park (Est. 30 min)</div>
+                    </div>
+                </div>
+				<!-- ==== Sen, 13 April ==== -->
+                <div class="card border-activity">
+                    <div class="card-title"><span>📅</span>Sen, 13 Apr - Cek & Konsul Paru</div>
+                    <div class="schedule-item">
+                        <div class="time">09.30</div>
+                        <div class="activity"><i class="fa-solid fa-stethoscope awe-icon"></i>Pemeriksaan paru di Farrer Park Diagnostic Imaging (FPDI)</div>
+                    </div>
+                </div>
+				<!-- ==== Sel, 14 April ==== -->
+                <div class="card border-activity">
+                    <div class="card-title"><span>📅</span>Sel, 14 Apr - Bebas/Follow Up</div>
+                    <div class="schedule-item">
+                        <div class="time">__.__-__.__</div>
+                        <div class="activity">Kegiatan Bebas</div>
+                    </div>
+                </div>
+				<!-- ==== Rab, 15 April ==== -->
+                <div class="card border-activity">
+                    <div class="card-title"><span>📅</span>Rab, 15 Apr - Konsul Dr. Whang</div>
+                    <div class="schedule-item">
+                        <div class="time">09.30</div>
+                        <div class="activity"><i class="fa-solid fa-stethoscope awe-icon"></i>Appointment dengan Dr. Whang</div>
+                    </div>
+                </div>
+				<!-- ==== Kam, 16 April ==== -->
+                <div class="card border-flight">
+                    <div class="card-title"><span>📅</span>Kam, 16 Apr - Penerbangan ke Manado?</div>
+                    <div class="schedule-item">
+                        <div class="time">11.25-11.55</div>
+                        <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Perjalanan ke Terminal 1 Changi Airport (Est. 30 min)</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">11.55</div>
+                        <div class="activity">Tiba di Airport dan proses Checkin</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">02.55-06.45</div>
+                        <div class="activity"> ✈️ Penerbangan Singapura ➤ Manado</div>
+                    </div>
+                </div>
+            </div>
+            <!-- ==== PAGE: RESERVASI ==== -->
+            <div id="page-reservasi" class="page-spa">
+			    <!-- ==== Banyan Tree KL ==== -->
+                <div class="card border-hotel">
+                    <div class="card-title"><span>🏨</span>Banyan Tree Kuala Lumpur</div>
+                    <p> 🛎️ <strong>Check-in:</strong> Kamis, 9 April
+                        <br /> 👋 <strong>Check-out:</strong> Minggu, 12 April (3 Malam – 1 Kamar)
+                        <br /> 👥 <strong>Tamu:</strong> Papa, Mama, Linda </p>
+                    <p class="important-note"> 📍 <strong>Hotel E-Voucher: </strong><a class="pdf-link" href="" target="_blank"><i class="fa-solid fa-file-pdf"></i>Belum ada reservasi</a>
+                        <br />⏱️ Est. Hotel ➔ Airport: 1 jam </p>
+                </div>
+                <!-- ==== One Farrer Hotel, Singapore ==== -->
+				<div class="card border-hotel">
+                    <div class="card-title"><span>🏨</span>One Farrer Hotel, Farrer Park</div>
+                    <p> 🛎️ <strong>Check-in:</strong> Senin, 12 April
+                        <br /> 👋 <strong>Check-out:</strong> Kamis, 16 April (4 Malam – 1 Kamar)
+                        <br /> 👥 <strong>Tamu:</strong> Papa, Mama, Linda </p>
+                    <p class="important-note"> 📍 <strong>Hotel E-Voucher: </strong><a class="pdf-link" href="" target="_blank"><i class="fa-solid fa-file-pdf"></i>Reservasi belum ada</a>
+                        <br />⏱️ Est. Hotel ➔ Airport: 30 menit </p>
+                </div>
+				<!-- ==== ✈️ Kamis, 9 April ==== -->
+                <div class="card border-flight">
+                    <div class="card-title"><span>✈️</span>Kam, 9 April – Penerbangan ke Kuala Lumpur </div>
+                    <div class="info-box"><span class="highlight">Scoot TR 319</span> | 08.00 – 17.25 (9 Jam 25 Min)
+                        <p>MDC ➤ SIN : 08.00 - 11.30 (3 Jam 30 Min)
+							<br />Transit (4 Jam 30 Min)
+							<br />SIN ➤ KUL : 16.00 - 17.25 (1 Jam 25 Min)
+						</p>
+                        <p><a class="pdf-link" href="uploads/2026-03-27 Flight E-ticket-TR319-MDC-KUL-RDMDRD.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>Flight E-ticket-TR319-MDC-KUL-RDMDRD.pdf</a></p>
+                        <p><a class="pdf-link" href="uploads/2026-03-27 E-Receipt-Flight-ID-1341784001.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>E-Receipt-Flight-ID-1341784001.pdf</a></p>
+						<p class="note-text">Pembayaran via KK Mandiri Charlie 27 Mar 2026.</p>
+                        <div class="countdown">
+                            <div>Berangkat dalam: <span id="flight0"></span></div>
+                        </div>
+						<p class="important-note"><a class="web-link" href="https://manage.flyscoot.com/" target="_blank"><i class="fi fi-rr-edit emoji-link"></i>Manage Booking</a>
+							<br>⏰ Disarankan tiba minimal 2–2,5 jam sebelum keberangkatan.
+						</p>
+                    </div>
+                </div>
+                <!-- ==== ✈️ Minggu, 12 April ==== -->
+				<div class="card border-flight">
+                    <div class="card-title"><span>✈️</span>Min, 12 April – Penerbangan ke Singapore</div>
+                    <div class="info-box"><span class="highlight">AirAsia AK-715</span> | 14.25 – 15.40 (1 Jam 15 Min)
+                        <p><a class="pdf-link" href="uploads/2026-03-27 Flight E-ticket-AK715-KUL-SIN-FCLQHJ.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>Flight E-ticket-AK715-KUL-SIN-FCLQHJ.pdf (Papa, Mama)</a></p>
+                        <p><a class="pdf-link" href="uploads/2026-03-27 E-Receipt-Flight-ID-1341844597.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>E-Receipt-Flight-ID-1341844597.pdf (Papa, Mama)</a></p>
+						<p class="note-text">Pembayaran via KK Mandiri Charlie 27 Mar 2026.</p>
+                        <p><a class="pdf-link" href="uploads/2026-03-27 Flight E-ticket-AK715-KUL-SIN-VJPZUM.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>Flight E-ticket-AK715-KUL-SIN-VJPZUM.pdf (Linda)</a></p>
+                        <p><a class="pdf-link" href="uploads/2026-03-27 E-Receipt-Flight-ID-1341744545.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>E-Receipt-Flight-ID-1341744545.pdf (Linda)</a></p>
+						<p class="note-text">Pembayaran via KK DBS Siska 27 Mar 2026.</p>
+                        <div class="countdown">
+                            <div>Berangkat dalam: <span id="flight1"></span></div>
+                        </div>
+						⏰ Disarankan tiba minimal 2–2,5 jam sebelum keberangkatan.
+                    </div>
+                </div>
+                <!-- ==== ✈️ Kamis, 16 April ==== -->
+				<div class="card border-flight">
+                    <div class="card-title"><span>✈️</span>Kam, 16 April – Kepulangan ke Manado</div>
+                    <div class="info-box"><strong>MDC ➤ SIN</strong>
+                        <br><span class="highlight">Scoot TR ---</span> | 14.55 - 18.45 (3 Jam 50 Min)
+                        <br><span class="map-location">🗺️ Terminal 1 – Changi Airport</span>
+                        <p><a class="pdf-link" href="" target="_blank"><i class="fa-solid fa-file-pdf"></i>Belum ada tiket</a>
+                        <div class="countdown">
+                            <div>Berangkat dalam: <span id="flight2"></span></div>
+                        </div>
+						<p class="important-note"><a class="web-link" href="https://manage.flyscoot.com/" target="_blank"><i class="fi fi-rr-edit emoji-link"></i>Manage Booking</a>
+						<br>⏰ Disarankan tiba minimal 2–2,5 jam sebelum keberangkatan.
+						</p>
+					</div>
+                </div>
+            </div>
+            <!-- ==== PAGE: CATATAN ==== -->
+            <div id="page-catatan" class="page-spa">
+                <div class="card border-catatan">
+                    <div class="card-title"><span><i class="fa-regular fa-address-card card-title-icon"></i></span><span class="title-text">Kontak</span></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Banyan Tree KL</td>
+                                <td>2, Jalan Conlay, Kuala Lumpur, 50450 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur, Malaysia</td>
+                            </tr>
+                            <tr>
+                                <td>One Farrer Hotel</td>
+                                <td>1 Farrer Park Station Rd, Singapore 217562</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card border-catatan">
+                    <div class="card-title"><span><i class="fa-solid fa-person-military-pointing card-title-icon"></i></span><span class="title-text">Imigrasi</span></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Negara</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Indonesia</td>
+                                <td><a href="https://allindonesia.imigrasi.go.id/" class="web-link" target="_blank">Kartu Kedatangan Indonesia</a></td>
+                            </tr>
+                            <tr>
+                                <td>Malaysia</td>
+                                <td><a href="https://imigresen-online.imi.gov.my/mdac/main?registerMain" class="web-link" target="_blank">Malaysia Digital Arrival Card (MDAC)</a></td>
+                            </tr>
+                            <tr>
+                                <td>Singapore</td>
+                                <td><a href="https://eservices.ica.gov.sg/sgarrivalcard/" class="web-link" target="_blank">Singapore Arrival Card (SGAC)</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note"><span>Update terakhir: Maret 2026<br>Safe Flight & Stay Healthy!</span></div>
+        <div class="body-spacer"></div>
+        <nav class="bottom-nav" id="nav">
+            <button class="active" data-page="perjalanan"><span class="icon"><i data-lucide="calendar-days" style="width:24px;height:24px;vertical-align:bottom"></i></span> Perjalanan</button>
+            <button data-page="reservasi"><span class="icon"><i data-lucide="tickets" style="width:24px;height:24px;vertical-align:bottom"></i></span> Reservasi</button>
+            <button data-page="catatan"><span class="icon"><i data-lucide="notebook-pen" style="width:24px;height:24px;vertical-align:bottom"></i></span> Catatan</button>
+        </nav>
+        <script>
+            /* ======================================================
+                 THEME
+                 ====================================================== */
+            const html = document.documentElement;
+            const themeToggle = document.getElementById("themeToggle");
+            const setTheme = (theme) => {
+                html.setAttribute("data-theme", theme);
+                localStorage.setItem("theme", theme);
+                themeToggle.innerHTML = theme === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            };
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                setTheme(savedTheme);
+            }
+            else if (window.matchMedia("(prefers-color-scheme:dark)")
+                     .matches) {
+                setTheme("dark");
+            }
+            themeToggle.addEventListener("click", () => {
+                const current = html.getAttribute("data-theme") || "light";
+                setTheme(current === "light" ? "dark" : "light");
+            });
+            /* ======================================================
+			COUNTDOWN
+			====================================================== */
+            function startCountdown(id, datetime) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const update = () => {
+                    const now = Date.now();
+                    const target = new Date(datetime)
+                    .getTime();
+                    const diff = target - now;
+                    if (diff <= 0) {
+                        el.innerHTML = '<i class="fa-solid fa-plane-departure awe-icon"></i>';
+                        return;
+                    }
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    el.innerHTML = `${days}h ${hours}j ${minutes}m ${seconds}d`;
+                };
+                update();
+                setInterval(update, 1000);
+            }
+            /* ======================================================
+			MAP LINK
+			====================================================== */
+            function convertLocationsToMaps() {
+                document.querySelectorAll(".map-location")
+                    .forEach((el) => {
+                    const place = el.textContent.trim();
+                    const a = document.createElement("a");
+                    a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
+                    a.target = "_blank";
+                    a.style.color = "var(--accent)";
+                    a.style.textDecoration = "none";
+                    a.textContent = place;
+                    el.replaceWith(a);
+                });
+            }
+            /* ======================================================
+			SPA NAV
+			====================================================== */
+            document.addEventListener("DOMContentLoaded", () => {
+                lucide.createIcons();
+                convertLocationsToMaps();
+                startCountdown("flight0", "2026-04-09T08:00:00");
+                startCountdown("flight1", "2026-04-12T14:25:00");
+                startCountdown("flight2", "2026-04-16T14:55:00");
+                startCountdown("flight3", "2026-03-13T14:45:00");
+                const navBtns = document.querySelectorAll(".bottom-nav button");
+                const pages = document.querySelectorAll(".page-spa");
+                navBtns.forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        navBtns.forEach((b) => b.classList.remove("active"));
+                        btn.classList.add("active");
+                        const pageId = "page-" + btn.dataset.page;
+                        pages.forEach((p) => p.classList.toggle("active", p.id === pageId), );
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+                    });
+                });
+            });
+
+        </script>
+    </body>
 </html>
