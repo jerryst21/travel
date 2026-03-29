@@ -3,31 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
+    <title>Memuat Versi Terbaru...</title>
     
-    <meta http-equiv="refresh" content="0; url=logs/2610-EAST-EUROPE-HB.html">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
-        window.location.href = "";
+        // Fungsi untuk mengarahkan ke halaman dengan Cache Buster
+        function forceRedirect() {
+            const destination = "logs/2604-SIN-KUL.html";
+            
+            // Menambahkan timestamp unik agar browser tidak mengambil dari cache
+            // Hasilnya akan seperti: logs/2604-SIN-KUL.html?v=1711756800
+            const cacheBuster = "?v=" + new Date().getTime();
+            
+            window.location.href = destination + cacheBuster;
+        }
+
+        // Eksekusi langsung
+        forceRedirect();
     </script>
+    
+    <meta http-equiv="refresh" content="2; url=logs/2604-SIN-KUL.html">
 </head>
 <body class="bg-gray-50 flex items-center justify-center min-h-screen">
 
     <div class="text-center p-8">
-        <div class="mb-6">
-            <i class="fas fa-plane text-blue-500 text-5xl animate-bounce"></i>
+        <div class="relative inline-block mb-6">
+            <i class="fas fa-sync-alt text-blue-500 text-5xl animate-spin"></i>
+            <i class="fas fa-check text-blue-500 text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
         </div>
         
-        <h2 class="text-2xl font-bold text-gray-800 mb-2">Mengarahkan Halaman</h2>
-        <p class="text-gray-600 mb-6">Redirect...</p>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Sinkronisasi Data...</h2>
+        <p class="text-gray-600 mb-6">Mengambil versi terbaru dari trip Singapore - KL.</p>
         
-        <a href="logs/2604-SIN-KUL.html" 
-           class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
-            Klik di sini jika tidak berpindah otomatis
-        </a>
+        <button onclick="forceRedirect()" 
+           class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-all shadow-md active:scale-95">
+            Muat Ulang Manual
+        </button>
     </div>
 
 </body>
