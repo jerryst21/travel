@@ -35,10 +35,36 @@
                             <i class="fas fa-chevron-right text-gray-300 group-hover:text-blue-500 transform group-hover:translate-x-2 transition-all"></i>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Singapore - Malaysia</h3>
-                        <p class="text-gray-600 mb-4"><i class="far fa-calendar-alt mr-2"></i>9 - 16 April 2026</p>
+                        <p class="text-gray-600 mb-2"><i class="far fa-calendar-alt mr-2"></i>9 - 16 April 2026</p>
+                        
+                        <div class="timer mb-4 text-sm font-mono font-bold text-blue-600 bg-blue-50 p-2 rounded border border-blue-100 inline-block" data-date="2026-04-09T00:00:00">
+                            Loading timer...
+                        </div>
+
                         <div class="flex gap-2">
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Banyan Signatures KL</span>
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">One Farrer Hotel, Singapore</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="logs/2610-EAST-EUROPE-HB.html" class="group block bg-white rounded-xl shadow-md overflow-hidden border-2 border-blue-500 hover:shadow-xl transition-all duration-300" target="_blank">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">FUTURE</span>
+                            <i class="fas fa-chevron-right text-gray-300 group-hover:text-blue-500 transform group-hover:translate-x-2 transition-all"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Trip East Europe 2026</h3>
+                        <p class="text-gray-600 mb-2"><i class="far fa-calendar-alt mr-2"></i>24 Okt - 06 Nov 2026</p>
+                        
+                        <div class="timer mb-4 text-sm font-mono font-bold text-blue-600 bg-blue-50 p-2 rounded border border-blue-100 inline-block" data-date="2026-10-24T00:00:00">
+                            Loading timer...
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Munich</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Salzburg</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Vienna</span>
                         </div>
                     </div>
                 </a>
@@ -47,7 +73,6 @@
 
         <hr class="border-gray-200 mb-12">
 
-        <!-- ==== Riwayat Perjalanan (Selesai) ==== -->
         <section>
             <div class="flex items-center mb-6">
                 <div class="bg-green-100 p-2 rounded-lg mr-4">
@@ -55,7 +80,7 @@
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800">Riwayat Perjalanan (Selesai)</h2>
             </div>
-            <!-- ==== 2026 Maret: Singapore-Malaysia ==== -->
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <a href="logs/2603-SIN-JHB.html" class="group block bg-white rounded-xl shadow border border-gray-200 hover:border-green-500 hover:shadow-md transition-all" target="_blank">
                     <div class="p-5">
@@ -64,14 +89,19 @@
                             <span class="text-xs text-gray-400 font-mono">2603-SIN-JHB</span>
                         </div>
                         <h3 class="font-bold text-gray-800 mb-1 group-hover:text-green-600">Singapore & Johor Bahru</h3>
-                        <p class="text-sm text-gray-600 mb-4">Maret 2026</p>
+                        <p class="text-sm text-gray-600 mb-2">Maret 2026</p>
+                        
+                        <div class="timer text-[10px] font-mono font-semibold text-green-600 bg-green-50 px-2 py-1 rounded border border-green-100 mb-4 block" data-date="2026-03-05T00:00:00">
+                            Loading duration...
+                        </div>
+
                         <div class="flex gap-2">
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">V Lavender Hotel, Singapore</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">V Lavender Hotel</span>
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Johor Bahru</span>
                         </div>
                     </div>
                 </a>
-
+                
                 <div class="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-5 flex items-center justify-center text-gray-400 italic text-sm">
                     Trip lainnya akan muncul di sini...
                 </div>
@@ -82,6 +112,40 @@
     <footer class="text-center py-10 text-gray-500 text-sm">
         <p>&copy; 2026 Travel Log.</p>
     </footer>
+
+    <script>
+        function updateTimers() {
+            const timers = document.querySelectorAll('.timer');
+            
+            timers.forEach(timer => {
+                const targetDate = new Date(timer.getAttribute('data-date')).getTime();
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                // Hitung hari, jam, menit, detik
+                const absDistance = Math.abs(distance);
+                const days = Math.floor(absDistance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((absDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((absDistance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((absDistance % (1000 * 60)) / 1000);
+
+                if (distance > 0) {
+                    // MENDATANG
+                    timer.innerHTML = `<i class="fas fa-hourglass-start mr-1"></i> Berangkat dalam: ${days}h ${hours}j ${minutes}m ${seconds}s`;
+                } else {
+                    // SUDAH LEWAT
+                    timer.innerHTML = `<i class="fas fa-clock mr-1"></i> Berlalu: ${days} hari yang lalu`;
+                    // Opsional: ganti warna jika sudah lewat (jika belum diatur di class)
+                    timer.classList.remove('text-blue-600', 'bg-blue-50', 'border-blue-100');
+                    timer.classList.add('text-green-600', 'bg-green-50', 'border-green-100');
+                }
+            });
+        }
+
+        // Jalankan setiap detik
+        setInterval(updateTimers, 1000);
+        updateTimers(); // Jalankan langsung saat load
+    </script>
 
 </body>
 </html>
