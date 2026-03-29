@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="id">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Trip East Europe 2026 - HB</title>
+        <link rel="icon" href="uploads/2026-03-08-travelicon.png" type="image/png" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" />
+        <style>
+            /* =========================================================
+            CSS VARIABLES
+            ========================================================= */
+            :root {
+                --bg-body: #f8f9fc;
+                --card-bg: #ffffff;
+                --text-primary: #111827;
+                --text-secondary: #4b5563;
+                --accent: #1d4ed8;
+                --accent-dark: #1e40af;
+                --headerBg: #4b5563;
+                --headerTxt: #f8f9fc;
+                --border: #e5e7eb;
+                --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                --status-ok: #15803d;
+                --warning-bg: #fef2f2;
+                --warning-border: #fecaca;
+                --warning-text: #991b1b;
+            }
+
+            [data-theme="dark"] {
+                --bg-body: #0f172a;
+                --card-bg: #4b5563;
+                --text-primary: #f1f5f9;
+                --text-secondary: #94a3b8;
+                --accent: #60a5fa;
+                --accent-dark: #3b82f6;
+                --border: #334155;
+                --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+                --status-ok: #4ade80;
+                --warning-bg: #7f1d1d;
+                --warning-border: #991b1b;
+                --warning-text: #fecaca;
+            }
+
+            /* =========================================================
+            BASE
+            ========================================================= */
+            body {
+                font-family: 'Inter', sans-serif;
+                background: var(--bg-body);
+                color: var(--text-primary);
+                margin: 0;
+                padding: clamp(12px, 4vw, 20px);
+                line-height: 1.6;
+                min-height: 100vh;
+                transition: background 0.3s, color 0.3s;
+                scroll-behavior: smooth;
+                /* Tambahan untuk scroll halus */
+            }
+
+            .container {
+                max-width: 760px;
+                margin: auto;
+            }
+
+            /* =========================================================
+            HEADER
+            ========================================================= */
+            .header-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 24px;
+            }
+
+            .main-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--headerBg);
+                color: var(--headerTxt);
+                padding: clamp(10px, 5vw, 2px) 20px;
+                border-radius: 12px;
+                box-shadow: var(--shadow);
+                flex: 1;
+            }
+
+            .main-header h1 {
+                margin: 0;
+                font-size: clamp(1.6rem, 5vw, 2rem);
+                font-weight: 700;
+            }
+
+            .main-header p {
+                margin: 6px 0 0;
+                opacity: 0.95;
+                font-size: clamp(0.95rem, 3vw, 1.05rem);
+            }
+
+            .theme-toggle {
+                width: 44px;
+                height: 44px;
+                border: none;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                font-size: 1.4rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s;
+            }
+
+            .theme-toggle:hover {
+                background: rgba(255, 255, 255, 0.35);
+            }
+
+            /* =========================================================
+            CARD
+            ========================================================= */
+            .card {
+                background: var(--card-bg);
+                border-radius: 12px;
+                padding: clamp(16px, 4vw, 22px);
+                margin-bottom: 24px;
+                box-shadow: var(--shadow);
+                border-left: 4px solid transparent;
+                transition: background 0.3s, box-shadow 0.3s;
+                scroll-margin-top: 20px;
+                /* Jarak scroll saat klik anchor */
+            }
+
+            .border-neutral {
+                border-left-color: #334155;
+            }
+
+            .border-flight {
+                border-left-color: #b91c1c;
+            }
+
+            .border-hotel {
+                border-left-color: var(--status-ok);
+            }
+
+            .border-activity {
+                border-left-color: var(--accent);
+            }
+
+            .border-catatan {
+                border-left-color: var(--status-ok);
+            }
+
+            .card-title {
+                display: flex;
+                align-items: center;
+                height: 36px;
+                font-size: clamp(1.2rem, 4vw, 1.35rem);
+                font-weight: 700;
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .card-title span {
+                margin-right: 10px;
+                font-size: 1.3rem;
+            }
+
+            .card-title-icon {
+                font-size: 1.8rem;
+                padding-bottom: 0px;
+            }
+
+            .title-text {
+                font-size: 1.2rem;
+                font-weight: 700;
+                padding-bottom: 6px;
+            }
+
+            .note-text {
+                margin-top: 15px;
+                font-style: italic;
+                color: var(--text-secondary);
+            }
+
+            .important-note {
+                vertical-align: middle;
+                align-items: center;
+            }
+
+            /* =========================================================
+            CONTENT ELEMENTS
+            ========================================================= */
+            .info-box {
+                background: rgba(0, 0, 0, 0.03);
+                border-left: 4px solid var(--border);
+                padding: 14px 16px;
+                margin: 12px 0;
+                border-radius: 8px;
+                font-size: 0.97rem;
+            }
+
+            [data-theme="dark"] .info-box {
+                background: rgba(255, 255, 255, 0.06);
+            }
+
+            .status-ok {
+                color: var(--status-ok);
+                font-weight: 600;
+            }
+
+            /* =========================================================
+            SCHEDULE
+            ========================================================= */
+            .schedule-item {
+                display: flex;
+                margin-bottom: 12px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border);
+                font-size: clamp(0.95rem, 3.5vw, 1rem);
+            }
+
+            .schedule-item:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .time {
+                min-width: 105px;
+                flex-shrink: 0;
+                font-weight: 600;
+                color: var(--accent);
+            }
+
+            .activity {
+                flex: 1;
+            }
+
+            /* =========================================================
+            TABLE
+            ========================================================= */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 12px 0;
+                font-size: clamp(0.9rem, 3.2vw, 0.95rem);
+            }
+
+            th {
+                background: rgba(0, 0, 0, 0.04);
+                text-align: left;
+                padding: 12px;
+                font-weight: 600;
+            }
+
+            [data-theme="dark"] th {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            td {
+                padding: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            /* Anchor styling for timeline */
+            .timeline-link {
+                text-decoration: none;
+                color: var(--accent);
+                font-weight: 600;
+                display: block;
+            }
+
+            .timeline-link:hover {
+                text-decoration: underline;
+            }
+
+            /* =========================================================
+            LINK STYLES
+            ========================================================= */
+            .pdf-link {
+                color: var(--accent);
+                font-weight: 600;
+                text-decoration: underline;
+            }
+
+            .pdf-link i {
+                font-size: 1.15rem;
+                margin-right: 6px;
+                vertical-align: middle;
+            }
+
+            .pdf-link:hover i {
+                color: #e74c3c;
+            }
+
+            .wa-link {
+                color: #25d366;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .wa-link:hover {
+                color: #128c7e;
+                text-decoration: underline;
+            }
+
+            .web-link {
+                color: #B8860B;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+                vertical-align: middle;
+                flex: 1;
+                justify-content: center;
+            }
+
+            [data-theme="dark"] .web-link {
+                color: #FFCC00;
+            }
+
+            .highlight {
+                color: #B8860B;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+                vertical-align: middle;
+            }
+
+            [data-theme="dark"] .highlight {
+                color: #FFCC00;
+            }
+
+            /* =========================================================
+            BACK TO TOP BUTTON
+            ========================================================= */
+            .back-to-top {
+                position: fixed;
+                bottom: 80px;
+                /* Di atas bottom nav */
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                background: var(--accent);
+                color: white;
+                border-radius: 50%;
+                display: none;
+                /* Muncul lewat JS */
+                align-items: center;
+                justify-content: center;
+                border: none;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                cursor: pointer;
+                z-index: 99;
+                transition: transform 0.2s, opacity 0.2s;
+            }
+
+            .back-to-top:active {
+                transform: scale(0.9);
+            }
+
+            /* =========================================================
+            BOTTOM NAV
+            ========================================================= */
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 760px;
+                margin: auto;
+                display: flex;
+                height: 64px;
+                background: var(--card-bg);
+                border-top: 1px solid var(--border);
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.12);
+                z-index: 100;
+            }
+
+            .bottom-nav button {
+                flex: 1;
+                border: none;
+                background: none;
+                color: var(--text-primary);
+                font-size: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+
+            .bottom-nav button.active {
+                color: var(--accent);
+                font-weight: 600;
+                border-top: 3px solid #94a3b8;
+            }
+
+            .bottom-nav .icon {
+                font-size: 1.5rem;
+                margin-bottom: 2px;
+            }
+
+            .footer-note {
+                text-align: center;
+                color: var(--text-secondary);
+                font-size: 0.85rem;
+                margin-bottom: 20px;
+            }
+
+            /* =========================================================
+            SPA
+            ========================================================= */
+            .page-spa {
+                display: none;
+                animation: fadeIn 0.25s ease;
+            }
+
+            .page-spa.active {
+                display: block;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(6px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+
+            .body-spacer {
+                height: 50px;
+            }
+
+            /* =========================================================
+            ICON UTILITY
+            ========================================================= */
+            .awe-icon {
+                font-size: 1.15rem;
+                vertical-align: middle;
+                color: var(--accent);
+                margin-right: 8px;
+            }
+
+            .awe-icon-h {
+                font-size: 1.9rem;
+                color: white;
+                margin-right: 10px;
+            }
+
+            .emoji-link {
+                font-size: 1.1rem;
+                vertical-align: top;
+                margin-right: 10px;
+            }
+
+            /* =========================================================
+            MOBILE
+            ========================================================= */
+            @media (max-width: 480px) {
+                .time {
+                    min-width: 100px;
+                    font-size: 0.92rem;
+                }
+
+                .schedule-item {
+                    font-size: 0.94rem;
+                }
+
+                .bottom-nav button {
+                    font-size: 0.82rem;
+                }
+
+                .bottom-nav .icon {
+                    font-size: 1.35rem;
+                }
+            }
+        </style>
+    </head>
+
+    <body data-theme="light">
+        <button id="backToTop" class="back-to-top" title="Kembali ke atas">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+
+        <div class="container">
+            <div class="header-wrapper" id="top">
+                <div class="main-header">
+                    <div class="activity">
+                        <h1>Trip East Europe 2026</h1>
+                        <p>
+                            Orange Incentive House – Panorama JTB Tours Indonesia
+                            <br />Sab, 24 Okt - Jum, 06 Nov (14D11N)
+                        </p>
+                    </div>
+                    <div style="min-width: 60px">
+                        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema"><i class="fa-solid fa-moon"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-perjalanan" class="page-spa active">
+                <div class="card border-neutral">
+                    <div class="card-title"><span>📊</span>Ringkasan Timeline</div>
+                    <p style="margin-top:10px;">Peserta: Grup PT. MUSTIKA CITRA RASA</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Agenda Utama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#tgl23" class="timeline-link">Jum, 23 Okt</a></td>
+                                <td><i class="fa-solid fa-plane-departure awe-icon"></i>Keberangkatan ke Jakarta </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl24" class="timeline-link">Sab, 24 Okt</a></td>
+                                <td><i class="fa-solid fa-plane-departure awe-icon"></i>Keberangkatan ke Singapura</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl25" class="timeline-link">Min, 25 Okt</a></td>
+                                <td><i class="fa-solid fa-plane-arrival awe-icon"></i>Tiba di Munich, Germany</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl26" class="timeline-link">Sen, 26 Okt</a></td>
+                                <td>Hallstatt</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl27" class="timeline-link">Sel, 27 Okt</a></td>
+                                <td>Salzburg</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl28" class="timeline-link">Rab, 28 Okt</a></td>
+                                <td>Parndorf</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl29" class="timeline-link">Kam, 29 Okt</a></td>
+                                <td>Vienna</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl30" class="timeline-link">Jum, 30 Okt</a></td>
+                                <td>Budapest</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl31" class="timeline-link">Sab, 31 Okt</a></td>
+                                <td>Budapest</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl1" class="timeline-link">Min, 1 Nov</a></td>
+                                <td>Bratislava & Brno</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl2" class="timeline-link">Sen, 2 Nov</a></td>
+                                <td>Brno</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl3" class="timeline-link">Sel, 3 Nov</a></td>
+                                <td>Prague</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl4" class="timeline-link">Rab, 4 Nov</a></td>
+                                <td>Ingolstadt & Munich</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl5" class="timeline-link">Kam, 5 Mar</a></td>
+                                <td><i class="fa-solid fa-plane-departure awe-icon"></i>Berangkat ke Jakarta</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#tgl6" class="timeline-link">Jum, 6 Mar</a></td>
+                                <td><i class="fa-solid fa-plane-arrival awe-icon"></i>Tiba di Jakarta</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- ==== Jum, 23 Okt. Keberangkatan ke Jakarta ==== -->
+                <div class="card border-flight" id="tgl23">
+                    <div class="card-title"><span>📅</span>Jum, 23 Okt - Keberangkatan ke Jakarta </div>
+                    <div class="schedule-item">
+                        <div class="time">-----</div>
+                        <div class="activity">✈️ Penerbangan Manado-Jakarta belum di booking</div>
+                    </div>
+                </div>
+                <!-- ==== Sab, 24 Okt. Keberangkatan ke Singapura ==== -->
+                <div class="card border-flight" id="tgl24">
+                    <div class="card-title"><span>📅</span>Sab, 24 Okt - Keberangkatan ke Singapura </div>
+                    <div class="schedule-item">
+                        <div class="time">14.00</div>
+                        <div class="activity"><i class="fa-solid fa-car-side awe-icon"></i>Perjalanan ke airport (Est. 1 jam)</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">15.05</div>
+                        <div class="activity">Tiba di Airport</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">18.05-20.55</div>
+                        <div class="activity">✈️ Penerbangan Jakarta ➤ Singapura (1j 50m)</div>
+                    </div>
+                    <p class="note-text">Transit 3 jam 30 min</p>
+                </div>
+                <!-- ==== Min, 25 Okt. Tiba di Munich ==== -->
+                <div class="card border-flight" id="tgl25">
+                    <div class="card-title"><span>📅</span>Min, 25 Okt - Tiba di Munich </div>
+                    <div class="schedule-item">
+                        <div class="time">00.25-06.40</div>
+                        <div class="activity">✈️ Penerbangan Singapura ➤ Munich (13j 15m)</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Olympic Stadium</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">BMW Museum</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Allianz Arena</div>
+                    </div>
+                    <p class="note-text">Makan: Siang – Local / Malam – Chinese</p>
+                </div>
+                <!-- ==== Sen, 26 Okt. Hallstatt ==== -->
+                <div class="card border-flight" id="tgl26">
+                    <div class="card-title"><span>📅</span>Jum, 23 Okt - Hallstatt</div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Desa Hallstatt, miliki danau biru dikelilingi pengunungan Alpen</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Hallstatt Old Town, desa tradisional ikon Austria.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Central Square, alun-alun yang penuh bangunan bersejarah.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Parish of The Assumption, gereja gotik dengan interior menawan dan koleksi tengkorak berlukis unik di ossuary-nya.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Cruise/Boat, keliling danau Hallstatt.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">Perjalanan ke Salzburg untuk bermalam</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Local</p>
+                </div>
+                <!-- ==== Sel, 27 Okt. Salzburg ==== -->
+                <div class="card border-flight" id="tgl27">
+                    <div class="card-title"><span>📅</span>Jum, 23 Okt - Salzburg</div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Rumah kelahiran Wolfgang Amadeus Mozart yang kini menjadi museum musik klasik.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Mirabell Garden, taman penuh bunga berwarna-warni yang sering muncul dalam film The Sound of Music.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Salzburg Old Town, kawasan kota tua berarsitektur barok yang termasuk warisan dunia UNESCO. Dari sana, terlihat megahnya SALZBURG CASTLE, benteng yang berdiri di atas bukit dengan panorama kota.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Salzburg Cathedral, bergaya barok yang menjadi pusat spiritual kota.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">kembali ke hotel</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Chinese</p>
+                </div>
+                <!-- ==== Rab, 28 Okt. Parndorf ==== -->
+                <div class="card border-flight" id="tgl28">
+                    <div class="card-title"><span>📅</span>Rab, 28 Okt - Parndorf </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-bag-shopping awe-icon"></i></div>
+                        <div class="activity">Parndorf Outlet, pusat perbelanjaan fashion.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">Perjalanan ke Vienna untuk bermalam</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Cash EUR 30 / Malam – Chinese</p>
+                </div>
+                <!-- ==== Kam, 29 Okt. Vienna ==== -->
+                <div class="card border-flight" id="tgl29">
+                    <div class="card-title"><span>📅</span>Kam, 29 Okt - Vienna </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Schönbrunn Palace, istana musim panas dinasti Habsburg.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Opera House</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Hofburg Palace, kompleks istana megah yang pernah menjadi pusat kekuasaan kekaisaran Austria.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Parliamen House, gedung parlemen dengan pilar ala kuil Yunani.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">City Hall, balai kota bergaya gotik yang anggun.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">kembali ke hotel</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Local</p>
+                </div>
+                <!-- ==== Jum, 30 Okt. Budapest ==== -->
+                <div class="card border-flight" id="tgl30">
+                    <div class="card-title"><span>📅</span>Jum, 30 Okt - Budapest </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">Perjalanan ke Budapest</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Fisherman's Bastion (Include Entrance), menara putih bergaya dongeng dengan pemandangan indah Sungai Danube dan gedung parlemen.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Vaci Utka Street (Kegiatan bebas), perbelanjaan terkenal dengan butik, kafe, dan suasana kota tua yang hidup.</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Chinese</p>
+                </div>
+                <!-- ==== Sab, 31 Okt. Budapest ==== -->
+                <div class="card border-flight" id="tgl31">
+                    <div class="card-title"><span>📅</span>Sab, 31 Okt - Budapest </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-train awe-icon"></i></div>
+                        <div class="activity">Funicular (Include return ticket) menuju Buda Castle Hill.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Parliament House, bangunan bergaya neogothic yang menjadi ikon Budapest sekaligus salah satu gedung parlemen terindah di dunia.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-ship awe-icon"></i></div>
+                        <div class="activity">Danube Dinner Cruise</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Local</p>
+                </div>
+                <!-- ==== Min, 1 Nov. Bratislava & Brno ==== -->
+                <div class="card border-flight" id="tgl1">
+                    <div class="card-title"><span>📅</span>Min, 1 Nov - Bratislava & Brno</div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">Perjalanan ke Brno, kota bersejarah di Republik Ceko.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Bratislava, makan siang dan photo stop.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-utensils"></i></div>
+                        <div class="activity">Makan malam di Brno.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-bell-concierge awe-icon"></i></div>
+                        <div class="activity">Checkin hotel</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Chinese</p>
+                </div>
+                <!-- ==== Sen, 2 Nov. Brno ==== -->
+                <div class="card border-flight" id="tgl2">
+                    <div class="card-title"><span>📅</span>Sen, 2 Nov - Brno</div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-utensils"></i></div>
+                        <div class="activity">Sarapan di hotel.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Náměstí Svobody (Liberty Square), alun-alun utama Brno dengan arsitektur klasik.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">The Bishop's Palace, kediaman bersejarah uskup Brno yang bergaya barok.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Cathedral of St. Peter & Paul, simbol kota Brno.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">Perjalanan ke Prague</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Local</p>
+                </div>
+                <!-- ==== Sel, 3 Nov. Prague ==== -->
+                <div class="card border-flight" id="tgl3">
+                    <div class="card-title"><span>📅</span>Sel, 3 Nov - Prague</div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Prague Castle (Include Entrance, Tanpa Local Guide), kompleks kastil terbesar di dunia yang menjadi pusat sejarah Bohemia .</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">St. Vitus Cathedral, dalam komleks Prague Castle, katedral gothic dengan kaca patri indah dan menara tinggi menjulang.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Old Town Square, alun-alun bersejarah dengan bangunan warna-warni (termasuk Astronomical Clock).</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🚩</div>
+                        <div class="activity">Charles Bridge, jembatan batu berornamen patung yang romantis dan penuh seniman jalanan.</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Chinese</p>
+                </div>
+                <!-- ==== Rab, 4 Nov. Ingolstadt & Munich ==== -->
+                <div class="card border-flight" id="tgl4">
+                    <div class="card-title"><span>📅</span>Rab, 4 Nov - Ingolstadt & Munich</div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-bag-shopping awe-icon"></i></div>
+                        <div class="activity">Ingolstadt Outlet</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">Perjalanan ke Munich</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-bed awe-icon"></i></div>
+                        <div class="activity">Kembali ke hotel.</div>
+                    </div>
+                    <p class="note-text">Makan: Pagi – Hotel / Siang – Local / Malam – Thai Food</p>
+                </div>
+                <!-- ==== Kam, 5 Mar. Berangkat ke Jakarta ==== -->
+                <div class="card border-flight" id="tgl5">
+                    <div class="card-title"><span>📅</span>Kam, 5 Mar – Berangkat ke Jakarta </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-utensils"></i></div>
+                        <div class="activity">Sarapan di hotel.</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time"><i class="fa-solid fa-car-side awe-icon"></i></div>
+                        <div class="activity">Perjalanan ke Bandara</div>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="time">09.05</div>
+                        <div class="activity">Target Tiba di Airport</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">12.05-🌙</div>
+                        <div class="activity"> ✈️ Penerbangan Munich ➤ Singapura (11j 45m)</div>
+                    </div>
+                </div>
+                <!-- ==== Jum, 6 Mar. Tiba di Jakarta ==== -->
+                <div class="card border-flight" id="tgl6">
+                    <div class="card-title"><span>📅</span>Jum, 6 Mar – Tiba di Jakarta </div>
+                    <div class="schedule-item">
+                        <div class="time"> 🌙-06.50</div>
+                        <div class="activity"> ✈️ Penerbangan Munich ➤ Singapura</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">06.50-09.20</div>
+                        <div class="activity">Transit (2j 30m)</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">09.20-10.15</div>
+                        <div class="activity"> ✈️ Penerbangan Singapura ➤ Jakarta, Terminal 3 (1j 55m)</div>
+                    </div>
+                </div>
+            </div>
+            <!-- ==== RESERVASI ==== -->
+            <div id="page-reservasi" class="page-spa">
+                <div class="card border-flight">
+                    <div class="card-title"><span>✈️</span>Sab, 24 Okt – Penerbangan ke Singapura</div>
+                    <div class="info-box"><strong>Jakarta - Singapura</strong>
+                        <br><span class="highlight">Singapore Airlines SQ 963</span> | 18.05 – 20.55 (1j 50m)
+                        <br><span class="map-location">🗺️ Terminal 3 – Changi Airport</span>
+                        <br><a class="pdf-link" href="" target="_blank"><i class="fa-solid fa-file-pdf"></i>Airline Ticket</a>
+                        <div class="countdown">
+                            <div>Berangkat dalam: <span id="flight1"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-flight">
+                    <div class="card-title"><span>✈️</span>Min, 25 Okt – Penerbangan ke Munich</div>
+                    <div class="info-box"><strong>Singapura - Munich</strong>
+                        <br><span class="highlight">Singapore Airlines SQ 328</span> | 00.25 – 06.40 (13j 15m)
+                        <br><a class="pdf-link" href="" target="_blank"><i class="fa-solid fa-file-pdf"></i>Airline Ticket</a>
+                        <div class="countdown">
+                            <div>Berangkat dalam: <span id="flight2"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-hotel">
+                    <div class="card-title"><span>🏨</span>Munich - NH München Messe</div>
+                    <p>Eggenfeldener Strasse 100, Bogenhausen, 81929 Munich, Germany
+                        <br />Phone: +49 89 993450
+                    </p>
+                </div>
+                <div class="card border-hotel">
+                    <div class="card-title"><span>🏨</span>Salzburg - Wyndham Grand Salzburg Conference Centre</div>
+                    <p>Fanny-von-Lehnert-Straße 7, Elisabeth-Vorstadt, 5020 Salzburg, Austria
+                        <br />Phone: +43 662 46880
+                    </p>
+                </div>
+                <div class="card border-hotel">
+                    <div class="card-title"><span>🏨</span>Vienna - IntercityHotel Wien</div>
+                    <p>Mariahilfer Straße 122, Ecke Kaiserstraße 1-3, 07. Neubau, 1070 Vienna, Austria
+                        <br />Phone: +43 1 525850
+                    </p>
+                </div>
+                <div class="card border-hotel">
+                    <div class="card-title"><span>🏨</span>Budapest - IntercityHotel Budapest</div>
+                    <p>1087 Budapest, Baross tér 7-8, Hungary
+                        <br />Phone: +36 1 279 9000
+                    </p>
+                </div>
+                <div class="card border-hotel">
+                    <div class="card-title"><span>🏨</span>Brno - Hotel Continental</div>
+                    <p>Kounicova 6, Brno, 602 00, Czech Republic
+                        <br />Phone: +420 541 519 111
+                    </p>
+                </div>
+                <div class="card border-hotel">
+                    <div class="card-title"><span>🏨</span>Prague - Ambassador Zlata Husa (5*)</div>
+                    <p>Wenceslas Square. 840/5 110 00 Praha 1 República Checa, Prague, 11124, Czech Republic
+                        <br />Phone: +420 224 193 111
+                    </p>
+                </div>
+                <div class="card border-flight">
+                    <div class="card-title"><span>✈️</span>Kam, 5 Nov – Penerbangan ke Singapura</div>
+                    <div class="info-box"><strong>Munich - Singapura</strong>
+                        <br><span class="highlight">Singapore Airlines SQ 327</span> | 12.05 – 06.50<sup>+1 hari</sup> (11j 45m)
+                        <br>🗺️ Terminal 2, Changi Airport
+                        <br><a class="pdf-link" href="" target="_blank"><i class="fa-solid fa-file-pdf"></i>Airline Ticket</a>
+                        <div class="countdown">
+                            <div>Berangkat dalam: <span id="flight3"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-flight">
+                    <div class="card-title"><span>✈️</span>Jum, 6 Nov – Penerbangan ke Jakarta</div>
+                    <div class="info-box"><strong>Singapura - Jakarta</strong>
+                        <br><span class="highlight">Singapore Airlines SQ 956</span> | 09.20 – 10.15 (1j 55m)
+                        <br>🗺️ Terminal 3, CGK
+                        <br><a class="pdf-link" href="" target="_blank"><i class="fa-solid fa-file-pdf"></i>Airline Ticket</a>
+                        <div class="countdown">
+                            <div>Berangkat dalam: <span id="flight4"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ==== CATATAN ==== -->
+            <div id="page-catatan" class="page-spa">
+                <div class="card border-catatan">
+                    <div class="card-title"><span><i class="fa-regular fa-address-card card-title-icon"></i></span><span class="title-text">Kontak</span></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ticket Booking</td>
+                                <td>Singapore Airlines by Mustika</td>
+                            </tr>
+                            <tr>
+                                <td>Tour Termasuk</td>
+                                <td>
+                                    <ul>
+                                        <li>Akomodasi 4* / 5* atau setaraf (2 orang dalam 1 kamar)</li>
+                                        <li>Airport handling assistance untuk check-in bagasi di Bandara Jakarta</li>
+                                        <li>Visa Turis Austria, Single entry (harga dapat berubah sewaktu-waktu)</li>
+                                        <li>Perlengkapan tour (luggage tag, dompet tiket, sampul paspor)</li>
+                                        <li>Tour Leader dari Jakarta</li>
+                                        <li>Dua botol air mineral setiap hari (selama di dalam bus)</li>
+                                        <li>Basic tipping untuk Tour Leader dan supir</li>
+                                        <li>Transportasi dan tour sesuai program perjalanan</li>
+                                        <li>Makan sesuai jadwal acara</li>
+                                        <li>Asuransi perjalanan group MSIG</li>
+                                        <li>PPN 1,1%</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tour <strong>Tidak</strong> Termasuk</td>
+                                <td>
+                                    <ul>
+                                        <li>Tiket pesawat menuju Munich</li>
+                                        <li>Weekend / holiday surcharge (apabila ada)</li>
+                                        <li>Biaya deviasi tiket bagi peserta yang akan melakukan perpanjangan masa tinggal</li>
+                                        <li>Penjemputan / pengantaran di tempat tujuan bagi peserta yang melakukan deviasi</li>
+                                        <li>Biaya kelebihan berat bagasi yang dikenakan oleh perusahaan penerbangan yang bersangkutan</li>
+                                        <li>Pengeluaran tambahan pribadi seperti : cucian, telpon, minibar, room service, dll</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- ==== RESERVASI ==== -->
+                <div class="card border-catatan">
+                    <div class="card-title"><span><i class="fa-solid fa-person-military-pointing card-title-icon"></i></span><span class="title-text">Imigrasi</span></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Negara</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Singapore</td>
+                                <td><a href="https://eservices.ica.gov.sg/sgarrivalcard/" class="web-link" target="_blank">Singapore Arrival Card (SGAC)</a></td>
+                            </tr>
+                            <tr>
+                                <td>Europe</td>
+                                <td><a href="" class="web-link" target="_blank">------</a></td>
+                            </tr>
+                            <tr>
+                                <td>Indonesia</td>
+                                <td><a href="https://allindonesia.imigrasi.go.id/" class="web-link" target="_blank">Kartu Kedatangan Indonesia</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note"><span>Update terakhir: Maret 2026<br>Safe Flight & Stay Healthy!</span></div>
+        <div class="body-spacer"></div>
+
+        <nav class="bottom-nav" id="nav">
+            <button class="active" data-page="perjalanan"><span class="icon"><i data-lucide="calendar-days" style="width:24px;height:24px;vertical-align:bottom"></i></span> Perjalanan</button>
+            <button data-page="reservasi"><span class="icon"><i data-lucide="tickets" style="width:24px;height:24px;vertical-align:bottom"></i></span> Reservasi</button>
+            <button data-page="catatan"><span class="icon"><i data-lucide="notebook-pen" style="width:24px;height:24px;vertical-align:bottom"></i></span> Catatan</button>
+        </nav>
+
+        <script>
+            /* ======================================================
+						 THEME
+						 ====================================================== */
+            const html = document.documentElement;
+            const themeToggle = document.getElementById("themeToggle");
+            const setTheme = (theme) => {
+                html.setAttribute("data-theme", theme);
+                localStorage.setItem("theme", theme);
+                themeToggle.innerHTML = theme === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            };
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (window.matchMedia("(prefers-color-scheme:dark)")
+                       .matches) {
+                setTheme("dark");
+            }
+            themeToggle.addEventListener("click", () => {
+                const current = html.getAttribute("data-theme") || "light";
+                setTheme(current === "light" ? "dark" : "light");
+            });
+            /* ======================================================
+						BACK TO TOP & SCROLL SCRIPT
+					====================================================== */
+            const backToTopBtn = document.getElementById("backToTop");
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    backToTopBtn.style.display = "flex";
+                } else {
+                    backToTopBtn.style.display = "none";
+                }
+            };
+            backToTopBtn.addEventListener("click", () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+            /* ======================================================
+					COUNTDOWN
+					====================================================== */
+            function startCountdown(id, datetime) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const update = () => {
+                    const now = Date.now();
+                    const target = new Date(datetime)
+                    .getTime();
+                    const diff = target - now;
+                    if (diff <= 0) {
+                        el.innerHTML = '<i class="fa-solid fa-plane-departure awe-icon"></i>';
+                        return;
+                    }
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    el.innerHTML = `${days}h ${hours}j ${minutes}m ${seconds}d`;
+                };
+                update();
+                setInterval(update, 1000);
+            }
+            /* ======================================================
+					MAP LINK
+					====================================================== */
+            function convertLocationsToMaps() {
+                document.querySelectorAll(".map-location")
+                    .forEach((el) => {
+                    const place = el.textContent.trim();
+                    const a = document.createElement("a");
+                    a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
+                    a.target = "_blank";
+                    a.style.color = "var(--accent)";
+                    a.style.textDecoration = "none";
+                    a.textContent = place;
+                    el.replaceWith(a);
+                });
+            }
+            /* ======================================================
+					SPA NAV
+					====================================================== */
+            document.addEventListener("DOMContentLoaded", () => {
+                lucide.createIcons();
+                convertLocationsToMaps();
+                startCountdown("flight0", "2026-03-05T06:55:00");
+                startCountdown("flight1", "2026-10-24T18:05:00");
+                startCountdown("flight2", "2026-10-25T00:25:00");
+                startCountdown("flight3", "2026-11-05T12:05:00");
+                startCountdown("flight4", "2026-11-06T09:20:00");
+                const navBtns = document.querySelectorAll(".bottom-nav button");
+                const pages = document.querySelectorAll(".page-spa");
+                navBtns.forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        navBtns.forEach((b) => b.classList.remove("active"));
+                        btn.classList.add("active");
+                        const pageId = "page-" + btn.dataset.page;
+                        pages.forEach((p) => p.classList.toggle("active", p.id === pageId), );
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
