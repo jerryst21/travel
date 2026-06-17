@@ -1,86 +1,77 @@
 {
   "trip_info": {
-    "title": "Trip Singapura - Kuala Lumpur 2026",
-    "subtitle": "Jadwal Perjalanan & Pemeriksaan Medis",
-    "start_date": "2026-04-09",
-    "end_date": "2026-04-16",
-    "date_display": "Kam, 9 Apr - Jum, 16 Apr",
+    "title": "Trip East Europe 2026",
+    "subtitle": "Orange Incentive House – Panorama JTB Tours Indonesia",
+    "start_date": "2026-10-23",
+    "end_date": "2026-11-06",
+    "date_display": "Sab, 24 Okt - Jum, 06 Nov (14D11N)",
     "participants": [
-      "Papa",
-      "Mama",
-      "Linda"
+      "Grup PT. MUSTIKA CITRA RASA"
     ],
-    "last_update": "01 April 2026"
+    "last_update": "18 Juni 2026"
   },
   "perjalanan": {
     "timeline_summary": [
       {
-        "date": "Kam, 9 Apr",
-        "agenda": "Keberangkatan Manado - Kuala Lumpur"
+        "date": "Jum, 23 Okt",
+        "agenda": "Keberangkatan ke Jakarta"
       },
       {
-        "date": "Jum, 10 Apr",
-        "agenda": "Pemeriksaan Kaki Mama"
+        "date": "Sab, 24 Okt",
+        "agenda": "Keberangkatan ke Singapura"
       },
       {
-        "date": "Sab, 11 Apr",
-        "agenda": "Bebas"
+        "date": "Min, 25 Okt",
+        "agenda": "Tiba di Munich, Germany"
       },
       {
-        "date": "Min, 12 Apr",
-        "agenda": "Penerbangan Kuala Lumpur - Singapura"
+        "date": "Sen, 26 Okt",
+        "agenda": "Hallstatt"
       },
       {
-        "date": "Sen, 13 Apr",
-        "agenda": "Pemeriksaan & Konsultasi Paru"
+        "date": "Sel, 27 Okt",
+        "agenda": "Salzburg"
       },
       {
-        "date": "Sel, 14 Apr",
-        "agenda": "Bebas/Follow Up"
-      },
-      {
-        "date": "Rab, 15 Apr",
-        "agenda": "Konsultasi dengan Dr. Whang"
-      },
-      {
-        "date": "Kam, 16 Apr",
-        "agenda": "Kepulangan ke Manado?"
+        "date": "Rab, 28 Okt",
+        "agenda": "Parndorf"
       }
     ],
     "daily_details": [
       {
-        "date_display": "Kam, 9 Apr",
-        "title": "Kam, 9 Apr - Penerbangan MDC - KL",
+        "date_display": "Jum, 23 Okt",
+        "title": "Keberangkatan ke Jakarta",
         "activities": [
           {
-            "time": "04.30",
-            "description": "mulai perjalanan ke airport (Est. 30 menit)",
+            "time": "00.00",
+            "description": "Penerbangan Manado-Jakarta belum di booking",
+            "icon": "✈️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sab, 24 Okt",
+        "title": "Keberangkatan ke Singapura",
+        "activities": [
+          {
+            "time": "14.00",
+            "description": "Perjalanan ke airport (Est. 1 jam)",
             "icon": "🚗"
           },
           {
-            "time": "05.00",
-            "description": "Tiba di Airport dan proses Checkin",
-            "icon": "🛫"
+            "time": "15.05",
+            "description": "Tiba di Airport",
+            "icon": "📍"
           },
           {
-            "time": "08.00-11.30",
-            "description": "Penerbangan Manado ➔ Singapore",
+            "time": "18.05-20.55",
+            "description": "Penerbangan Jakarta ➤ Singapura (1j 50m)",
             "icon": "✈️"
           },
           {
-            "time": "11.30-16.00",
-            "description": "Transit di Changi Airport (4 jam 30 min)",
-            "icon": "🔄"
-          },
-          {
-            "time": "16.00-17.25",
-            "description": "Penerbangan Singapore ➔ Kuala Lumpur",
-            "icon": "✈️"
-          },
-          {
-            "time": "18.00-19.00",
-            "description": "Perjalanan ke Banyan Tree KL (Samping Mall Pavilion) Est. 30 menit",
-            "icon": "🚗"
+            "time": "",
+            "description": "Transit 3 jam 30 min",
+            "icon": ""
           }
         ]
       }
@@ -123,12 +114,10 @@
     ],
     "flights": [
       {
-        "title": "Kam, 9 April – Penerbangan ke Kuala Lumpur",
-        "summary": "Scoot TR 319 | 08.00 - 17.25 (9 Jam 25 Min)",
+        "title": "Sab, 24 Okt – Penerbangan Jakarta - Singapura",
+        "summary": "Singapore Airlines SQ 963 | 18.05 – 20.55 (1j 50m)",
         "details": [
-          "MDC ➔ SIN : 08.00 - 11.30 (3 Jam 30 Min)",
-          "Transit (4 Jam 30 Min)",
-          "SIN ➔ KUL : 16.00 - 17.25 (1 Jam 25 Min)"
+          "Tiba di Terminal 3"
         ],
         "vouchers": [
           {
