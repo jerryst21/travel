@@ -95,9 +95,16 @@
             }
 
             .main-header p {
-                margin: 6px 0 0;
+                margin: 4px 0 0;
                 opacity: 0.95;
                 font-size: clamp(0.95rem, 3vw, 1.05rem);
+            }
+
+            /* Style khusus untuk subtitle agar tampil manis */
+            .trip-subtitle-text {
+                font-style: italic;
+                opacity: 0.85 !important;
+                font-size: clamp(0.9rem, 3vw, 1rem) !important;
             }
 
             .theme-toggle {
@@ -460,7 +467,7 @@
             }
 
         </style>
-    </head>
+head>
 
     <body data-theme="light">
         <div class="container">
@@ -468,6 +475,7 @@
                 <div class="main-header">
                     <div class="activity">
                         <h1 id="trip-title">Membuka Data...</h1>
+                        <p id="trip-subtitle" class="trip-subtitle-text"></p>
                         <p id="trip-dates"></p>
                     </div>
                     <div style="min-width: 60px">
@@ -576,7 +584,7 @@
                         return;
                     }
                     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const hours = Math.floor((diff % (1000 * 60 * 24)) / (1000 * 60 * 60));
                     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                     el.innerHTML = `${days}h ${hours}j ${minutes}m ${seconds}d`;
@@ -618,8 +626,9 @@
             });
 
             function renderApp(data) {
-                // 1. Render Trip Info
+                // 1. Render Trip Info (Termasuk Subtitle baru)
                 document.getElementById('trip-title').innerText = data.trip_info.title;
+                document.getElementById('trip-subtitle').innerText = data.trip_info.subtitle || "";
                 document.getElementById('trip-dates').innerHTML = data.trip_info.date_display;
                 document.getElementById('last-update').innerText = data.trip_info.last_update || "01 April 2026";
                 document.getElementById('trip-participants').innerText = "Peserta: " + (Array.isArray(data.trip_info.participants) ? data.trip_info.participants.join(', ') : data.trip_info.participants);
@@ -633,7 +642,7 @@
                     </tr>
                 `).join('');
 
-                // 3. Render Daily Itinerary Cards (Melindungi agar tidak crash saat data dicicil/belum lengkap harian)
+                // 3. Render Daily Itinerary Cards
                 const itineraryContainer = document.getElementById('itinerary-cards-container');
                 itineraryContainer.innerHTML = data.perjalanan.daily_details.map(card => `
                     <div class="card border-activity">
@@ -647,7 +656,7 @@
                     </div>
                 `).join('');
 
-                // 4. Render Reservations (Menggabungkan Flights dan Hotels dari JSON baru)
+                // 4. Render Reservations
                 const resContainer = document.getElementById('reservations-container');
                 
                 // 4a. Render Penerbangan
@@ -722,7 +731,6 @@
                 
                 // Menjalankan hitung mundur otomatis untuk penerbangan pertama jika ada start_date
                 if (data.trip_info && data.trip_info.start_date) {
-                    // Set default jam 08:00 pagi sesuai jadwal keberangkatan Scoot di JSON kamu
                     startCountdown("flight-cd-0", `${data.trip_info.start_date}T08:00:00`);
                 }
                 
