@@ -1,0 +1,174 @@
+{
+  "trip_info": {
+    "title": "Trip Singapura - Kuala Lumpur 2026",
+    "subtitle": "Jadwal Perjalanan & Pemeriksaan Medis",
+    "start_date": "2026-04-09",
+    "end_date": "2026-04-16",
+    "date_display": "Kam, 9 Apr - Jum, 16 Apr",
+    "participants": [
+      "Papa",
+      "Mama",
+      "Linda"
+    ],
+    "last_update": "01 April 2026"
+  },
+  "perjalanan": {
+    "timeline_summary": [
+      {
+        "date": "Kam, 9 Apr",
+        "agenda": "Keberangkatan Manado - Kuala Lumpur"
+      },
+      {
+        "date": "Jum, 10 Apr",
+        "agenda": "Pemeriksaan Kaki Mama"
+      },
+      {
+        "date": "Sab, 11 Apr",
+        "agenda": "Bebas"
+      },
+      {
+        "date": "Min, 12 Apr",
+        "agenda": "Penerbangan Kuala Lumpur - Singapura"
+      },
+      {
+        "date": "Sen, 13 Apr",
+        "agenda": "Pemeriksaan & Konsultasi Paru"
+      },
+      {
+        "date": "Sel, 14 Apr",
+        "agenda": "Bebas/Follow Up"
+      },
+      {
+        "date": "Rab, 15 Apr",
+        "agenda": "Konsultasi dengan Dr. Whang"
+      },
+      {
+        "date": "Kam, 16 Apr",
+        "agenda": "Kepulangan ke Manado?"
+      }
+    ],
+    "daily_details": [
+      {
+        "date_display": "Kam, 9 Apr",
+        "title": "Kam, 9 Apr - Penerbangan MDC - KL",
+        "activities": [
+          {
+            "time": "04.30",
+            "description": "mulai perjalanan ke airport (Est. 30 menit)",
+            "icon": "🚗"
+          },
+          {
+            "time": "05.00",
+            "description": "Tiba di Airport dan proses Checkin",
+            "icon": "🛫"
+          },
+          {
+            "time": "08.00-11.30",
+            "description": "Penerbangan Manado ➔ Singapore",
+            "icon": "✈️"
+          },
+          {
+            "time": "11.30-16.00",
+            "description": "Transit di Changi Airport (4 jam 30 min)",
+            "icon": "🔄"
+          },
+          {
+            "time": "16.00-17.25",
+            "description": "Penerbangan Singapore ➔ Kuala Lumpur",
+            "icon": "✈️"
+          },
+          {
+            "time": "18.00-19.00",
+            "description": "Perjalanan ke Banyan Tree KL (Samping Mall Pavilion) Est. 30 menit",
+            "icon": "🚗"
+          }
+        ]
+      }
+    ]
+  },
+  "reservasi": {
+    "hotels": [
+      {
+        "name": "Banyan Tree Kuala Lumpur",
+        "check_in": "Kamis, 9 April",
+        "check_out": "Minggu, 12 April (3 Malam - 1 Kamar)",
+        "guests": "Papa, Mama, Linda",
+        "payment_info": "Pembayaran via KK DBS Siska 27 Mar 2026",
+        "airport_distance": "Est. Hotel ➔ Airport: 1 jam",
+        "vouchers": [
+          {
+            "filename": "Hotel E-Voucher - Order ID 1341014572.pdf",
+            "url": "#"
+          },
+          {
+            "filename": "E-Receipt-Hotel-ID-1341014572.pdf",
+            "url": "#"
+          }
+        ]
+      },
+      {
+        "name": "One Farrer Hotel, Farrer Park",
+        "check_in": "Senin, 12 April",
+        "check_out": "Kamis, 16 April 12pm (4 Malam - 1 Kamar)",
+        "guests": "Papa, Mama, Linda",
+        "payment_info": "Pembayaran via Traveloka Linda (KK Charlie)",
+        "airport_distance": "Est. Hotel ➔ Airport: 30 menit",
+        "vouchers": [
+          {
+            "filename": "Charlie Gulardi cahya-1343174689-One Farrer Hotel-HOTEL_STANDALONE.pdf",
+            "url": "#"
+          }
+        ]
+      }
+    ],
+    "flights": [
+      {
+        "title": "Kam, 9 April – Penerbangan ke Kuala Lumpur",
+        "summary": "Scoot TR 319 | 08.00 - 17.25 (9 Jam 25 Min)",
+        "details": [
+          "MDC ➔ SIN : 08.00 - 11.30 (3 Jam 30 Min)",
+          "Transit (4 Jam 30 Min)",
+          "SIN ➔ KUL : 16.00 - 17.25 (1 Jam 25 Min)"
+        ],
+        "vouchers": [
+          {
+            "filename": "Flight E-ticket-TR319-MDC-KUL-RDMDRD.pdf",
+            "url": "#"
+          }
+        ]
+      }
+    ]
+  },
+  "catatan": {
+    "contacts": [
+      {
+        "name": "Banyan Tree KL",
+        "details": "2, Jalan Conlay, Kuala Lumpur, Malaysia"
+      },
+      {
+        "name": "One Farrer Hotel",
+        "details": "1 Farrer Park Station Rd, Singapore 217562"
+      }
+    ],
+    "immigration": [
+      {
+        "country": "Malaysia",
+        "label": "Malaysia Digital Arrival Card (MDAC)",
+        "url": "https://imigresen-online.imi.gov.my/mdac/main"
+      },
+      {
+        "country": "Singapore",
+        "label": "Singapore Arrival Card (SGAC)",
+        "url": "https://eservices.ica.gov.wsg/sgarrivalcard/"
+      }
+    ],
+    "tour_guide_notes": [
+      "Dokumen paspor wajib dipegang masing-masing anak saat imigrasi."
+    ],
+    "travel_checklist": [
+      "Paspor aktif min 6 bulan",
+      "Mata uang SGD & MYR tunai",
+      "Cetak bukti reservasi fisik"
+    ]
+  }
+}
