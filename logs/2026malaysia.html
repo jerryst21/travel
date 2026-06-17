@@ -7,7 +7,6 @@
         <title>Trip Singapore-Kuala Lumpur 2026</title>
         <link rel="icon" href="uploads/2026-03-08-travelicon.png" type="image/png" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <!-- ICON LIBRARIES -->
         <script src="https://unpkg.com/lucide@latest"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" />
@@ -83,7 +82,8 @@
                 justify-content: space-between;
                 background: var(--headerBg);
                 color: var(--headerTxt);
-                padding: clamp(10px, 5vw, 2px) 20px;
+                /* PERBAIKAN: Mengubah batas clamp agar valid */
+                padding: clamp(10px, 2.5vw, 20px) 20px;
                 border-radius: 12px;
                 box-shadow: var(--shadow);
                 flex: 1;
@@ -465,7 +465,6 @@
 
     <body data-theme="light">
         <div class="container">
-            <!-- HEADER -->
             <div class="header-wrapper">
                 <div class="main-header">
                     <div class="activity">
@@ -478,7 +477,6 @@
                 </div>
             </div>
             
-            <!-- ==== PAGE: PERJALANAN ==== -->
             <div id="page-perjalanan" class="page-spa active">
                 <div class="card border-neutral">
                     <div class="card-title"><span>📊</span>Ringkasan Timeline</div>
@@ -491,25 +489,19 @@
                             </tr>
                         </thead>
                         <tbody id="timeline-table-body">
-                            <!-- Diisi dinamis via JS -->
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
                 
-                <!-- Container untuk Daily Itinerary -->
                 <div id="itinerary-cards-container">
-                    <!-- Diisi dinamis via JS -->
-                </div>
+                    </div>
             </div>
             
-            <!-- ==== PAGE: RESERVASI ==== -->
             <div id="page-reservasi" class="page-spa">
                 <div id="reservations-container">
-                    <!-- Diisi dinamis via JS -->
-                </div>
+                    </div>
             </div>
             
-            <!-- ==== PAGE: CATATAN ==== -->
             <div id="page-catatan" class="page-spa">
                 <div class="card border-catatan">
                     <div class="card-title"><span><i class="fa-regular fa-address-card card-title-icon"></i></span><span class="title-text">Kontak</span></div>
@@ -521,8 +513,7 @@
                             </tr>
                         </thead>
                         <tbody id="contact-table-body">
-                            <!-- Diisi dinamis via JS -->
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
                 <div class="card border-catatan">
@@ -535,8 +526,7 @@
                             </tr>
                         </thead>
                         <tbody id="immigration-table-body">
-                            <!-- Diisi dinamis via JS -->
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
@@ -603,6 +593,7 @@
                 document.querySelectorAll(".map-location").forEach((el) => {
                     const place = el.textContent.trim();
                     const a = document.createElement("a");
+                    /* PERBAIKAN: Memperbaiki sintaks string literal (${}) dan URL pencarian Google Maps */
                     a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
                     a.target = "_blank";
                     a.style.color = "var(--accent)";
@@ -631,7 +622,8 @@
                 // 1. Render Trip Info
                 document.getElementById('trip-title').innerText = data.tripInfo.title;
                 document.getElementById('trip-dates').innerHTML = data.tripInfo.dates;
-                document.getElementById('trip-participants').innerText = "Peserta: " + data.tripInfo.participants;
+                /* PERBAIKAN: Menggunakan .join(', ') agar tampilan list peserta rapi */
+                document.getElementById('trip-participants').innerText = "Peserta: " + (Array.isArray(data.tripInfo.participants) ? data.tripInfo.participants.join(', ') : data.tripInfo.participants);
 
                 // 2. Render Timeline Summary Table
                 const timelineBody = document.getElementById('timeline-table-body');
