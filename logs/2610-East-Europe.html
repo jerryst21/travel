@@ -673,7 +673,7 @@
                 document.getElementById('trip-participants').innerText = "Peserta: " + (Array.isArray(data.trip_info.participants) ? data.trip_info.participants.join(', ') : data.trip_info.participants);
 
                 // 2. Render Timeline Summary Table
-				const timelineContainer = document.getElementById('timeline-list'); 
+				const timelineContainer = document.getElementById('timeline-table-body'); 
 
 				if (timelineContainer) {
 					timelineContainer.innerHTML = data.perjalanan.daily_details.map((day, index) => `
