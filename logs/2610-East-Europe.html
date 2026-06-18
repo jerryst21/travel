@@ -467,28 +467,24 @@
                 }
             }
 			
-			/* Styling untuk Termasuk & Tidak Termasuk */
-			.term-card {
-				padding: 15px;
-				border-radius: 8px;
-				margin-bottom: 15px;
-				background: #ffffff;
-				border-left: 6px solid #ccc;
-				box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+			/* Back to Top Button */
+			.back-to-top {
+				position: fixed;
+				bottom: 80px; /* Sesuaikan agar tidak tertutup bottom nav */
+				right: 20px;
+				display: none; /* Tersembunyi secara default */
+				z-index: 1000;
+				background-color: var(--accent);
+				color: white;
+				border: none;
+				padding: 12px 15px;
+				border-radius: 50%;
+				cursor: pointer;
+				box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+				transition: opacity 0.3s;
 			}
-			.term-included { border-left-color: #22c55e; } /* Hijau */
-			.term-excluded { border-left-color: #ef4444; } /* Merah */
-			.term-title {
-				font-weight: 700;
-				font-size: 1.1rem;
-				margin-bottom: 10px;
-				display: block;
-			}
-			.term-list {
-				margin: 0;
-				padding-left: 20px;
-				font-size: 0.95rem;
-				color: #374151;
+			.back-to-top:hover {
+				opacity: 0.8;
 			}
 
         </style>
@@ -578,8 +574,19 @@
             <button data-page="reservasi"><span class="icon"><i data-lucide="tickets" style="width:24px;height:24px;vertical-align:bottom"></i></span> Reservasi</button>
             <button data-page="catatan"><span class="icon"><i data-lucide="notebook-pen" style="width:24px;height:24px;vertical-align:bottom"></i></span> Catatan</button>
         </nav>
+		
+		<button id="backToTopBtn" class="back-to-top" title="Kembali ke atas">
+			<i class="fas fa-arrow-up"></i>
+		</button>
         
         <script>
+			function scrollToDay(id) {
+				const element = document.getElementById(id);
+				if (element) {
+					element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			}
+		
             /* ======================================================
             THEME MANAGEMENT
             ====================================================== */
@@ -666,27 +673,38 @@
                 document.getElementById('trip-participants').innerText = "Peserta: " + (Array.isArray(data.trip_info.participants) ? data.trip_info.participants.join(', ') : data.trip_info.participants);
 
                 // 2. Render Timeline Summary Table
-                const timelineBody = document.getElementById('timeline-table-body');
-                timelineBody.innerHTML = data.perjalanan.timeline_summary.map(row => `
-                    <tr>
-                        <td>${row.date}</td>
-                        <td>${row.agenda}</td>
-                    </tr>
-                `).join('');
+				const timelineContainer = document.getElementById('timeline-list'); 
 
-                // 3. Render Daily Itinerary Cards
-                const itineraryContainer = document.getElementById('itinerary-cards-container');
-                itineraryContainer.innerHTML = data.perjalanan.daily_details.map(card => `
-                    <div class="card border-activity">
-                        <div class="card-title"><span>📅</span>${card.date_display} - ${card.title}</div>
-                        ${card.activities && card.activities.length > 0 ? card.activities.map(item => `
-                            <div class="schedule-item">
-                                <div class="time">${item.time}</div>
-                                <div class="activity">${item.icon ? `<span class="emoji-link">${item.icon}</span>` : ''}${item.description}</div>
-                            </div>
-                        `).join('') : '<p class="note-text">Belum ada detail aktivitas untuk hari ini.</p>'}
-                    </div>
-                `).join('');
+				if (timelineContainer) {
+					timelineContainer.innerHTML = data.perjalanan.daily_details.map((day, index) => `
+						<div class="timeline-item" onclick="scrollToDay('day-${index}')" style="cursor: pointer;">
+							<div class="timeline-date">${day.date_display}</div>
+							<div class="timeline-title">${day.title}</div>
+						</div>
+					`).join('');
+				}
+
+				// 3. Render Daily Itinerary Cards
+				const itineraryContainer = document.getElementById('itinerary-cards-container');
+
+				// Tambahkan (card, index) agar index bisa dikenal di dalam fungsi
+				itineraryContainer.innerHTML = data.perjalanan.daily_details.map((card, index) => `
+					<div class="card border-activity">
+						<div id="day-${index}" class="card-title">
+							<span>📅</span>${card.date_display} - ${card.title}
+						</div>
+						
+						${card.activities && card.activities.length > 0 ? card.activities.map(item => `
+							<div class="schedule-item">
+								<div class="time">${item.time}</div>
+								<div class="activity">
+									${item.icon ? `<span class="emoji-link">${item.icon}</span>` : ''}
+									${item.description}
+								</div>
+							</div>
+						`).join('') : '<p class="note-text">Belum ada detail aktivitas untuk hari ini.</p>'}
+					</div>
+				`).join('');
 
                 // 4. Render Reservations
                 const resContainer = document.getElementById('reservations-container');
@@ -809,6 +827,26 @@
                     });
                 });
             }
+			
+			// Logic untuk Back to Top Button
+			const backToTopBtn = document.getElementById("backToTopBtn");
+
+			// Munculkan tombol saat scroll sejauh 300px
+			window.addEventListener("scroll", () => {
+				if (window.pageYOffset > 300) {
+					backToTopBtn.style.display = "block";
+				} else {
+					backToTopBtn.style.display = "none";
+				}
+			});
+
+			// Scroll ke atas saat tombol diklik
+			backToTopBtn.addEventListener("click", () => {
+				window.scrollTo({
+					top: 0,
+					behavior: "smooth"
+				});
+			});
         </script>
     </body>
 </html>
