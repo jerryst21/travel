@@ -11,64 +11,6 @@
     "last_update": "18 Juni 2026"
   },
   "perjalanan": {
-    "timeline_summary": [
-      {
-        "date": "Jum, 23 Okt",
-        "agenda": "Keberangkatan ke Jakarta"
-      },
-      {
-        "date": "Sab, 24 Okt",
-        "agenda": "Keberangkatan ke Singapura"
-      },
-      {
-        "date": "Min, 25 Okt",
-        "agenda": "Tiba di Munich, Germany"
-      },
-      {
-        "date": "Sen, 26 Okt",
-        "agenda": "Hallstatt"
-      },
-      {
-        "date": "Sel, 27 Okt",
-        "agenda": "Salzburg"
-      },
-      {
-        "date": "Rab, 28 Okt",
-        "agenda": "Parndorf"
-      },
-      {
-        "date": "Jum, 30 Okt",
-        "agenda": "Budapest"
-      },
-      {
-        "date": "Sab, 31 Okt",
-        "agenda": "Budapest"
-      },
-      {
-        "date": "Min, 1 Nov",
-        "agenda": "Bratislava & Brno"
-      },
-      {
-        "date": "Sen, 2 Nov",
-        "agenda": "Brno"
-      },
-      {
-        "date": "Sel, 3 Nov",
-        "agenda": "Prague"
-      },
-      {
-        "date": "Rab, 4 Nov",
-        "agenda": "Ingolstadt & Munich"
-      },
-      {
-        "date": "Kam, 5 Nov",
-        "agenda": "Berangkat ke Jakarta"
-      },
-      {
-        "date": "Jum, 6 Nov",
-        "agenda": "Tiba di Jakarta"
-      }
-    ],
     "daily_details": [
       {
         "date_display": "Sel, 20 Okt",
@@ -90,6 +32,11 @@
             "icon": "✈️"
           }
         ]
+      },
+      {
+        "date_display": "Jum, 23 Okt",
+        "title": "Persiapan",
+        "activities": []
       },
       {
         "date_display": "Sab, 24 Okt",
@@ -511,7 +458,7 @@
         "activities": [
           {
             "time": "",
-            "description": "Belum ada reservasi",
+            "description": "Belum ada reservasi ",
             "icon": "⚠️"
           }
         ]
