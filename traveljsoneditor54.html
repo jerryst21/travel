@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Data JSON Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar untuk preview JSON */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen font-sans">
+
+    <div class="max-w-[1600px] mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <div class="lg:col-span-7 xl:col-span-8 bg-gray-800 rounded-xl shadow-xl border border-gray-700 p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between border-b border-gray-700 pb-4 mb-6">
+                    <div>
+                        <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <span>🔧</span> Custom Travel JSON Editor
+                        </h1>
+                        <p class="text-sm text-gray-400 mt-1">Kelola data itinerary perjalanan Anda dengan mudah sebelum di-push ke GitHub.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 border-b border-gray-700 pb-3 mb-6">
+                    <button onclick="switchTab('tab-umum')" id="btn-tab-umum" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition-all bg-blue-600 text-white">ℹ️ Info Umum</button>
+                    <button onclick="switchTab('tab-perjalanan')" id="btn-tab-perjalanan" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition-all bg-gray-700 text-gray-300 hover:bg-gray-600">📅 Detail Perjalanan</button>
+                    <button onclick="switchTab('tab-reservasi')" id="btn-tab-reservasi" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition-all bg-gray-700 text-gray-300 hover:bg-gray-600">🏨 Reservasi</button>
+                    <button onclick="switchTab('tab-catatan')" id="btn-tab-catatan" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition-all bg-gray-700 text-gray-300 hover:bg-gray-600">📝 Catatan & Imigrasi</button>
+                </div>
+
+                <form id="travelForm" oninput="syncStaticFields()" onsubmit="event.preventDefault();">
+                    
+                    <div id="tab-umum" class="tab-content block space-y-4">
+                        <h3 class="text-lg font-semibold text-blue-400 mb-2">Informasi Utama Trip</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Judul Utama Trip</label>
+                                <input type="text" id="trip_title" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Sub-judul / Keterangan</label>
+                                <input type="text" id="trip_subtitle" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Tanggal Mulai (Sistem)</label>
+                                <input type="date" id="trip_start_date" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Tanggal Selesai (Sistem)</label>
+                                <input type="date" id="trip_end_date" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Teks Tampilan Periode</label>
+                                <input type="text" id="trip_date_display" placeholder="Contoh: Kam, 9 Apr - Jum, 16 Apr" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Nama Peserta (Pisahkan dengan koma)</label>
+                                <input type="text" id="trip_participants" placeholder="Contoh: Papa, Mama, Linda" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Terakhir Diperbarui</label>
+                                <input type="text" id="trip_last_update" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-perjalanan" class="tab-content hidden space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-semibold text-blue-400">1. Ringkasan Timeline (Rute Singkat)</h3>
+                                <button type="button" onclick="addTimelineItem()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">+ Tambah Rute</button>
+                            </div>
+                            <div id="timeline-container" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+                        </div>
+
+                        <div class="border-t border-gray-700 pt-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-semibold text-blue-400">2. Detail Aktivitas Per Hari (Jam demi Jam)</h3>
+                                <button type="button" onclick="addDailyDetail()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">+ Tambah Hari Baru</button>
+                            </div>
+                            <div id="daily-container" class="space-y-4"></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-reservasi" class="tab-content hidden space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-semibold text-blue-400">🏨 Booking & Informasi Hotel</h3>
+                                <button type="button" onclick="addHotelItem()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">+ Tambah Hotel</button>
+                            </div>
+                            <div id="hotels-container" class="space-y-4"></div>
+                        </div>
+
+                        <div class="border-t border-gray-700 pt-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-semibold text-blue-400">✈️ Detail Penerbangan (Flights)</h3>
+                                <button type="button" onclick="addFlightItem()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">+ Tambah Penerbangan</button>
+                            </div>
+                            <div id="flights-container" class="space-y-4"></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-catatan" class="tab-content hidden space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-semibold text-blue-400">📍 Kontak Penting / Alamat Wisata</h3>
+                                <button type="button" onclick="addContactItem()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">+ Tambah Kontak</button>
+                            </div>
+                            <div id="contacts-container" class="space-y-2"></div>
+                        </div>
+
+                        <div class="border-t border-gray-700 pt-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-lg font-semibold text-blue-400">🛂 Tautan Imigrasi (SGAC, MDAC, dll)</h3>
+                                <button type="button" onclick="addImmigrationItem()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">+ Tambah Tautan</button>
+                            </div>
+                            <div id="immigration-container" class="space-y-2"></div>
+                        </div>
+
+                        <div class="border-t border-gray-700 pt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2">📝 Catatan Tour Guide / Medis (1 baris per catatan)</h3>
+                                <textarea id="tour_guide_notes" rows="4" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm" placeholder="Contoh: Titip obat Mama di tas jinjing..."></textarea>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2">🧳 Checklist Perlengkapan Travel (1 baris per item)</h3>
+                                <textarea id="travel_checklist" rows="4" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm" placeholder="Contoh: Paspor&#10;Mata Uang Asing&#10;Payung Lipat"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="lg:col-span-5 xl:col-span-4 flex flex-col h-[calc(100vh-3rem)] sticky top-6">
+            <div class="bg-gray-800 rounded-xl shadow-xl border border-gray-700 p-4 flex flex-col h-full justify-between">
+                <div class="flex flex-col flex-1 min-h-0">
+                    <div class="flex items-center justify-between border-b border-gray-700 pb-3 mb-3">
+                        <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wider flex items-center gap-2">
+                            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Live JSON Output
+                        </h3>
+                        <div class="flex gap-2">
+                            <button onclick="loadJSONFromTextarea()" class="text-xs bg-gray-700 hover:bg-gray-600 text-gray-200 px-2 py-1 rounded transition-colors" title="Singkronisasi form jika teks JSON di box diubah manual">🔄 Muat dari Box</button>
+                            <button onclick="copyToClipboard()" class="text-xs bg-gray-700 hover:bg-gray-600 text-gray-200 px-2 py-1 rounded transition-colors" id="btn-copy">📋 Copy</button>
+                        </div>
+                    </div>
+                    
+                    <textarea id="json-preview" spellcheck="false" class="flex-1 w-full bg-gray-950 font-mono text-xs text-emerald-400 p-4 rounded-lg border border-gray-800 resize-none focus:outline-none focus:border-gray-700 overflow-y-auto"></textarea>
+                </div>
+
+                <div class="mt-4 border-t border-gray-700 pt-4">
+                    <button onclick="downloadJSON()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm">
+                        💾 Unduh File travel_data.json
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Data Awal Berdasarkan Screenshot & Rancangan Awal Anda
+        let currentData = {
+            "trip_info": {
+                "title": "Trip Singapura - Kuala Lumpur 2026",
+                "subtitle": "Jadwal Perjalanan & Pemeriksaan Medis",
+                "start_date": "2026-04-09",
+                "end_date": "2026-04-16",
+                "date_display": "Kam, 9 Apr - Jum, 16 Apr",
+                "participants": ["Papa", "Mama", "Linda"],
+                "last_update": "01 April 2026"
+            },
+            "perjalanan": {
+                "timeline_summary": [
+                    {"date": "Kam, 9 Apr", "agenda": "Keberangkatan Manado - Kuala Lumpur"},
+                    {"date": "Jum, 10 Apr", "agenda": "Pemeriksaan Kaki Mama"},
+                    {"date": "Sab, 11 Apr", "agenda": "Bebas"},
+                    {"date": "Min, 12 Apr", "agenda": "Penerbangan Kuala Lumpur - Singapura"},
+                    {"date": "Sen, 13 Apr", "agenda": "Pemeriksaan & Konsultasi Paru"},
+                    {"date": "Sel, 14 Apr", "agenda": "Bebas/Follow Up"},
+                    {"date": "Rab, 15 Apr", "agenda": "Konsultasi dengan Dr. Whang"},
+                    {"date": "Kam, 16 Apr", "agenda": "Kepulangan ke Manado?"}
+                ],
+                "daily_details": [
+                    {
+                        "date_display": "Kam, 9 Apr",
+                        "title": "Kam, 9 Apr - Penerbangan MDC - KL",
+                        "activities": [
+                            {"time": "04.30", "description": "mulai perjalanan ke airport (Est. 30 menit)", "icon": "🚗"},
+                            {"time": "05.00", "description": "Tiba di Airport dan proses Checkin", "icon": "🛫"},
+                            {"time": "08.00-11.30", "description": "Penerbangan Manado ➔ Singapore", "icon": "✈️"},
+                            {"time": "11.30-16.00", "description": "Transit di Changi Airport (4 jam 30 min)", "icon": "🔄"},
+                            {"time": "16.00-17.25", "description": "Penerbangan Singapore ➔ Kuala Lumpur", "icon": "✈️"},
+                            {"time": "18.00-19.00", "description": "Perjalanan ke Banyan Tree KL (Samping Mall Pavilion) Est. 30 menit", "icon": "🚗"}
+                        ]
+                    }
+                ]
+            },
+            "reservasi": {
+                "hotels": [
+                    {
+                        "name": "Banyan Tree Kuala Lumpur",
+                        "check_in": "Kamis, 9 April",
+                        "check_out": "Minggu, 12 April (3 Malam - 1 Kamar)",
+                        "guests": "Papa, Mama, Linda",
+                        "payment_info": "Pembayaran via KK DBS Siska 27 Mar 2026",
+                        "airport_distance": "Est. Hotel ➔ Airport: 1 jam",
+                        "vouchers": [
+                            {"filename": "Hotel E-Voucher - Order ID 1341014572.pdf", "url": "#"},
+                            {"filename": "E-Receipt-Hotel-ID-1341014572.pdf", "url": "#"}
+                        ]
+                    },
+                    {
+                        "name": "One Farrer Hotel, Farrer Park",
+                        "check_in": "Senin, 12 April",
+                        "check_out": "Kamis, 16 April 12pm (4 Malam - 1 Kamar)",
+                        "guests": "Papa, Mama, Linda",
+                        "payment_info": "Pembayaran via Traveloka Linda (KK Charlie)",
+                        "airport_distance": "Est. Hotel ➔ Airport: 30 menit",
+                        "vouchers": [
+                            {"filename": "Charlie Gulardi cahya-1343174689-One Farrer Hotel-HOTEL_STANDALONE.pdf", "url": "#"}
+                        ]
+                    }
+                ],
+                "flights": [
+                    {
+                        "title": "Kam, 9 April – Penerbangan ke Kuala Lumpur",
+                        "summary": "Scoot TR 319 | 08.00 - 17.25 (9 Jam 25 Min)",
+                        "details": [
+                            "MDC ➔ SIN : 08.00 - 11.30 (3 Jam 30 Min)",
+                            "Transit (4 Jam 30 Min)",
+                            "SIN ➔ KUL : 16.00 - 17.25 (1 Jam 25 Min)"
+                        ],
+                        "vouchers": [
+                            {"filename": "Flight E-ticket-TR319-MDC-KUL-RDMDRD.pdf", "url": "#"}
+                        ]
+                    }
+                ]
+            },
+            "catatan": {
+                "contacts": [
+                    {"name": "Banyan Tree KL", "details": "2, Jalan Conlay, Kuala Lumpur, Malaysia"},
+                    {"name": "One Farrer Hotel", "details": "1 Farrer Park Station Rd, Singapore 217562"}
+                ],
+                "immigration": [
+                    {"country": "Malaysia", "label": "Malaysia Digital Arrival Card (MDAC)", "url": "https://imigresen-online.imi.gov.my/mdac/main"},
+                    {"country": "Singapore", "label": "Singapore Arrival Card (SGAC)", "url": "https://eservices.ica.gov.wsg/sgarrivalcard/"}
+                ],
+                "tour_guide_notes": ["Dokumen paspor wajib dipegang masing-masing anak saat imigrasi."],
+                "travel_checklist": ["Paspor aktif min 6 bulan", "Mata uang SGD & MYR tunai", "Cetak bukti reservasi fisik"]
+            }
+        };
+
+        // --- MANAJEMEN TAB ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.replace('block', 'hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.replace('bg-blue-600', 'bg-gray-700');
+                el.classList.replace('text-white', 'text-gray-300');
+            });
+            
+            document.getElementById(tabId).classList.replace('hidden', 'block');
+            document.getElementById('btn-' + tabId).classList.replace('bg-gray-700', 'bg-blue-600');
+            document.getElementById('btn-' + tabId).classList.replace('text-gray-300', 'text-white');
+        }
+
+        // --- INISIALISASI & SYNC DATA ---
+        function initFormValues() {
+            // Mapping field static info utama
+            document.getElementById('trip_title').value = currentData.trip_info.title || '';
+            document.getElementById('trip_subtitle').value = currentData.trip_info.subtitle || '';
+            document.getElementById('trip_start_date').value = currentData.trip_info.start_date || '';
+            document.getElementById('trip_end_date').value = currentData.trip_info.end_date || '';
+            document.getElementById('trip_date_display').value = currentData.trip_info.date_display || '';
+            document.getElementById('trip_participants').value = (currentData.trip_info.participants || []).join(', ');
+            document.getElementById('trip_last_update').value = currentData.trip_info.last_update || '';
+
+            // Textarea notes & checklist array mapping
+            document.getElementById('tour_guide_notes').value = (currentData.catatan.tour_guide_notes || []).join('\n');
+            document.getElementById('travel_checklist').value = (currentData.catatan.travel_checklist || []).join('\n');
+
+            // Render komponen dinamis
+            renderTimelineSummary();
+            renderDailyDetails();
+            renderHotels();
+            renderFlights();
+            renderContacts();
+            renderImmigration();
+
+            updateJSONPreview();
+        }
+
+        function syncStaticFields() {
+            currentData.trip_info.title = document.getElementById('trip_title').value;
+            currentData.trip_info.subtitle = document.getElementById('trip_subtitle').value;
+            currentData.trip_info.start_date = document.getElementById('trip_start_date').value;
+            currentData.trip_info.end_date = document.getElementById('trip_end_date').value;
+            currentData.trip_info.date_display = document.getElementById('trip_date_display').value;
+            currentData.trip_info.participants = document.getElementById('trip_participants').value.split(',').map(s => s.trim()).filter(s => s !== '');
+            currentData.trip_info.last_update = document.getElementById('trip_last_update').value;
+
+            // Textarea mapping split by newline
+            currentData.catatan.tour_guide_notes = document.getElementById('tour_guide_notes').value.split('\n').filter(s => s.trim() !== '');
+            currentData.catatan.travel_checklist = document.getElementById('travel_checklist').value.split('\n').filter(s => s.trim() !== '');
+
+            updateJSONPreview();
+        }
+
+        function updateJSONPreview() {
+            document.getElementById('json-preview').value = JSON.stringify(currentData, null, 2);
+        }
+
+        // --- DYNAMIC RENDERING: TIMELINE SUMMARY ---
+        function renderTimelineSummary() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = '';
+            currentData.perjalanan.timeline_summary.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="flex items-center gap-2 bg-gray-900 p-2 rounded-lg border border-gray-700">
+                        <input type="text" value="${item.date}" oninput="currentData.perjalanan.timeline_summary[${index}].date = this.value; updateJSONPreview();" class="bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-white w-28" placeholder="Tgl">
+                        <input type="text" value="${item.agenda}" oninput="currentData.perjalanan.timeline_summary[${index}].agenda = this.value; updateJSONPreview();" class="bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-white flex-1" placeholder="Agenda Perjalanan">
+<button onclick="moveItem(currentData.perjalanan.timeline_summary, ${index}, -1); renderTimelineSummary(); updateJSONPreview();" class="...">⬆️</button>
+<button onclick="moveItem(currentData.perjalanan.timeline_summary, ${index}, 1); renderTimelineSummary(); updateJSONPreview();" class="...">⬇️</button>
+                        <button type="button" onclick="removeTimelineItem(${index})" class="text-red-400 hover:text-red-300 text-sm font-bold px-2">✕</button>
+                    </div>`;
+            });
+        }
+        function addTimelineItem() {
+            currentData.perjalanan.timeline_summary.push({"date": "Hari, Tgl", "agenda": "Aktivitas utama"});
+            renderTimelineSummary();
+            updateJSONPreview();
+        }
+        function removeTimelineItem(index) {
+            currentData.perjalanan.timeline_summary.splice(index, 1);
+            renderTimelineSummary();
+            updateJSONPreview();
+        }
+
+        // --- DYNAMIC RENDERING: DAILY DETAILS & ACTIVITIES ---
+        function renderDailyDetails() {
+            const container = document.getElementById('daily-container');
+            container.innerHTML = '';
+            currentData.perjalanan.daily_details.forEach((day, dayIdx) => {
+                let actHtml = '';
+                (day.activities || []).forEach((act, actIdx) => {
+                    actHtml += `
+                        <div class="flex items-center gap-2 bg-gray-950 p-2 rounded border border-gray-800">
+                            <input type="text" value="${act.time}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].time = this.value; updateJSONPreview();" class="w-24 bg-gray-900 text-sm border border-gray-700 rounded px-2 py-1" placeholder="Jam">
+                            <input type="text" value="${act.icon || '📍'}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].icon = this.value; updateJSONPreview();" class="w-10 text-center bg-gray-900 text-sm border border-gray-700 rounded py-1" title="Emoji">
+                            <input type="text" value="${act.description}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].description = this.value; updateJSONPreview();" class="flex-1 bg-gray-900 text-sm border border-gray-700 rounded px-2 py-1" placeholder="Aktivitas detail">
+                            <button type="button" onclick="removeActivityItem(${dayIdx}, ${actIdx})" class="text-red-400 hover:text-red-300 text-xs">✕</button>
+                        </div>`;
+                });
+
+                container.innerHTML += `
+                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-700 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2 flex-1 max-w-xl">
+                                <input type="text" value="${day.date_display}" oninput="currentData.perjalanan.daily_details[${dayIdx}].date_display = this.value; updateJSONPreview();" class="w-32 bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 font-bold text-blue-400">
+                                <input type="text" value="${day.title}" oninput="currentData.perjalanan.daily_details[${dayIdx}].title = this.value; updateJSONPreview();" class="flex-1 bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 font-bold text-white">
+                            </div>
+							<button onclick="moveItem(currentData.perjalanan.daily_details, ${dayIdx}, -1); renderDailyDetails(); updateJSONPreview();" class="...">⬆️</button>
+							<button onclick="moveItem(currentData.perjalanan.daily_details, ${dayIdx}, 1); renderDailyDetails(); updateJSONPreview();" class="...">⬇️</button>
+                            <button type="button" onclick="removeDailyDetailCard(${dayIdx})" class="bg-red-900/40 hover:bg-red-900 text-red-300 text-xs px-2.5 py-1 rounded-lg border border-red-700">Hapus Hari</button>
+                        </div>
+                        <div class="space-y-1.5 pl-4 border-l border-dashed border-gray-700">
+                            ${actHtml}
+                            <button type="button" onclick="addActivityItem(${dayIdx})" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold mt-1">+ Tambah Baris Aktivitas Jam</button>
+                        </div>
+                    </div>`;
+            });
+        }
+        function addDailyDetail() {
+            currentData.perjalanan.daily_details.push({"date_display": "Hari, Tgl", "title": "Judul Header Kartu Hari", "activities": []});
+            renderDailyDetails();
+            updateJSONPreview();
+        }
+        function removeDailyDetailCard(index) {
+            currentData.perjalanan.daily_details.splice(index, 1);
+            renderDailyDetails();
+            updateJSONPreview();
+        }
+        function addActivityItem(dayIdx) {
+            currentData.perjalanan.daily_details[dayIdx].activities.push({"time": "00.00", "description": "Detail agenda baru", "icon": "📍"});
+            renderDailyDetails();
+            updateJSONPreview();
+        }
+        function removeActivityItem(dayIdx, actIdx) {
+            currentData.perjalanan.daily_details[dayIdx].activities.splice(actIdx, 1);
+            renderDailyDetails();
+            updateJSONPreview();
+        }
+
+        // --- DYNAMIC RENDERING: HOTELS ---
+        function renderHotels() {
+            const container = document.getElementById('hotels-container');
+            container.innerHTML = '';
+            currentData.reservasi.hotels.forEach((hotel, index) => {
+                let vHtml = '';
+                (hotel.vouchers || []).forEach((v, vIdx) => {
+                    vHtml += `
+                        <div class="flex gap-2 items-center">
+                            <input type="text" value="${v.filename}" oninput="currentData.reservasi.hotels[${index}].vouchers[${vIdx}].filename = this.value; updateJSONPreview();" class="bg-gray-950 border border-gray-800 rounded px-2 py-0.5 text-xs w-1/2" placeholder="Nama Voucher PDF">
+                            <input type="text" value="${v.url}" oninput="currentData.reservasi.hotels[${index}].vouchers[${vIdx}].url = this.value; updateJSONPreview();" class="bg-gray-950 border border-gray-800 rounded px-2 py-0.5 text-xs w-1/2" placeholder="URL Link File atau Receipt">
+                            <button type="button" onclick="removeHotelVoucher(${index}, ${vIdx})" class="text-red-400 hover:text-red-300 text-xs">✕</button>
+                        </div>`;
+                });
+
+                container.innerHTML += `
+                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-700 space-y-3 relative">
+						<button onclick="moveItem(currentData.reservasi.hotels, ${index}, -1); renderHotels(); updateJSONPreview();" class="g-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-xs">⬆️</button>
+						<button onclick="moveItem(currentData.reservasi.hotels, ${index}, 1); renderHotels(); updateJSONPreview();" class="g-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-xs">⬇️</button>
+                        <button type="button" onclick="removeHotelItem(${index})" class="absolute top-4 right-4 text-xs text-red-400 hover:text-red-300">✕ Hapus Hotel</button>
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-500 uppercase">Nama Hotel</label>
+                            <input type="text" value="${hotel.name}" oninput="currentData.reservasi.hotels[${index}].name = this.value; updateJSONPreview();" class="w-full max-w-md bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-white font-semibold">
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 uppercase">Check In</label>
+                                <input type="text" value="${hotel.check_in}" oninput="currentData.reservasi.hotels[${index}].check_in = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 uppercase">Check Out / Durasi</label>
+                                <input type="text" value="${hotel.check_out}" oninput="currentData.reservasi.hotels[${index}].check_out = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 uppercase">Tamu / Guests</label>
+                                <input type="text" value="${hotel.guests}" oninput="currentData.reservasi.hotels[${index}].guests = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 uppercase">Info Pembayaran / KK</label>
+                                <input type="text" value="${hotel.payment_info}" oninput="currentData.reservasi.hotels[${index}].payment_info = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-500 uppercase">Estimasi ke Airport</label>
+                            <input type="text" value="${hotel.airport_distance || ''}" oninput="currentData.reservasi.hotels[${index}].airport_distance = this.value; updateJSONPreview();" class="w-full max-w-sm bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1" placeholder="Contoh: Est. Hotel ➔ Airport: 30 menit">
+                        </div>
+                        <div class="bg-gray-800 p-2.5 rounded-lg space-y-1.5">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase">📄 Link E-Voucher / Receipt Booking</label>
+                            ${vHtml}
+                            <button type="button" onclick="addHotelVoucher(${index})" class="text-[11px] text-blue-400 hover:text-blue-300 font-medium">+ Tambah Dokumen</button>
+                        </div>
+                    </div>`;
+            });
+        }
+        function addHotelItem() {
+            currentData.reservasi.hotels.push({"name": "Hotel Baru", "check_in": "", "check_out": "", "guests": "", "payment_info": "", "airport_distance": "", "vouchers": []});
+            renderHotels();
+            updateJSONPreview();
+        }
+        function removeHotelItem(index) {
+            currentData.reservasi.hotels.splice(index, 1);
+            renderHotels();
+            updateJSONPreview();
+        }
+        function addHotelVoucher(index) {
+            currentData.reservasi.hotels[index].vouchers.push({"filename": "Nama_File.pdf", "url": "#"});
+            renderHotels();
+            updateJSONPreview();
+        }
+        function removeHotelVoucher(index, vIdx) {
+            currentData.reservasi.hotels[index].vouchers.splice(vIdx, 1);
+            renderHotels();
+            updateJSONPreview();
+        }
+
+        // --- DYNAMIC RENDERING: FLIGHTS ---
+        function renderFlights() {
+            const container = document.getElementById('flights-container');
+            container.innerHTML = '';
+            currentData.reservasi.flights.forEach((flight, index) => {
+                let linesHtml = '';
+                (flight.details || []).forEach((line, lIdx) => {
+                    linesHtml += `
+                        <div class="flex gap-2 items-center">
+                            <input type="text" value="${line}" oninput="currentData.reservasi.flights[${index}].details[${lIdx}] = this.value; updateJSONPreview();" class="bg-gray-950 border border-gray-800 rounded px-2 py-0.5 text-xs flex-1" placeholder="Rute / Detail transit">
+                            <button type="button" onclick="removeFlightDetailLine(${index}, ${lIdx})" class="text-red-400 text-xs">✕</button>
+                        </div>`;
+                });
+
+                let vHtml = '';
+                (flight.vouchers || []).forEach((v, vIdx) => {
+                    vHtml += `
+                        <div class="flex gap-2 items-center">
+                            <input type="text" value="${v.filename}" oninput="currentData.reservasi.flights[${index}].vouchers[${vIdx}].filename = this.value; updateJSONPreview();" class="bg-gray-950 border border-gray-800 rounded px-2 py-0.5 text-xs w-1/2" placeholder="File E-Ticket">
+                            <input type="text" value="${v.url}" oninput="currentData.reservasi.flights[${index}].vouchers[${vIdx}].url = this.value; updateJSONPreview();" class="bg-gray-950 border border-gray-800 rounded px-2 py-0.5 text-xs w-1/2" placeholder="URL Link">
+                            <button type="button" onclick="removeFlightVoucher(${index}, ${vIdx})" class="text-red-400 text-xs">✕</button>
+                        </div>`;
+                });
+
+                container.innerHTML += `
+                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-700 space-y-3 relative">
+						<button onclick="moveItem(currentData.reservasi.flights, ${index}, -1); renderFlights(); updateJSONPreview();" class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-xs">⬆️</button>
+						<button onclick="moveItem(currentData.reservasi.flights, ${index}, 1); renderFlights(); updateJSONPreview();" class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-xs">⬇️</button>
+                        <button type="button" onclick="removeFlightItem(${index})" class="absolute top-4 right-4 text-xs text-red-400 hover:text-red-300">✕ Hapus Flight</button>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+							<div>
+								<label class="block text-[10px] font-bold text-gray-500 uppercase">Judul Penerbangan</label>
+								<input type="text" value="${flight.title}" oninput="currentData.reservasi.flights[${index}].title = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white font-bold">
+							</div>
+							
+							<div>
+								<label class="block text-[10px] font-bold text-gray-500 uppercase">Tanggal & Waktu</label>
+								<input type="datetime-local" value="${flight.flight_time || ''}" oninput="currentData.reservasi.flights[${index}].flight_time = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white">
+							</div>
+							<div>
+								<label class="block text-[10px] font-bold text-gray-500 uppercase">Ringkasan Maskapai & Jam</label>
+								<input type="text" value="${flight.summary}" oninput="currentData.reservasi.flights[${index}].summary = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
+							</div>
+						</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-gray-800 p-2.5 rounded-lg space-y-1.5">
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase">Sub-Detail Jalur Transit / Jam</label>
+                                ${linesHtml}
+                                <button type="button" onclick="addFlightDetailLine(${index})" class="text-[11px] text-emerald-400 hover:text-emerald-300 font-medium">+ Tambah Detail Rute</button>
+                            </div>
+                            <div class="bg-gray-800 p-2.5 rounded-lg space-y-1.5">
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase">🎟️ E-Ticket Dokumen</label>
+                                ${vHtml}
+                                <button type="button" onclick="addFlightVoucher(${index})" class="text-[11px] text-blue-400 hover:text-blue-300 font-medium">+ Tambah E-Ticket</button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+        function addFlightItem() {
+            currentData.reservasi.flights.push({
+				"title": "Penerbangan Ke-X", 
+				"flight_time": "", 
+				"summary": "", 
+				"details": [], 
+				"vouchers": []
+			});
+            renderFlights();
+            updateJSONPreview();
+        }
+        function removeFlightItem(index) {
+            currentData.reservasi.flights.splice(index, 1);
+            renderFlights();
+            updateJSONPreview();
+        }
+        function addFlightDetailLine(index) {
+            currentData.reservasi.flights[index].details.push("MDC ➔ SIN : 08.00 - 11.30");
+            renderFlights();
+            updateJSONPreview();
+        }
+        function removeFlightDetailLine(index, lIdx) {
+            currentData.reservasi.flights[index].details.splice(lIdx, 1);
+            renderFlights();
+            updateJSONPreview();
+        }
+        function addFlightVoucher(index) {
+            currentData.reservasi.flights[index].vouchers.push({"filename": "Flight_Ticket.pdf", "url": "#"});
+            renderFlights();
+            updateJSONPreview();
+        }
+        function removeFlightVoucher(index, vIdx) {
+            currentData.reservasi.flights[index].vouchers.splice(vIdx, 1);
+            renderFlights();
+            updateJSONPreview();
+        }
+
+        // --- DYNAMIC RENDERING: CONTACTS ---
+        function renderContacts() {
+            const container = document.getElementById('contacts-container');
+            container.innerHTML = '';
+            currentData.catatan.contacts.forEach((c, index) => {
+                container.innerHTML += `
+                    <div class="flex items-center gap-2 bg-gray-900 p-2 rounded-lg border border-gray-700">
+                        <input type="text" value="${c.name}" oninput="currentData.catatan.contacts[${index}].name = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white w-40 font-bold" placeholder="Nama Tempat">
+                        <input type="text" value="${c.details}" oninput="currentData.catatan.contacts[${index}].details = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white flex-1" placeholder="Alamat lengkap / Kontak">
+<button onclick="moveItem(currentData.catatan.contacts, ${index}, -1); renderContacts(); updateJSONPreview();" class="...">⬆️</button>
+<button onclick="moveItem(currentData.catatan.contacts, ${index}, 1); renderContacts(); updateJSONPreview();" class="...">⬇️</button>
+                        <button type="button" onclick="removeContactItem(${index})" class="text-red-400 hover:text-red-300 text-sm px-1">✕</button>
+                    </div>`;
+            });
+        }
+        function addContactItem() {
+            currentData.catatan.contacts.push({"name": "Nama Lokasi", "details": "Alamat / Telepon"});
+            renderContacts();
+            updateJSONPreview();
+        }
+        function removeContactItem(index) {
+            currentData.catatan.contacts.splice(index, 1);
+            renderContacts();
+            updateJSONPreview();
+        }
+
+        // --- DYNAMIC RENDERING: IMMIGRATION ---
+        function renderImmigration() {
+            const container = document.getElementById('immigration-container');
+            container.innerHTML = '';
+            currentData.catatan.immigration.forEach((imm, index) => {
+                container.innerHTML += `
+                    <div class="grid grid-cols-1 md:grid-cols-8 gap-2 bg-gray-900 p-2 rounded-lg border border-gray-700 items-center">
+    
+						<input type="text" value="${imm.country}" oninput="currentData.catatan.immigration[${index}].country = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white col-span-1" placeholder="Negara">
+						
+						<input type="text" value="${imm.label}" oninput="currentData.catatan.immigration[${index}].label = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white col-span-2" placeholder="Nama Kartu">
+						
+						<input type="text" value="${imm.url}" oninput="currentData.catatan.immigration[${index}].url = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white col-span-4" placeholder="URL">
+
+						<div class="flex gap-1 justify-end">
+							<button onclick="moveItem(currentData.catatan.immigration, ${index}, -1); renderImmigration(); updateJSONPreview();" class="text-xs hover:bg-gray-700 p-1.5 rounded text-gray-300">⬆️</button>
+							<button onclick="moveItem(currentData.catatan.immigration, ${index}, 1); renderImmigration(); updateJSONPreview();" class="text-xs hover:bg-gray-700 p-1.5 rounded text-gray-300">⬇️</button>
+							<button type="button" onclick="removeImmigrationItem(${index})" class="text-xs text-red-400 hover:text-red-300 font-bold p-1.5">✕</button>
+						</div>
+
+					</div>`;
+            });
+        }
+        function addImmigrationItem() {
+            currentData.catatan.immigration.push({"country": "Negara Baru", "label": "Nama Form Kedatangan", "url": "#"});
+            renderImmigration();
+            updateJSONPreview();
+        }
+        function removeImmigrationItem(index) {
+            currentData.catatan.immigration.splice(index, 1);
+            renderImmigration();
+            updateJSONPreview();
+        }
+
+        // --- MANAJEMEN EXPORT / IMPORT JSON ---
+        function loadJSONFromTextarea() {
+            try {
+                const textValue = document.getElementById('json-preview').value;
+                const parsed = JSON.parse(textValue);
+                
+                // Validasi struktur minimal agar form tidak error
+                if(!parsed.trip_info || !parsed.perjalanan || !parsed.reservasi || !parsed.catatan) {
+                    alert("Format JSON tidak valid! Pastikan memiliki objek utama: trip_info, perjalanan, reservasi, dan catatan.");
+                    return;
+                }
+                
+                currentData = parsed;
+                initFormValues();
+                alert("✅ Data JSON berhasil disinkronisasi ke formulir form di kiri!");
+            } catch (err) {
+                alert("❌ Gagal memuat JSON. Periksa kembali tanda baca, kurung kurawal atau koma Anda.\nError: " + err.message);
+            }
+        }
+
+        function copyToClipboard() {
+            const textarea = document.getElementById('json-preview');
+            textarea.select();
+            document.execCommand('copy');
+            
+            const copyBtn = document.getElementById('btn-copy');
+            copyBtn.innerText = "Copied! ✓";
+            copyBtn.classList.replace('bg-gray-700', 'bg-emerald-700');
+            setTimeout(() => {
+                copyBtn.innerText = "📋 Copy";
+                copyBtn.classList.replace('bg-emerald-700', 'bg-gray-700');
+            }, 2000);
+        }
+
+        function downloadJSON() {
+            syncStaticFields(); // Pastikan data static paling update
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentData, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", "travel_data.json");
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+        }
+		
+		function moveItem(arr, index, direction) {
+			const newIndex = index + direction;
+			if (newIndex >= 0 && newIndex < arr.length) {
+				[arr[index], arr[newIndex]] = [arr[newIndex], arr[index]];
+			}
+		}
+
+        // Jalankan Inisialisasi saat window dimuat
+        window.onload = function() {
+            initFormValues();
+        };
+    </script>
+</body>
+</html>
