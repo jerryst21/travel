@@ -621,7 +621,7 @@
             AJAX LOAD DATA & RENDER
             ====================================================== */
             document.addEventListener("DOMContentLoaded", () => {
-                fetch('/json/2026malaysia.json')
+                fetch('/travel/json/2026malaysia.json')
                     .then(response => response.json())
                     .then(data => {
                         renderApp(data);
@@ -653,7 +653,7 @@
                 const itineraryContainer = document.getElementById('itinerary-cards-container');
                 itineraryContainer.innerHTML = data.perjalanan.daily_details.map(card => `
                     <div class="card border-activity">
-                        <div class="card-title"><span>📅</span>${card.title || card.date_display}</div>
+                        <div class="card-title"><span>📅</span>${card.date_display} ${card.title}</div>
                         ${card.activities && card.activities.length > 0 ? card.activities.map(item => `
                             <div class="schedule-item">
                                 <div class="time">${item.time}</div>
