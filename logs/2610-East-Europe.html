@@ -688,23 +688,30 @@
                     </div>
                 `).join('') : '';
 
-                // 4b. Render Hotel
-                const hotelHtml = data.reservasi.hotels ? data.reservasi.hotels.map(hotel => `
-                    <div class="card border-hotel">
-                        <div class="card-title"><span>🏨</span>${hotel.name}</div>
-                        <p>🛎️ <strong>${hotel.notes}</strong>
-							<br /> 🛎️ <strong>Check-in:</strong> ${hotel.check_in}
-                            <br /> 👋 <strong>Check-out:</strong> ${hotel.check_out}
-                            <br /> 👥 <strong>Tamu:</strong> ${hotel.guests} </p>
-                        <p class="important-note"> 📍 <strong>Hotel E-Voucher & Bukti: <br /></strong>
-                            ${hotel.vouchers ? hotel.vouchers.map(v => `
-                                <a class="pdf-link" href="${v.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i>${v.filename}</a><br />
-                            `).join('') : ''}
-                            <span class="note-text">${hotel.payment_info}</span>
-                        </p>
-                        ⏱️ Jarak Ke Bandara: <span class="map-location">${hotel.airport_distance}</span>
-                    </div>
-                `).join('') : '';
+				// 4b. Render Hotel
+				const hotelHtml = data.reservasi.hotels ? data.reservasi.hotels.map(hotel => `
+					<div class="card border-hotel">
+						<div class="card-title"><span>🏨</span>${hotel.name}</div>
+						<p>
+							${hotel.notes ? `📋 <strong>${hotel.notes}</strong><br />` : ''}
+							${hotel.check_in ? `🛎️ <strong>Check-in:</strong> ${hotel.check_in}<br />` : ''}
+							${hotel.check_out ? `👋 <strong>Check-out:</strong> ${hotel.check_out}<br />` : ''}
+							${hotel.guests ? `👥 <strong>Tamu:</strong> ${hotel.guests}<br />` : ''}
+						</p>
+
+						<p class="important-note">
+							${hotel.vouchers && hotel.vouchers.length > 0 ? `
+								📍 <strong>Hotel E-Voucher & Bukti: <br /></strong>
+								${hotel.vouchers.map(v => `
+									<a class="pdf-link" href="${v.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i>${v.filename}</a><br />
+								`).join('')}
+							` : ''}
+							${hotel.payment_info ? `<span class="note-text">${hotel.payment_info}</span>` : ''}
+						</p>
+
+						${hotel.airport_distance ? `⏱️ Jarak Ke Bandara: <span class="map-location">${hotel.airport_distance}</span>` : ''}
+					</div>
+				`).join('') : '';
 
                 resContainer.innerHTML = flightHtml + hotelHtml;
 
