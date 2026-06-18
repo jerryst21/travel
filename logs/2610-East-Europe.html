@@ -677,10 +677,10 @@
 
 				if (timelineContainer) {
 					timelineContainer.innerHTML = data.perjalanan.daily_details.map((day, index) => `
-						<div class="timeline-item" onclick="scrollToDay('day-${index}')" style="cursor: pointer;">
-							<div class="timeline-date">${day.date_display}</div>
-							<div class="timeline-title">${day.title}</div>
-						</div>
+						<tr class="timeline-item" onclick="scrollToDay('day-${index}')" style="cursor: pointer;">
+							<td class="timeline-date">${day.date_display}</td>
+							<td class="timeline-title">${day.title}</td>
+						</tr>
 					`).join('');
 				}
 
