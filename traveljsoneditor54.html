@@ -339,14 +339,24 @@
             const container = document.getElementById('timeline-container');
             container.innerHTML = '';
             currentData.perjalanan.timeline_summary.forEach((item, index) => {
-                container.innerHTML += `
-                    <div class="flex items-center gap-2 bg-gray-900 p-2 rounded-lg border border-gray-700">
-                        <input type="text" value="${item.date}" oninput="currentData.perjalanan.timeline_summary[${index}].date = this.value; updateJSONPreview();" class="bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-white w-28" placeholder="Tgl">
-                        <input type="text" value="${item.agenda}" oninput="currentData.perjalanan.timeline_summary[${index}].agenda = this.value; updateJSONPreview();" class="bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-white flex-1" placeholder="Agenda Perjalanan">
-<button onclick="moveItem(currentData.perjalanan.timeline_summary, ${index}, -1); renderTimelineSummary(); updateJSONPreview();" class="...">⬆️</button>
-<button onclick="moveItem(currentData.perjalanan.timeline_summary, ${index}, 1); renderTimelineSummary(); updateJSONPreview();" class="...">⬇️</button>
-                        <button type="button" onclick="removeTimelineItem(${index})" class="text-red-400 hover:text-red-300 text-sm font-bold px-2">✕</button>
-                    </div>`;
+				container.innerHTML += `
+					<div class="flex items-center gap-3 bg-gray-800 p-3 rounded-xl border border-gray-700 shadow-sm hover:border-blue-500/50 transition-all duration-200">
+						
+						<div class="flex flex-col items-center justify-center">
+							<button type="button" onclick="moveItem(currentData.perjalanan.timeline_summary, ${index}, -1); renderTimelineSummary(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▲</button>
+							<button type="button" onclick="moveItem(currentData.perjalanan.timeline_summary, ${index}, 1); renderTimelineSummary(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▼</button>
+						</div>
+
+						<input type="text" value="${item.date}" oninput="currentData.perjalanan.timeline_summary[${index}].date = this.value; updateJSONPreview();" class="w-28 bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-gray-300 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Tgl">
+						
+						<input type="text" value="${item.agenda}" oninput="currentData.perjalanan.timeline_summary[${index}].agenda = this.value; updateJSONPreview();" class="flex-1 bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-white focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Agenda Perjalanan">
+
+						<button type="button" onclick="removeTimelineItem(${index}); renderTimelineSummary(); updateJSONPreview();" class="text-gray-500 hover:text-red-400 p-1.5">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+							</svg>
+						</button>
+					</div>`;
             });
         }
         function addTimelineItem() {
@@ -386,22 +396,34 @@
 						</div>`;
                 });
 
-                container.innerHTML += `
-                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-700 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex gap-2 flex-1 max-w-xl">
-                                <input type="text" value="${day.date_display}" oninput="currentData.perjalanan.daily_details[${dayIdx}].date_display = this.value; updateJSONPreview();" class="w-32 bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 font-bold text-blue-400">
-                                <input type="text" value="${day.title}" oninput="currentData.perjalanan.daily_details[${dayIdx}].title = this.value; updateJSONPreview();" class="flex-1 bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 font-bold text-white">
-                            </div>
-							<button onclick="moveItem(currentData.perjalanan.daily_details, ${dayIdx}, -1); renderDailyDetails(); updateJSONPreview();" class="...">⬆️</button>
-							<button onclick="moveItem(currentData.perjalanan.daily_details, ${dayIdx}, 1); renderDailyDetails(); updateJSONPreview();" class="...">⬇️</button>
-                            <button type="button" onclick="removeDailyDetailCard(${dayIdx})" class="bg-red-900/40 hover:bg-red-900 text-red-300 text-xs px-2.5 py-1 rounded-lg border border-red-700">Hapus Hari</button>
-                        </div>
-                        <div class="space-y-1.5 pl-4 border-l border-dashed border-gray-700">
-                            ${actHtml}
-                            <button type="button" onclick="addActivityItem(${dayIdx})" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold mt-1">+ Tambah Baris Aktivitas Jam</button>
-                        </div>
-                    </div>`;
+				container.innerHTML += `
+					<div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm space-y-3">
+						<div class="flex items-center gap-3">
+							
+							<div class="flex flex-col items-center justify-center">
+								<button type="button" onclick="moveItem(currentData.perjalanan.daily_details, ${dayIdx}, -1); renderDailyDetails(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▲</button>
+								<button type="button" onclick="moveItem(currentData.perjalanan.daily_details, ${dayIdx}, 1); renderDailyDetails(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▼</button>
+							</div>
+
+							<div class="flex gap-2 flex-1">
+								<input type="text" value="${day.date_display}" oninput="currentData.perjalanan.daily_details[${dayIdx}].date_display = this.value; updateJSONPreview();" class="w-28 bg-gray-900 text-sm border border-gray-600 rounded-md px-3 py-1.5 font-bold text-blue-400 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Tanggal">
+								<input type="text" value="${day.title}" oninput="currentData.perjalanan.daily_details[${dayIdx}].title = this.value; updateJSONPreview();" class="flex-1 bg-gray-900 text-sm border border-gray-600 rounded-md px-3 py-1.5 font-bold text-white focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Judul Hari">
+							</div>
+
+							<button type="button" onclick="removeDailyDetailCard(${dayIdx}); renderDailyDetails(); updateJSONPreview();" class="text-gray-500 hover:text-red-400 p-1.5">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+								</svg>
+							</button>
+						</div>
+
+						<div class="space-y-2 pl-6 border-l-2 border-dashed border-gray-700">
+							${actHtml}
+							<button type="button" onclick="addActivityItem(${dayIdx}); renderDailyDetails(); updateJSONPreview();" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold mt-2 flex items-center gap-1">
+								<span class="text-sm">+</span> Tambah Aktivitas
+							</button>
+						</div>
+					</div>`;
             });
         }
         function addDailyDetail() {
@@ -440,47 +462,65 @@
                         </div>`;
                 });
 
-                container.innerHTML += `
-                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-700 space-y-3 relative">
-						<button onclick="moveItem(currentData.reservasi.hotels, ${index}, -1); renderHotels(); updateJSONPreview();" class="g-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-xs">⬆️</button>
-						<button onclick="moveItem(currentData.reservasi.hotels, ${index}, 1); renderHotels(); updateJSONPreview();" class="g-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-xs">⬇️</button>
-                        <button type="button" onclick="removeHotelItem(${index})" class="absolute top-4 right-4 text-xs text-red-400 hover:text-red-300">✕ Hapus Hotel</button>
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-500 uppercase">Nama Hotel</label>
-                            <input type="text" value="${hotel.name}" oninput="currentData.reservasi.hotels[${index}].name = this.value; updateJSONPreview();" class="w-full max-w-md bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-white font-semibold">
-                        </div>
-						<div>
-							<label class="block text-[10px] font-bold text-gray-500 uppercase">Catatan Hotel</label>
-							<input type="text" value="${hotel.notes || ''}" oninput="currentData.reservasi.hotels[${index}].notes = this.value; updateJSONPreview();" class="w-full max-w-md bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-gray-300" placeholder="Contoh: Request lantai tinggi, check-in awal...">
+				container.innerHTML += `
+					<div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm space-y-4 relative">
+						<div class="flex items-start gap-3">
+							
+							<div class="flex flex-col items-center justify-center pt-1">
+								<button type="button" onclick="moveItem(currentData.reservasi.hotels, ${index}, -1); renderHotels(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▲</button>
+								<button type="button" onclick="moveItem(currentData.reservasi.hotels, ${index}, 1); renderHotels(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▼</button>
+							</div>
+
+							<div class="flex-1 space-y-3">
+								<div class="flex justify-between items-start gap-2">
+									<div class="flex-1">
+										<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Nama Hotel</label>
+										<input type="text" value="${hotel.name}" oninput="currentData.reservasi.hotels[${index}].name = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-white focus:ring-1 focus:ring-blue-500 outline-none">
+									</div>
+									<button type="button" onclick="removeHotelItem(${index}); renderHotels(); updateJSONPreview();" class="text-gray-500 hover:text-red-400 p-1 mt-5">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+										</svg>
+									</button>
+								</div>
+
+								<div>
+									<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Catatan Hotel</label>
+									<input type="text" value="${hotel.notes || ''}" oninput="currentData.reservasi.hotels[${index}].notes = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-gray-300 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Request lantai tinggi, check-in awal...">
+								</div>
+
+								<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Check In</label>
+										<input type="text" value="${hotel.check_in}" oninput="currentData.reservasi.hotels[${index}].check_in = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-white">
+									</div>
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Check Out</label>
+										<input type="text" value="${hotel.check_out}" oninput="currentData.reservasi.hotels[${index}].check_out = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-white">
+									</div>
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Guests</label>
+										<input type="text" value="${hotel.guests}" oninput="currentData.reservasi.hotels[${index}].guests = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-white">
+									</div>
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Payment Info</label>
+										<input type="text" value="${hotel.payment_info}" oninput="currentData.reservasi.hotels[${index}].payment_info = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-white">
+									</div>
+								</div>
+
+								<div>
+									<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Estimasi ke Airport</label>
+									<input type="text" value="${hotel.airport_distance || ''}" oninput="currentData.reservasi.hotels[${index}].airport_distance = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-xs text-gray-300" placeholder="Contoh: 30 menit">
+								</div>
+
+								<div class="bg-gray-900/50 p-3 rounded-lg border border-gray-700 space-y-2">
+									<label class="block text-[10px] font-bold text-gray-400 uppercase">📄 Link E-Voucher / Receipt</label>
+									${vHtml}
+									<button type="button" onclick="addHotelVoucher(${index}); renderHotels(); updateJSONPreview();" class="text-[11px] text-blue-400 hover:text-blue-300 font-semibold mt-1">+ Tambah Dokumen</button>
+								</div>
+							</div>
 						</div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase">Check In</label>
-                                <input type="text" value="${hotel.check_in}" oninput="currentData.reservasi.hotels[${index}].check_in = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase">Check Out / Durasi</label>
-                                <input type="text" value="${hotel.check_out}" oninput="currentData.reservasi.hotels[${index}].check_out = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase">Tamu / Guests</label>
-                                <input type="text" value="${hotel.guests}" oninput="currentData.reservasi.hotels[${index}].guests = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase">Info Pembayaran / KK</label>
-                                <input type="text" value="${hotel.payment_info}" oninput="currentData.reservasi.hotels[${index}].payment_info = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-500 uppercase">Estimasi ke Airport</label>
-                            <input type="text" value="${hotel.airport_distance || ''}" oninput="currentData.reservasi.hotels[${index}].airport_distance = this.value; updateJSONPreview();" class="w-full max-w-sm bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1" placeholder="Contoh: Est. Hotel ➔ Airport: 30 menit">
-                        </div>
-                        <div class="bg-gray-800 p-2.5 rounded-lg space-y-1.5">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase">📄 Link E-Voucher / Receipt Booking</label>
-                            ${vHtml}
-                            <button type="button" onclick="addHotelVoucher(${index})" class="text-[11px] text-blue-400 hover:text-blue-300 font-medium">+ Tambah Dokumen</button>
-                        </div>
-                    </div>`;
+					</div>`;
             });
         }
 		function addHotelItem() {
@@ -528,39 +568,55 @@
                         </div>`;
                 });
 
-                container.innerHTML += `
-                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-700 space-y-3 relative">
-						<button onclick="moveItem(currentData.reservasi.flights, ${index}, -1); renderFlights(); updateJSONPreview();" class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-xs">⬆️</button>
-						<button onclick="moveItem(currentData.reservasi.flights, ${index}, 1); renderFlights(); updateJSONPreview();" class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-xs">⬇️</button>
-                        <button type="button" onclick="removeFlightItem(${index})" class="absolute top-4 right-4 text-xs text-red-400 hover:text-red-300">✕ Hapus Flight</button>
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-							<div>
-								<label class="block text-[10px] font-bold text-gray-500 uppercase">Judul Penerbangan</label>
-								<input type="text" value="${flight.title}" oninput="currentData.reservasi.flights[${index}].title = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white font-bold">
-							</div>
+				container.innerHTML += `
+					<div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm relative">
+						<div class="flex items-start gap-3">
 							
-							<div>
-								<label class="block text-[10px] font-bold text-gray-500 uppercase">Tanggal & Waktu</label>
-								<input type="datetime-local" value="${flight.flight_time || ''}" oninput="currentData.reservasi.flights[${index}].flight_time = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white">
+							<div class="flex flex-col items-center justify-center pt-1">
+								<button type="button" onclick="moveItem(currentData.reservasi.flights, ${index}, -1); renderFlights(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▲</button>
+								<button type="button" onclick="moveItem(currentData.reservasi.flights, ${index}, 1); renderFlights(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▼</button>
 							</div>
-							<div>
-								<label class="block text-[10px] font-bold text-gray-500 uppercase">Ringkasan Maskapai & Jam</label>
-								<input type="text" value="${flight.summary}" oninput="currentData.reservasi.flights[${index}].summary = this.value; updateJSONPreview();" class="w-full bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1">
+
+							<div class="flex-1 space-y-4">
+								
+								<div class="flex justify-between items-start gap-2">
+									<div class="flex-1">
+										<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Judul Penerbangan</label>
+										<input type="text" value="${flight.title}" oninput="currentData.reservasi.flights[${index}].title = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-white focus:ring-1 focus:ring-blue-500 outline-none">
+									</div>
+									<button type="button" onclick="removeFlightItem(${index}); renderFlights(); updateJSONPreview();" class="text-gray-500 hover:text-red-400 p-1 mt-5">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+										</svg>
+									</button>
+								</div>
+
+								<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Tanggal & Waktu</label>
+										<input type="datetime-local" value="${flight.flight_time || ''}" oninput="currentData.reservasi.flights[${index}].flight_time = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-xs text-white">
+									</div>
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Maskapai & Jam</label>
+										<input type="text" value="${flight.summary}" oninput="currentData.reservasi.flights[${index}].summary = this.value; updateJSONPreview();" class="w-full bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-xs text-white">
+									</div>
+								</div>
+
+								<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+									<div class="bg-gray-900/50 p-3 rounded-lg border border-gray-700 space-y-2">
+										<label class="block text-[10px] font-bold text-gray-400 uppercase">Sub-Detail Rute</label>
+										${linesHtml}
+										<button type="button" onclick="addFlightDetailLine(${index}); renderFlights(); updateJSONPreview();" class="text-[11px] text-emerald-400 hover:text-emerald-300 font-semibold mt-1">+ Tambah Rute</button>
+									</div>
+									<div class="bg-gray-900/50 p-3 rounded-lg border border-gray-700 space-y-2">
+										<label class="block text-[10px] font-bold text-gray-400 uppercase">🎟️ E-Ticket</label>
+										${vHtml}
+										<button type="button" onclick="addFlightVoucher(${index}); renderFlights(); updateJSONPreview();" class="text-[11px] text-blue-400 hover:text-blue-300 font-semibold mt-1">+ Tambah E-Ticket</button>
+									</div>
+								</div>
 							</div>
 						</div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-gray-800 p-2.5 rounded-lg space-y-1.5">
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase">Sub-Detail Jalur Transit / Jam</label>
-                                ${linesHtml}
-                                <button type="button" onclick="addFlightDetailLine(${index})" class="text-[11px] text-emerald-400 hover:text-emerald-300 font-medium">+ Tambah Detail Rute</button>
-                            </div>
-                            <div class="bg-gray-800 p-2.5 rounded-lg space-y-1.5">
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase">🎟️ E-Ticket Dokumen</label>
-                                ${vHtml}
-                                <button type="button" onclick="addFlightVoucher(${index})" class="text-[11px] text-blue-400 hover:text-blue-300 font-medium">+ Tambah E-Ticket</button>
-                            </div>
-                        </div>
-                    </div>`;
+					</div>`;
             });
         }
         function addFlightItem() {
@@ -605,14 +661,24 @@
             const container = document.getElementById('contacts-container');
             container.innerHTML = '';
             currentData.catatan.contacts.forEach((c, index) => {
-                container.innerHTML += `
-                    <div class="flex items-center gap-2 bg-gray-900 p-2 rounded-lg border border-gray-700">
-                        <input type="text" value="${c.name}" oninput="currentData.catatan.contacts[${index}].name = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white w-40 font-bold" placeholder="Nama Tempat">
-                        <input type="text" value="${c.details}" oninput="currentData.catatan.contacts[${index}].details = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white flex-1" placeholder="Alamat lengkap / Kontak">
-<button onclick="moveItem(currentData.catatan.contacts, ${index}, -1); renderContacts(); updateJSONPreview();" class="...">⬆️</button>
-<button onclick="moveItem(currentData.catatan.contacts, ${index}, 1); renderContacts(); updateJSONPreview();" class="...">⬇️</button>
-                        <button type="button" onclick="removeContactItem(${index})" class="text-red-400 hover:text-red-300 text-sm px-1">✕</button>
-                    </div>`;
+				container.innerHTML += `
+					<div class="bg-gray-800 p-3 rounded-xl border border-gray-700 flex items-start gap-3">
+						<div class="flex flex-col items-center justify-center pt-2">
+							<button type="button" onclick="moveItem(currentData.catatan.contacts, ${index}, -1); renderContacts(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▲</button>
+							<button type="button" onclick="moveItem(currentData.catatan.contacts, ${index}, 1); renderContacts(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▼</button>
+						</div>
+
+						<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-2">
+							<input type="text" value="${c.name}" oninput="currentData.catatan.contacts[${index}].name = this.value; updateJSONPreview();" class="bg-gray-900 text-xs border border-gray-600 rounded px-2 py-1.5 text-white font-bold focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Nama Tempat">
+							<input type="text" value="${c.details}" oninput="currentData.catatan.contacts[${index}].details = this.value; updateJSONPreview();" class="bg-gray-900 text-xs border border-gray-600 rounded px-2 py-1.5 text-white focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Alamat lengkap / Kontak">
+						</div>
+
+						<button type="button" onclick="removeContactItem(${index}); renderContacts(); updateJSONPreview();" class="text-gray-500 hover:text-red-400 p-1 mt-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+							</svg>
+						</button>
+					</div>`;
             });
         }
         function addContactItem() {
@@ -631,21 +697,24 @@
             const container = document.getElementById('immigration-container');
             container.innerHTML = '';
             currentData.catatan.immigration.forEach((imm, index) => {
-                container.innerHTML += `
-                    <div class="grid grid-cols-1 md:grid-cols-8 gap-2 bg-gray-900 p-2 rounded-lg border border-gray-700 items-center">
-    
-						<input type="text" value="${imm.country}" oninput="currentData.catatan.immigration[${index}].country = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white col-span-1" placeholder="Negara">
-						
-						<input type="text" value="${imm.label}" oninput="currentData.catatan.immigration[${index}].label = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white col-span-2" placeholder="Nama Kartu">
-						
-						<input type="text" value="${imm.url}" oninput="currentData.catatan.immigration[${index}].url = this.value; updateJSONPreview();" class="bg-gray-800 text-xs border border-gray-700 rounded px-2 py-1 text-white col-span-4" placeholder="URL">
-
-						<div class="flex gap-1 justify-end">
-							<button onclick="moveItem(currentData.catatan.immigration, ${index}, -1); renderImmigration(); updateJSONPreview();" class="text-xs hover:bg-gray-700 p-1.5 rounded text-gray-300">⬆️</button>
-							<button onclick="moveItem(currentData.catatan.immigration, ${index}, 1); renderImmigration(); updateJSONPreview();" class="text-xs hover:bg-gray-700 p-1.5 rounded text-gray-300">⬇️</button>
-							<button type="button" onclick="removeImmigrationItem(${index})" class="text-xs text-red-400 hover:text-red-300 font-bold p-1.5">✕</button>
+				container.innerHTML += `
+					<div class="bg-gray-800 p-3 rounded-xl border border-gray-700 flex items-start gap-3">
+						<div class="flex flex-col items-center justify-center pt-2">
+							<button type="button" onclick="moveItem(currentData.catatan.immigration, ${index}, -1); renderImmigration(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▲</button>
+							<button type="button" onclick="moveItem(currentData.catatan.immigration, ${index}, 1); renderImmigration(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▼</button>
 						</div>
 
+						<div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-2">
+							<input type="text" value="${imm.country}" oninput="currentData.catatan.immigration[${index}].country = this.value; updateJSONPreview();" class="bg-gray-900 text-xs border border-gray-600 rounded px-2 py-1.5 text-white focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Negara">
+							<input type="text" value="${imm.label}" oninput="currentData.catatan.immigration[${index}].label = this.value; updateJSONPreview();" class="bg-gray-900 text-xs border border-gray-600 rounded px-2 py-1.5 text-white focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Nama Kartu">
+							<input type="text" value="${imm.url}" oninput="currentData.catatan.immigration[${index}].url = this.value; updateJSONPreview();" class="bg-gray-900 text-xs border border-gray-600 rounded px-2 py-1.5 text-white focus:ring-1 focus:ring-blue-500 outline-none" placeholder="URL">
+						</div>
+
+						<button type="button" onclick="removeImmigrationItem(${index}); renderImmigration(); updateJSONPreview();" class="text-gray-500 hover:text-red-400 p-1 mt-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+							</svg>
+						</button>
 					</div>`;
             });
         }
