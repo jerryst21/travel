@@ -35,6 +35,38 @@
       {
         "date": "Rab, 28 Okt",
         "agenda": "Parndorf"
+      },
+      {
+        "date": "Jum, 30 Okt",
+        "agenda": "Budapest"
+      },
+      {
+        "date": "Sab, 31 Okt",
+        "agenda": "Budapest"
+      },
+      {
+        "date": "Min, 1 Nov",
+        "agenda": "Bratislava & Brno"
+      },
+      {
+        "date": "Sen, 2 Nov",
+        "agenda": "Brno"
+      },
+      {
+        "date": "Sel, 3 Nov",
+        "agenda": "Prague"
+      },
+      {
+        "date": "Rab, 4 Nov",
+        "agenda": "Ingolstadt & Munich"
+      },
+      {
+        "date": "Kam, 5 Nov",
+        "agenda": "Berangkat ke Jakarta"
+      },
+      {
+        "date": "Jum, 6 Nov",
+        "agenda": "Tiba di Jakarta"
       }
     ],
     "daily_details": [
@@ -72,6 +104,37 @@
             "time": "",
             "description": "Transit 3 jam 30 min",
             "icon": ""
+          }
+        ]
+      },
+      {
+        "date_display": "Min, 25 Okt",
+        "title": "Tiba di Munich",
+        "activities": [
+          {
+            "time": "00.25-06.40",
+            "description": "Penerbangan Singapura ➤ Munich (13j 15m)",
+            "icon": "✈️"
+          },
+          {
+            "time": "",
+            "description": "Olympic Stadium",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "BMW Museum",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": " Allianz Arena",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Makan: Siang – Local / Malam – Chinese",
+            "icon": "🍽️"
           }
         ]
       }
@@ -114,7 +177,15 @@
     ],
     "flights": [
       {
+        "title": "Sab, 23 Okt – Penerbangan Manado - Jakarta",
+        "summary": "Singapore Airlines SQ 963 | 18.05 – 20.55 (1j 50m)",
+        "details": [],
+        "vouchers": [],
+        "flight_time": "2026-10-23T10:00"
+      },
+      {
         "title": "Sab, 24 Okt – Penerbangan Jakarta - Singapura",
+        "flight_time": "2026-10-24T10:00",
         "summary": "Singapore Airlines SQ 963 | 18.05 – 20.55 (1j 50m)",
         "details": [
           "Tiba di Terminal 3"
