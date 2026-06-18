@@ -8,6 +8,7 @@
         <link rel="icon" href="uploads/2026-03-08-travelicon.png" type="image/png" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/lucide@latest"></script>
+		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" />
         <style>
@@ -465,6 +466,30 @@
                     font-size: 1.35rem;
                 }
             }
+			
+			/* Styling untuk Termasuk & Tidak Termasuk */
+			.term-card {
+				padding: 15px;
+				border-radius: 8px;
+				margin-bottom: 15px;
+				background: #ffffff;
+				border-left: 6px solid #ccc;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+			}
+			.term-included { border-left-color: #22c55e; } /* Hijau */
+			.term-excluded { border-left-color: #ef4444; } /* Merah */
+			.term-title {
+				font-weight: 700;
+				font-size: 1.1rem;
+				margin-bottom: 10px;
+				display: block;
+			}
+			.term-list {
+				margin: 0;
+				padding-left: 20px;
+				font-size: 0.95rem;
+				color: #374151;
+			}
 
         </style>
     <body data-theme="light">
@@ -634,11 +659,9 @@
 			
 			function parseMarkdown(text) {
 				if (!text) return "";
-				return text
-					// Mengubah **teks** menjadi <strong>teks</strong>
-					.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-					// Mengubah [teks](url) menjadi <a href="url" target="_blank">teks</a>
-					.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color: blue; text-decoration: underline;">$1</a>');
+				// marked.parseInline digunakan agar tidak membuat tag <p> tambahan
+				// yang bisa merusak layout <li> Anda
+				return marked.parseInline(text);
 			}
 
             function renderApp(data) {
