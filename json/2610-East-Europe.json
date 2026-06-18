@@ -143,36 +143,14 @@
   "reservasi": {
     "hotels": [
       {
-        "name": "Banyan Tree Kuala Lumpur",
-        "check_in": "Kamis, 9 April",
-        "check_out": "Minggu, 12 April (3 Malam - 1 Kamar)",
-        "guests": "Papa, Mama, Linda",
-        "payment_info": "Pembayaran via KK DBS Siska 27 Mar 2026",
-        "airport_distance": "Est. Hotel ➔ Airport: 1 jam",
-        "vouchers": [
-          {
-            "filename": "Hotel E-Voucher - Order ID 1341014572.pdf",
-            "url": "#"
-          },
-          {
-            "filename": "E-Receipt-Hotel-ID-1341014572.pdf",
-            "url": "#"
-          }
-        ]
-      },
-      {
-        "name": "One Farrer Hotel, Farrer Park",
-        "check_in": "Senin, 12 April",
-        "check_out": "Kamis, 16 April 12pm (4 Malam - 1 Kamar)",
-        "guests": "Papa, Mama, Linda",
-        "payment_info": "Pembayaran via Traveloka Linda (KK Charlie)",
-        "airport_distance": "Est. Hotel ➔ Airport: 30 menit",
-        "vouchers": [
-          {
-            "filename": "Charlie Gulardi cahya-1343174689-One Farrer Hotel-HOTEL_STANDALONE.pdf",
-            "url": "#"
-          }
-        ]
+        "name": "Munich - NH München Messe",
+        "check_in": "",
+        "check_out": "",
+        "guests": "",
+        "payment_info": "",
+        "airport_distance": "",
+        "vouchers": [],
+        "notes": "Eggenfeldener Strasse 100, Bogenhausen, 81929 Munich, Germany. Phone: +49 89 993450"
       }
     ],
     "flights": [
