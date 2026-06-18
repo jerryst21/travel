@@ -200,14 +200,42 @@
             "url": "#"
           }
         ]
+      },
+      {
+        "title": "Kam, 5 Nov – Penerbangan Munich - Singapura",
+        "flight_time": "2026-11-05T00:05",
+        "summary": "Singapore Airlines SQ 327 | 12.05 – 06.50+1 hari (11j 45m)",
+        "details": [
+          "tiba di Terminal 2, Changi Airport)"
+        ],
+        "vouchers": [
+          {
+            "filename": "Flight_Ticket.pdf",
+            "url": "/uploads/2026-10-24%20Tiket%20Tour%20Eropa%20Papa,%20Mama%20(Holland%20Bakery).pdf"
+          }
+        ]
+      },
+      {
+        "title": "Jum, 6 Nov – Penerbangan Singapura - Jakarta",
+        "flight_time": "2026-11-06T09:20",
+        "summary": "Singapore Airlines SQ 956 | 09.20 – 10.15 (1j 55m)",
+        "details": [
+          "Tiba di Terminal 3, CGK"
+        ],
+        "vouchers": [
+          {
+            "filename": "Flight_Ticket.pdf",
+            "url": "/uploads/2026-10-24%20Tiket%20Tour%20Eropa%20Papa,%20Mama%20(Holland%20Bakery).pdf"
+          }
+        ]
       }
     ]
   },
   "catatan": {
     "contacts": [
       {
-        "name": "Banyan Tree KL",
-        "details": "2, Jalan Conlay, Kuala Lumpur, Malaysia"
+        "name": "Ticket Booking",
+        "details": "Singapore Airlines by Mustika"
       },
       {
         "name": "One Farrer Hotel",
@@ -224,10 +252,33 @@
         "country": "Singapore",
         "label": "Singapore Arrival Card (SGAC)",
         "url": "https://eservices.ica.gov.wsg/sgarrivalcard/"
+      },
+      {
+        "country": "Detail Tour",
+        "label": "dari Orange Incentive House",
+        "url": "/uploads/2026-10-24%20TUR%20HOLLAND-ITINERARY%20EAST%20EUROPE.pdf"
       }
     ],
     "tour_guide_notes": [
-      "Dokumen paspor wajib dipegang masing-masing anak saat imigrasi."
+      "Tour Termasuk\t",
+      "Akomodasi 4* / 5* atau setaraf (2 orang dalam 1 kamar)",
+      "Airport handling assistance untuk check-in bagasi di Bandara Jakarta",
+      "Visa Turis Austria, Single entry (harga dapat berubah sewaktu-waktu)",
+      "Perlengkapan tour (luggage tag, dompet tiket, sampul paspor)",
+      "Tour Leader dari Jakarta",
+      "Dua botol air mineral setiap hari (selama di dalam bus)",
+      "Basic tipping untuk Tour Leader dan supir",
+      "Transportasi dan tour sesuai program perjalanan",
+      "Makan sesuai jadwal acara",
+      "Asuransi perjalanan group MSIG",
+      "PPN 1,1%",
+      "Tour Tidak Termasuk\t",
+      "Tiket pesawat menuju Munich",
+      "Weekend / holiday surcharge (apabila ada)",
+      "Biaya deviasi tiket bagi peserta yang akan melakukan perpanjangan masa tinggal",
+      "Penjemputan / pengantaran di tempat tujuan bagi peserta yang melakukan deviasi",
+      "Biaya kelebihan berat bagasi yang dikenakan oleh perusahaan penerbangan yang bersangkutan",
+      "Pengeluaran tambahan pribadi seperti : cucian, telpon, minibar, room service, dll"
     ],
     "travel_checklist": [
       "Paspor aktif min 6 bulan",
