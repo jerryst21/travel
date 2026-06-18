@@ -653,7 +653,7 @@
                 const itineraryContainer = document.getElementById('itinerary-cards-container');
                 itineraryContainer.innerHTML = data.perjalanan.daily_details.map(card => `
                     <div class="card border-activity">
-                        <div class="card-title"><span>📅</span>${card.date_display} ${card.title}</div>
+                        <div class="card-title"><span>📅</span>${card.date_display} - ${card.title}</div>
                         ${card.activities && card.activities.length > 0 ? card.activities.map(item => `
                             <div class="schedule-item">
                                 <div class="time">${item.time}</div>
@@ -669,10 +669,10 @@
                 // 4a. Render Penerbangan
                 const flightHtml = data.reservasi.flights ? data.reservasi.flights.map((flight, idx) => `
                     <div class="card border-flight">
-                        <div class="card-title"><span>✈️</span>Penerbangan</div>
+                        <div class="card-title"><span>✈️</span>${flight.title}</div>
                         <div class="info-box">
-                            <span class="highlight" style="font-size:1.1rem">${flight.title}</span>
-                            <br><strong>${flight.summary}</strong>
+                            <span class="highlight" style="font-size:1.1rem">${flight.summary}</span>
+                            
                             <p style="margin: 8px 0; padding-left: 10px;">
                                 ${flight.details.map(d => `• ${d}<br>`).join('')}
                             </p>
