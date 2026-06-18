@@ -534,6 +534,15 @@
                             </tbody>
                     </table>
                 </div>
+				<div class="card border-catatan">
+					<div class="card-title"><span><i class="fa-solid fa-clipboard-list card-title-icon"></i></span><span class="title-text">Catatan Tour Guide</span></div>
+					<ul id="tour-guide-list" style="padding-left: 20px;"></ul>
+				</div>
+
+				<div class="card border-catatan">
+					<div class="card-title"><span><i class="fa-solid fa-check-double card-title-icon"></i></span><span class="title-text">Travel Checklist</span></div>
+					<ul id="checklist-list" style="padding-left: 20px;"></ul>
+				</div>
             </div>
         </div>
         
@@ -715,6 +724,18 @@
                         <td><a href="${i.url}" class="web-link" target="_blank">${i.label}</a></td>
                     </tr>
                 `).join('') : '';
+				
+				// 7. Render Tour Guide Notes
+				const notesList = document.getElementById('tour-guide-list');
+				notesList.innerHTML = data.catatan.tour_guide_notes ? data.catatan.tour_guide_notes.map(note => `
+					<li>${note}</li>
+				`).join('') : '<li>Tidak ada catatan.</li>';
+
+				// 8. Render Checklist
+				const checklistList = document.getElementById('checklist-list');
+				checklistList.innerHTML = data.catatan.travel_checklist ? data.catatan.travel_checklist.map(item => `
+					<li>${item}</li>
+				`).join('') : '<li>Tidak ada checklist.</li>';
 
                 // Inisialisasi fitur interaktif pasca render data
                 initThirdPartyFeatures(data);
@@ -727,10 +748,13 @@
                 // Mengubah teks lokasi ber-class menjadi Link Google Maps otomatis
                 convertLocationsToMaps();
                 
-                // Menjalankan hitung mundur otomatis untuk penerbangan pertama jika ada start_date
-                if (data.trip_info && data.trip_info.start_date) {
-                    startCountdown("flight-cd-0", `${data.trip_info.start_date}T08:00:00`);
-                }
+				if (data.reservasi && data.reservasi.flights) {
+					data.reservasi.flights.forEach((flight, index) => {
+						if (flight.flight_time) {
+							startCountdown(`flight-cd-${index}`, flight.flight_time);
+						}
+					});
+				}
                 
                 // Navigasi Halaman SPA (Single Page Application)
                 const navBtns = document.querySelectorAll(".bottom-nav button");
