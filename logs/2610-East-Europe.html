@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Trip Singapore-Kuala Lumpur 2026 v2</title>
+        <title>Trip East Europe 2026 - HB</title>
         <link rel="icon" href="uploads/2026-03-08-travelicon.png" type="image/png" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/lucide@latest"></script>
@@ -692,7 +692,8 @@
                 const hotelHtml = data.reservasi.hotels ? data.reservasi.hotels.map(hotel => `
                     <div class="card border-hotel">
                         <div class="card-title"><span>🏨</span>${hotel.name}</div>
-                        <p> 🛎️ <strong>Check-in:</strong> ${hotel.check_in}
+                        <p>🛎️ <strong>${hotel.notes}</strong>
+							<br /> 🛎️ <strong>Check-in:</strong> ${hotel.check_in}
                             <br /> 👋 <strong>Check-out:</strong> ${hotel.check_out}
                             <br /> 👥 <strong>Tamu:</strong> ${hotel.guests} </p>
                         <p class="important-note"> 📍 <strong>Hotel E-Voucher & Bukti: <br /></strong>
