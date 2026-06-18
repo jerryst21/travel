@@ -141,18 +141,7 @@
     ]
   },
   "reservasi": {
-    "hotels": [
-      {
-        "name": "Munich - NH München Messe",
-        "check_in": "",
-        "check_out": "",
-        "guests": "",
-        "payment_info": "",
-        "airport_distance": "",
-        "vouchers": [],
-        "notes": "Eggenfeldener Strasse 100, Bogenhausen, 81929 Munich, Germany. Phone: +49 89 993450"
-      }
-    ],
+    "hotels": [],
     "flights": [
       {
         "title": "Sel, 20 Okt – Penerbangan Manado - Jakarta",
@@ -170,12 +159,29 @@
         "flight_time": "2026-10-24T18:05",
         "summary": "Singapore Airlines SQ 963 | 18.05 – 20.55 (1j 50m)",
         "details": [
-          "Tiba di Terminal 3"
+          "Tiba di Terminal 3",
+          "Baggage Allowance: 40kg"
         ],
         "vouchers": [
           {
-            "filename": "Flight E-ticket-TR319-MDC-KUL-RDMDRD.pdf",
-            "url": "#"
+            "filename": "Flight_Ticket.pdf",
+            "url": "/uploads/2026-10-24%20Tiket%20Tour%20Eropa%20Papa,%20Mama%20(Holland%20Bakery).pdf"
+          }
+        ]
+      },
+      {
+        "title": "Min, 25 Okt – Penerbangan Singapura - Munich",
+        "flight_time": "2026-10-25T00:25",
+        "summary": "Singapore Airlines SQ 328 | 00.25 – 06.40 (13j 15m)",
+        "details": [
+          "Changi (Terminal 3) - MUC-Franz Josef Strauss (Terminal 2)",
+          "Germany does not require inbound travelers arriving at Munich Airport to fill out a physical or digital arrival card. Instead, entry requirements are handled via standard passport control (Schengen entry/exit regulations) and customs declarations",
+          "Baggage Allowance: 40kg"
+        ],
+        "vouchers": [
+          {
+            "filename": "Flight_Ticket.pdf",
+            "url": "/uploads/2026-10-24%20Tiket%20Tour%20Eropa%20Papa,%20Mama%20(Holland%20Bakery).pdf"
           }
         ]
       },
@@ -184,7 +190,8 @@
         "flight_time": "2026-11-05T00:05",
         "summary": "Singapore Airlines SQ 327 | 12.05 – 06.50+1 hari (11j 45m)",
         "details": [
-          "tiba di Terminal 2, Changi Airport)"
+          "tiba di Terminal 2, Changi Airport)",
+          "Baggage Allowance: 40kg"
         ],
         "vouchers": [
           {
@@ -198,7 +205,8 @@
         "flight_time": "2026-11-06T09:20",
         "summary": "Singapore Airlines SQ 956 | 09.20 – 10.15 (1j 55m)",
         "details": [
-          "Tiba di Terminal 3, CGK"
+          "Tiba di Terminal 3, CGK",
+          "Baggage Allowance: 40kg"
         ],
         "vouchers": [
           {
@@ -216,8 +224,28 @@
         "details": "Singapore Airlines by Mustika"
       },
       {
-        "name": "One Farrer Hotel",
-        "details": "1 Farrer Park Station Rd, Singapore 217562"
+        "name": "Hotel Munich - NH München Messe",
+        "details": "Eggenfeldener Strasse 100, Bogenhausen, 81929 Munich, Germany Phone: +49 89 993450"
+      },
+      {
+        "name": "Hotel Salzburg - Wyndham Grand Salzburg Conference Centre",
+        "details": "Fanny-von-Lehnert-Straße 7, Elisabeth-Vorstadt, 5020 Salzburg, Austria Phone: +43 662 46880"
+      },
+      {
+        "name": "Hotel Vienna - IntercityHotel Wien",
+        "details": "Mariahilfer Straße 122, Ecke Kaiserstraße 1-3, 07. Neubau, 1070 Vienna, Austria Phone: +43 1 525850"
+      },
+      {
+        "name": "Hotel Budapest - IntercityHotel Budapest",
+        "details": "1087 Budapest, Baross tér 7-8, Hungary Phone: +36 1 279 9000"
+      },
+      {
+        "name": "Hotel Brno - Hotel Continental",
+        "details": "Kounicova 6, Brno, 602 00, Czech Republic Phone: +420 541 519 111"
+      },
+      {
+        "name": "Hotel Prague - Ambassador Zlata Husa (5*)",
+        "details": "Wenceslas Square. 840/5 110 00 Praha 1 República Checa, Prague, 11124, Czech Republic Phone: +420 224 193 111"
       }
     ],
     "immigration": [
@@ -259,9 +287,9 @@
       "- Pengeluaran tambahan pribadi seperti : cucian, telpon, minibar, room service, dll"
     ],
     "travel_checklist": [
-      "Paspor aktif min 6 bulan",
-      "Mata uang SGD & MYR tunai",
-      "Cetak bukti reservasi fisik"
+      "- Paspor aktif min 6 bulan",
+      "- Mata uang EURO tunai",
+      "- Cetak bukti reservasi fisik"
     ]
   }
 }
