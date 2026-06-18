@@ -126,6 +126,18 @@
             .theme-toggle:hover {
                 background: rgba(255, 255, 255, 0.35);
             }
+			
+			/* Styling untuk baris yang bisa diklik */
+			.timeline-row {
+				transition: all 0.2s ease;
+			}
+
+			.timeline-row:hover {
+				background-color: #eff6ff; /* Warna latar belakang biru muda saat disentuh */
+				color: var(--accent);      /* Warna teks berubah sesuai warna utama web */
+				font-weight: 500;
+			}
+			
             /* =========================================================
             CARD
             ========================================================= */
@@ -672,25 +684,25 @@
                 document.getElementById('last-update').innerText = data.trip_info.last_update || "01 April 2026";
                 document.getElementById('trip-participants').innerText = "Peserta: " + (Array.isArray(data.trip_info.participants) ? data.trip_info.participants.join(', ') : data.trip_info.participants);
 
-                // 2. Render Timeline Summary Table
+				// 2. Render Timeline Summary Table
 				const timelineContainer = document.getElementById('timeline-table-body'); 
 
 				if (timelineContainer) {
 					timelineContainer.innerHTML = data.perjalanan.daily_details.map((day, index) => `
-						<tr class="timeline-item" onclick="scrollToDay('day-${index}')" style="cursor: pointer;">
+						<tr class="timeline-row" onclick="scrollToDay('day-${index}')">
 							<td class="timeline-date">${day.date_display}</td>
 							<td class="timeline-title">${day.title}</td>
 						</tr>
 					`).join('');
 				}
-
+				
 				// 3. Render Daily Itinerary Cards
 				const itineraryContainer = document.getElementById('itinerary-cards-container');
 
 				// Tambahkan (card, index) agar index bisa dikenal di dalam fungsi
 				itineraryContainer.innerHTML = data.perjalanan.daily_details.map((card, index) => `
-					<div class="card border-activity">
-						<div id="day-${index}" class="card-title">
+					<div id="day-${index}" class="card border-activity">
+						<div class="card-title">
 							<span>📅</span>${card.date_display} - ${card.title}
 						</div>
 						
