@@ -177,15 +177,19 @@
     ],
     "flights": [
       {
-        "title": "Sab, 23 Okt – Penerbangan Manado - Jakarta",
-        "summary": "Singapore Airlines SQ 963 | 18.05 – 20.55 (1j 50m)",
-        "details": [],
+        "title": "Sel, 20 Okt – Penerbangan Manado - Jakarta",
+        "summary": "Garuda Indonesia GA601 | 14.45 – 17.05 (3j 20m)",
+        "details": [
+          "Bagasi Cabin: 7 kg, Bagasi: 20 kg, Makanan: GRATIS",
+          "IDR 3.823.124",
+          "⚠️TIKET BELUM DI BELI"
+        ],
         "vouchers": [],
-        "flight_time": "2026-10-23T10:00"
+        "flight_time": "2026-10-20T14:45"
       },
       {
         "title": "Sab, 24 Okt – Penerbangan Jakarta - Singapura",
-        "flight_time": "2026-10-24T10:00",
+        "flight_time": "2026-10-24T18:05",
         "summary": "Singapore Airlines SQ 963 | 18.05 – 20.55 (1j 50m)",
         "details": [
           "Tiba di Terminal 3"
