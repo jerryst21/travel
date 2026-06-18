@@ -71,19 +71,29 @@
     ],
     "daily_details": [
       {
-        "date_display": "Jum, 23 Okt",
-        "title": "Keberangkatan ke Jakarta",
+        "date_display": "Sel, 20 Okt",
+        "title": "Penerbangan Manado - Jakarta",
         "activities": [
           {
-            "time": "00.00",
-            "description": "Penerbangan Manado-Jakarta belum di booking",
+            "time": "13.00",
+            "description": "Mulai perjalanan ke airport",
+            "icon": "📍"
+          },
+          {
+            "time": "13.45",
+            "description": "Tiba di Airport",
+            "icon": "📍"
+          },
+          {
+            "time": "14.45-17.05",
+            "description": "Penerbangan Manado-Jakarta ⚠️Belum booking tiket pesawat",
             "icon": "✈️"
           }
         ]
       },
       {
         "date_display": "Sab, 24 Okt",
-        "title": "Keberangkatan ke Singapura",
+        "title": "Penerbangan Jakarta - Singapura",
         "activities": [
           {
             "time": "14.00",
@@ -135,6 +145,374 @@
             "time": "",
             "description": "Makan: Siang – Local / Malam – Chinese",
             "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sen, 26 Okt",
+        "title": "Hallstatt",
+        "activities": [
+          {
+            "time": "",
+            "description": "Desa Hallstatt, miliki danau biru dikelilingi pengunungan Alpen",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Hallstatt Old Town, desa tradisional ikon Austria",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Central Square, alun-alun yang penuh bangunan bersejarah",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Parish of The Assumption, gereja gotik dengan interior menawan dan koleksi tengkorak berlukis unik di ossuary-nya.",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Cruise/Boat, keliling danau Hallstatt",
+            "icon": "🚢"
+          },
+          {
+            "time": "",
+            "description": "Perjalanan ke Salzburg untuk bermalam",
+            "icon": "🚌"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Local",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sel, 27 Okt",
+        "title": "Salzburg",
+        "activities": [
+          {
+            "time": "",
+            "description": "Rumah kelahiran Wolfgang Amadeus Mozart yang kini menjadi museum musik klasik.",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Mirabell Garden, taman penuh bunga berwarna-warni yang sering muncul dalam film The Sound of Music",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Salzburg Old Town, kawasan kota tua berarsitektur barok yang termasuk warisan dunia UNESCO. Dari sana, terlihat megahnya SALZBURG CASTLE, benteng yang berdiri di atas bukit dengan panorama kota",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Salzburg Cathedral, bergaya barok yang menjadi pusat spiritual kota",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "kembali ke hotel",
+            "icon": "🚌"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Chinese",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Rab, 28 Okt",
+        "title": "Parndorf",
+        "activities": [
+          {
+            "time": "",
+            "description": "Parndorf Outlet, pusat perbelanjaan fashion",
+            "icon": "🏷️"
+          },
+          {
+            "time": "",
+            "description": "Perjalanan ke Vienna untuk bermalam",
+            "icon": "🚌"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Cash EUR 30 / Malam – Chinese",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Kam, 29 Okt",
+        "title": "Vienna",
+        "activities": [
+          {
+            "time": "",
+            "description": "Schönbrunn Palace, istana musim panas dinasti Habsburg",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Opera House",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Hofburg Palace, kompleks istana megah yang pernah menjadi pusat kekuasaan kekaisaran Austria",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Parliamen House, gedung parlemen dengan pilar ala kuil Yunani",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "City Hall, balai kota bergaya gotik yang anggun",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "kembali ke hotel",
+            "icon": "🚌"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Local",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Jum, 30 Okt",
+        "title": "Budapest",
+        "activities": [
+          {
+            "time": "",
+            "description": "Perjalanan ke Budapest",
+            "icon": "🚌"
+          },
+          {
+            "time": "",
+            "description": "Fisherman's Bastion (Include Entrance), menara putih bergaya dongeng dengan pemandangan indah Sungai Danube dan gedung parlemen",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Vaci Utka Street (Kegiatan bebas), perbelanjaan terkenal dengan butik, kafe, dan suasana kota tua yang hidup",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Chinese",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sab, 31 Okt",
+        "title": "Budapest",
+        "activities": [
+          {
+            "time": "",
+            "description": "Funicular (Include return ticket) menuju Buda Castle Hill.",
+            "icon": "🎢"
+          },
+          {
+            "time": "",
+            "description": "Parliament House, bangunan bergaya neogothic yang menjadi ikon Budapest sekaligus salah satu gedung parlemen terindah di dunia.",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Danube Dinner Cruise",
+            "icon": "🚢"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Local",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Min, 1 Nov",
+        "title": "Bratislava & Brno",
+        "activities": [
+          {
+            "time": "",
+            "description": "Perjalanan ke Brno, kota bersejarah di Republik Ceko.",
+            "icon": "🚌"
+          },
+          {
+            "time": "",
+            "description": "Bratislava, makan siang dan photo stop",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Makan malam di Brno",
+            "icon": "🍽️"
+          },
+          {
+            "time": "",
+            "description": "Checkin hotel",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Chinese",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sen, 2 Nov",
+        "title": "Brno",
+        "activities": [
+          {
+            "time": "",
+            "description": "Sarapan di hotel",
+            "icon": "🍽️"
+          },
+          {
+            "time": "",
+            "description": "Náměstí Svobody (Liberty Square), alun-alun utama Brno dengan arsitektur klasik.",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "The Bishop's Palace, kediaman bersejarah uskup Brno yang bergaya barok",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Cathedral of St. Peter & Paul, simbol kota Brno",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Perjalanan ke Prague",
+            "icon": "🚌"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Local",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sel, 3 Nov",
+        "title": "Prague",
+        "activities": [
+          {
+            "time": "",
+            "description": "Prague Castle (Include Entrance, Tanpa Local Guide), kompleks kastil terbesar di dunia yang menjadi pusat sejarah Bohemia",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "St. Vitus Cathedral, dalam komleks Prague Castle, katedral gothic dengan kaca patri indah dan menara tinggi menjulang.",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Old Town Square, alun-alun bersejarah dengan bangunan warna-warni (termasuk Astronomical Clock).",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Charles Bridge, jembatan batu berornamen patung yang romantis dan penuh seniman jalanan",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Chinese",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Rab, 4 Nov",
+        "title": "Ingolstadt & Munich",
+        "activities": [
+          {
+            "time": "",
+            "description": "Ingolstadt Outlet",
+            "icon": "🏷️"
+          },
+          {
+            "time": "",
+            "description": "Perjalanan ke Munich",
+            "icon": "🚌"
+          },
+          {
+            "time": "",
+            "description": "Kembali ke hotel",
+            "icon": "🛌"
+          },
+          {
+            "time": "",
+            "description": "Makan: Pagi – Hotel / Siang – Local / Malam – Thai Food",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Kam, 5 Mar",
+        "title": "Berangkat ke Jakarta",
+        "activities": [
+          {
+            "time": "",
+            "description": "Sarapan di hotel",
+            "icon": "🍽️"
+          },
+          {
+            "time": "",
+            "description": "Perjalanan ke Bandara",
+            "icon": "🚌"
+          },
+          {
+            "time": "12.05-🌙",
+            "description": "Penerbangan Munich ➤ Singapura (11j 45m)",
+            "icon": "✈️"
+          }
+        ]
+      },
+      {
+        "date_display": "Jum, 6 Mar",
+        "title": "Tiba di Jakarta",
+        "activities": [
+          {
+            "time": "🌙-06.50",
+            "description": "Penerbangan Munich ➤ Singapura",
+            "icon": "✈️"
+          },
+          {
+            "time": "06.50-09.20",
+            "description": "Transit (2j 30m)",
+            "icon": "⏱️"
+          },
+          {
+            "time": "09.20-10.15",
+            "description": "Penerbangan Singapura ➤ Jakarta, Terminal 3 (1j 55m)",
+            "icon": "✈️"
+          }
+        ]
+      },
+      {
+        "date_display": "",
+        "title": "Penerbangan Jakarta - Manado",
+        "activities": [
+          {
+            "time": "",
+            "description": "Belum ada reservasi",
+            "icon": "⚠️"
           }
         ]
       }
