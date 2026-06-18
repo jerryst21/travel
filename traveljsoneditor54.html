@@ -367,13 +367,23 @@
             currentData.perjalanan.daily_details.forEach((day, dayIdx) => {
                 let actHtml = '';
                 (day.activities || []).forEach((act, actIdx) => {
-                    actHtml += `
-                        <div class="flex items-center gap-2 bg-gray-950 p-2 rounded border border-gray-800">
-                            <input type="text" value="${act.time}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].time = this.value; updateJSONPreview();" class="w-24 bg-gray-900 text-sm border border-gray-700 rounded px-2 py-1" placeholder="Jam">
-                            <input type="text" value="${act.icon || '📍'}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].icon = this.value; updateJSONPreview();" class="w-10 text-center bg-gray-900 text-sm border border-gray-700 rounded py-1" title="Emoji">
-                            <input type="text" value="${act.description}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].description = this.value; updateJSONPreview();" class="flex-1 bg-gray-900 text-sm border border-gray-700 rounded px-2 py-1" placeholder="Aktivitas detail">
-                            <button type="button" onclick="removeActivityItem(${dayIdx}, ${actIdx})" class="text-red-400 hover:text-red-300 text-xs">✕</button>
-                        </div>`;
+					actHtml += `
+						<div class="flex items-center gap-3 bg-gray-800 p-3 rounded-xl border border-gray-700 shadow-sm hover:border-blue-500/50 transition-all duration-200">
+							<div class="flex flex-col items-center justify-center">
+								<button type="button" onclick="moveItem(currentData.perjalanan.daily_details[${dayIdx}].activities, ${actIdx}, -1); renderDailyDetails(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▲</button>
+								<button type="button" onclick="moveItem(currentData.perjalanan.daily_details[${dayIdx}].activities, ${actIdx}, 1); renderDailyDetails(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▼</button>
+							</div>
+
+							<input type="text" value="${act.time}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].time = this.value; updateJSONPreview();" class="w-20 bg-gray-900 border border-gray-600 rounded-md px-2 py-1.5 text-sm text-center text-gray-300" placeholder="Jam">
+							
+							<input type="text" value="${act.icon || '📍'}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].icon = this.value; updateJSONPreview();" class="w-10 text-center bg-gray-900 border border-gray-600 rounded-md py-1.5 text-sm" title="Emoji">
+							
+							<input type="text" value="${act.description}" oninput="currentData.perjalanan.daily_details[${dayIdx}].activities[${actIdx}].description = this.value; updateJSONPreview();" class="flex-1 bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-white focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Deskripsi aktivitas...">
+
+							<button type="button" onclick="removeActivityItem(${dayIdx}, ${actIdx}); renderDailyDetails(); updateJSONPreview();" class="text-gray-500 hover:text-red-400 p-1">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+							</button>
+						</div>`;
                 });
 
                 container.innerHTML += `
