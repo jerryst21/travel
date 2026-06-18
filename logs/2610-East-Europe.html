@@ -761,18 +761,16 @@
 				// 7. Render Tour Guide Notes
 				const notesList = document.getElementById('tour-guide-list');
 				if (notesList) {
-					// Gunakan marked.parse() dan hilangkan tag <li> pembungkus karena marked sudah menanganinya
 					notesList.innerHTML = data.catatan.tour_guide_notes.map(note => 
-						`<li>${marked.parse(note)}</li>`
+						`${marked.parse(note)}`
 					).join('');
 				}
 
 				// 8. Render Checklist
 				const checklistList = document.getElementById('checklist-list');
 				if (checklistList) {
-					// Sama, gunakan marked.parse()
 					checklistList.innerHTML = data.catatan.travel_checklist.map(item => 
-						`<li>${marked.parse(item)}</li>`
+						`${marked.parse(item)}`
 					).join('');
 				}
 
