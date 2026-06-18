@@ -656,13 +656,6 @@
                         document.getElementById('trip-title').innerText = "Gagal memuat data.";
                     });
             });
-			
-			function parseMarkdown(text) {
-				if (!text) return "";
-				// marked.parseInline digunakan agar tidak membuat tag <p> tambahan
-				// yang bisa merusak layout <li> Anda
-				return marked.parseInline(text);
-			}
 
             function renderApp(data) {
                 // 1. Render Trip Info (Termasuk Subtitle baru)
@@ -767,15 +760,19 @@
 				
 				// 7. Render Tour Guide Notes
 				const notesList = document.getElementById('tour-guide-list');
-				notesList.innerHTML = data.catatan.tour_guide_notes ? data.catatan.tour_guide_notes.map(note => `
-					<li>${parseMarkdown(note)}</li>
-				`).join('') : '<li>Tidak ada catatan.</li>';
+				if (notesList) {
+					notesList.innerHTML = data.catatan.tour_guide_notes.map(note => 
+						`<li>${marked.parseInline(note)}</li>` // Ditambahkan marked.parseInline
+					).join('');
+				}
 
 				// 8. Render Checklist
 				const checklistList = document.getElementById('checklist-list');
-				checklistList.innerHTML = data.catatan.travel_checklist ? data.catatan.travel_checklist.map(item => `
-					<li>${parseMarkdown(item)}</li>
-				`).join('') : '<li>Tidak ada checklist.</li>';
+				if (checklistList) {
+					checklistList.innerHTML = data.catatan.travel_checklist.map(item => 
+						`<li>${marked.parseInline(item)}</li>` // Ditambahkan marked.parseInline
+					).join('');
+				}
 
                 // Inisialisasi fitur interaktif pasca render data
                 initThirdPartyFeatures(data);
