@@ -427,6 +427,10 @@
                             <label class="block text-[10px] font-bold text-gray-500 uppercase">Nama Hotel</label>
                             <input type="text" value="${hotel.name}" oninput="currentData.reservasi.hotels[${index}].name = this.value; updateJSONPreview();" class="w-full max-w-md bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-white font-semibold">
                         </div>
+						<div>
+							<label class="block text-[10px] font-bold text-gray-500 uppercase">Catatan Hotel</label>
+							<input type="text" value="${hotel.notes || ''}" oninput="currentData.reservasi.hotels[${index}].notes = this.value; updateJSONPreview();" class="w-full max-w-md bg-gray-800 text-sm border border-gray-700 rounded px-2 py-1 text-gray-300" placeholder="Contoh: Request lantai tinggi, check-in awal...">
+						</div>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                             <div>
                                 <label class="block text-[10px] font-bold text-gray-500 uppercase">Check In</label>
@@ -457,11 +461,11 @@
                     </div>`;
             });
         }
-        function addHotelItem() {
-            currentData.reservasi.hotels.push({"name": "Hotel Baru", "check_in": "", "check_out": "", "guests": "", "payment_info": "", "airport_distance": "", "vouchers": []});
-            renderHotels();
-            updateJSONPreview();
-        }
+		function addHotelItem() {
+			currentData.reservasi.hotels.push({"name": "Hotel Baru", "notes": "", "check_in": "", "check_out": "", "guests": "", "payment_info": "", "airport_distance": "", "vouchers": []});
+			renderHotels();
+			updateJSONPreview();
+		}
         function removeHotelItem(index) {
             currentData.reservasi.hotels.splice(index, 1);
             renderHotels();
