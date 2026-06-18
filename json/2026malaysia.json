@@ -260,7 +260,7 @@
       }
     ],
     "tour_guide_notes": [
-      "Tour Termasuk\t",
+      "## Tour Termasuk\t",
       "Akomodasi 4* / 5* atau setaraf (2 orang dalam 1 kamar)",
       "Airport handling assistance untuk check-in bagasi di Bandara Jakarta",
       "Visa Turis Austria, Single entry (harga dapat berubah sewaktu-waktu)",
@@ -272,7 +272,7 @@
       "Makan sesuai jadwal acara",
       "Asuransi perjalanan group MSIG",
       "PPN 1,1%",
-      "Tour Tidak Termasuk\t",
+      "## Tour Tidak Termasuk\t",
       "Tiket pesawat menuju Munich",
       "Weekend / holiday surcharge (apabila ada)",
       "Biaya deviasi tiket bagi peserta yang akan melakukan perpanjangan masa tinggal",
