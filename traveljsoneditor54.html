@@ -76,17 +76,9 @@
                     </div>
 
                     <div id="tab-perjalanan" class="tab-content hidden space-y-6">
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <h3 class="text-lg font-semibold text-blue-400">1. Ringkasan Timeline (Rute Singkat)</h3>
-                                <button type="button" onclick="addTimelineItem()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">+ Tambah Rute</button>
-                            </div>
-                            <div id="timeline-container" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
-                        </div>
-
                         <div class="border-t border-gray-700 pt-4">
                             <div class="flex justify-between items-center mb-3">
-                                <h3 class="text-lg font-semibold text-blue-400">2. Detail Aktivitas Per Hari (Jam demi Jam)</h3>
+                                <h3 class="text-lg font-semibold text-blue-400">Detail Aktivitas Per Hari (Jam demi Jam)</h3>
                                 <button type="button" onclick="addDailyDetail()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">+ Tambah Hari Baru</button>
                             </div>
                             <div id="daily-container" class="space-y-4"></div>
@@ -195,16 +187,6 @@
                 "last_update": "01 April 2026"
             },
             "perjalanan": {
-                "timeline_summary": [
-                    {"date": "Kam, 9 Apr", "agenda": "Keberangkatan Manado - Kuala Lumpur"},
-                    {"date": "Jum, 10 Apr", "agenda": "Pemeriksaan Kaki Mama"},
-                    {"date": "Sab, 11 Apr", "agenda": "Bebas"},
-                    {"date": "Min, 12 Apr", "agenda": "Penerbangan Kuala Lumpur - Singapura"},
-                    {"date": "Sen, 13 Apr", "agenda": "Pemeriksaan & Konsultasi Paru"},
-                    {"date": "Sel, 14 Apr", "agenda": "Bebas/Follow Up"},
-                    {"date": "Rab, 15 Apr", "agenda": "Konsultasi dengan Dr. Whang"},
-                    {"date": "Kam, 16 Apr", "agenda": "Kepulangan ke Manado?"}
-                ],
                 "daily_details": [
                     {
                         "date_display": "Kam, 9 Apr",
@@ -304,7 +286,6 @@
             document.getElementById('travel_checklist').value = (currentData.catatan.travel_checklist || []).join('\n');
 
             // Render komponen dinamis
-            renderTimelineSummary();
             renderDailyDetails();
             renderHotels();
             renderFlights();
@@ -332,42 +313,6 @@
 
         function updateJSONPreview() {
             document.getElementById('json-preview').value = JSON.stringify(currentData, null, 2);
-        }
-
-        // --- DYNAMIC RENDERING: TIMELINE SUMMARY ---
-        function renderTimelineSummary() {
-            const container = document.getElementById('timeline-container');
-            container.innerHTML = '';
-            currentData.perjalanan.timeline_summary.forEach((item, index) => {
-				container.innerHTML += `
-					<div class="flex items-center gap-3 bg-gray-800 p-3 rounded-xl border border-gray-700 shadow-sm hover:border-blue-500/50 transition-all duration-200">
-						
-						<div class="flex flex-col items-center justify-center">
-							<button type="button" onclick="moveItem(currentData.perjalanan.timeline_summary, ${index}, -1); renderTimelineSummary(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▲</button>
-							<button type="button" onclick="moveItem(currentData.perjalanan.timeline_summary, ${index}, 1); renderTimelineSummary(); updateJSONPreview();" class="text-[10px] text-gray-500 hover:text-white">▼</button>
-						</div>
-
-						<input type="text" value="${item.date}" oninput="currentData.perjalanan.timeline_summary[${index}].date = this.value; updateJSONPreview();" class="w-28 bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-gray-300 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Tgl">
-						
-						<input type="text" value="${item.agenda}" oninput="currentData.perjalanan.timeline_summary[${index}].agenda = this.value; updateJSONPreview();" class="flex-1 bg-gray-900 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-white focus:ring-1 focus:ring-blue-500 outline-none" placeholder="Agenda Perjalanan">
-
-						<button type="button" onclick="removeTimelineItem(${index}); renderTimelineSummary(); updateJSONPreview();" class="text-gray-500 hover:text-red-400 p-1.5">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-							</svg>
-						</button>
-					</div>`;
-            });
-        }
-        function addTimelineItem() {
-            currentData.perjalanan.timeline_summary.push({"date": "Hari, Tgl", "agenda": "Aktivitas utama"});
-            renderTimelineSummary();
-            updateJSONPreview();
-        }
-        function removeTimelineItem(index) {
-            currentData.perjalanan.timeline_summary.splice(index, 1);
-            renderTimelineSummary();
-            updateJSONPreview();
         }
 
         // --- DYNAMIC RENDERING: DAILY DETAILS & ACTIVITIES ---
