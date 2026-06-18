@@ -621,7 +621,7 @@
             AJAX LOAD DATA & RENDER
             ====================================================== */
             document.addEventListener("DOMContentLoaded", () => {
-                fetch('/travel/json/2026malaysia.json')
+                fetch('/json/2026malaysia.json')
                     .then(response => response.json())
                     .then(data => {
                         renderApp(data);
