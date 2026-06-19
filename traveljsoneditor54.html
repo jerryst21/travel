@@ -283,7 +283,7 @@
 
             // Textarea notes & checklist array mapping
             document.getElementById('tour_guide_notes').value = currentData.catatan.tour_guide_notes;
-            document.getElementById('travel_checklist').value = (currentData.catatan.travel_checklist || []).join('\n');
+            document.getElementById('travel_checklist').value = currentData.catatan.travel_checklist;
 
             // Render komponen dinamis
             renderDailyDetails();
