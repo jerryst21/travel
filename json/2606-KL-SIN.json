@@ -1,0 +1,351 @@
+{
+  "trip_info": {
+    "title": "Trip Singapura - Kuala Lumpur 2026",
+    "subtitle": "Jadwal Perjalanan & Pemeriksaan Medis",
+    "start_date": "2026-06-09",
+    "end_date": "2026-04-17",
+    "date_display": "Sel, 9 Jun - Rab, 17 Jun 2026",
+    "participants": [
+      "Papa",
+      "Mama",
+      "Jerry"
+    ],
+    "last_update": "17 Juni 2026"
+  },
+  "perjalanan": {
+    "daily_details": [
+      {
+        "date_display": "Sel, 9 Jun",
+        "title": "Penerbangan Manado - Kuala Lumpur",
+        "activities": [
+          {
+            "time": "08.00-11.30",
+            "description": "Penerbangan Manado ➔ Singapore",
+            "icon": "✈️"
+          },
+          {
+            "time": "11.30-16.00",
+            "description": "Transit di Changi Airport (4 jam 30 min)",
+            "icon": "🔄"
+          },
+          {
+            "time": "16.20-17.35",
+            "description": "Penerbangan Singapore ➔ Kuala Lumpur",
+            "icon": "✈️"
+          },
+          {
+            "time": "18.00-19.00",
+            "description": "Perjalanan Soho Suites, Kuala Lumpur Est. 30 menit",
+            "icon": "🚗"
+          }
+        ]
+      },
+      {
+        "date_display": "Rab, 10 Jun",
+        "title": "Kegiatan Bebas",
+        "activities": [
+          {
+            "time": "",
+            "description": "Makan siang di Pavilion",
+            "icon": "🍽️"
+          },
+          {
+            "time": "17.54",
+            "description": "Tukar RP-MYR (kurs 4,385.96) di Money Changer di pintu masuk Tai Ichi Hotel, Bukit Bintang",
+            "icon": "📍"
+          },
+          {
+            "time": "20.44",
+            "description": "Belanja di Big Pharmacy, Bukit Bintang",
+            "icon": "📍"
+          }
+        ]
+      },
+      {
+        "date_display": "Kam, 11 Jun",
+        "title": "Pemeriksaan Kesehatan",
+        "activities": [
+          {
+            "time": "9.40",
+            "description": "Appoinment dengan Dr Tiew Sei Kern | Consultant Orthopaedic Surgeon SJMC (Pasien: Jerry)",
+            "icon": "🩺"
+          },
+          {
+            "time": "11.00",
+            "description": "Appoinment dengan Dr. Daphne Anthonysamy (Dokter Spesialis Bedah Umum, Subspesialis: breast Surgery & endocrine Surgery) (Pasien: Jerry)",
+            "icon": "🩺"
+          }
+        ]
+      },
+      {
+        "date_display": "Jum, 12 Jun",
+        "title": "Kegiatan Bebas",
+        "activities": [
+          {
+            "time": "",
+            "description": "Makan siang di Mid Valley Mall",
+            "icon": "🍽️"
+          },
+          {
+            "time": "",
+            "description": "Belanja di Mid Valley Mall sampai sore",
+            "icon": "🏷️"
+          },
+          {
+            "time": "19.00",
+            "description": "Beli hair tonic (@MYR600) buat Siska di Sungai Wang Plaza (Seberang Lot 10)",
+            "icon": "📍"
+          },
+          {
+            "time": "20.00",
+            "description": "Beli Prolia 60mg/ml (injection) (@MYR899) di AlproPharmacy, Ampang",
+            "icon": "📍"
+          }
+        ]
+      },
+      {
+        "date_display": "Sab, 13 Jun",
+        "title": "Genting Highlands Premium Outlets",
+        "activities": [
+          {
+            "time": "10.00",
+            "description": "Perjalanan (Grab) ke Genting Highlands Premium Outlets",
+            "icon": "🚗"
+          },
+          {
+            "time": "13.00",
+            "description": "Makan siang di Madam Kwans",
+            "icon": "🍽️"
+          },
+          {
+            "time": "",
+            "description": "Keliling belanja",
+            "icon": "🏷️"
+          },
+          {
+            "time": "18.00",
+            "description": "Kembali ke Soho Suites (Gunakan jasa jemputan Mr Tony 60 12 226 0989)",
+            "icon": "🚗"
+          }
+        ]
+      },
+      {
+        "date_display": "Min, 14 Jun",
+        "title": "Penerbangan Kuala Lumpur - Singapore",
+        "activities": [
+          {
+            "time": "6.30",
+            "description": "Checkout apartemen Soho Suites",
+            "icon": "🛎️"
+          },
+          {
+            "time": "6.30-7.30",
+            "description": "Perjalanan ke airport",
+            "icon": "🚗"
+          },
+          {
+            "time": "8.30",
+            "description": "Makan Burger King di dalam airport (setelah checkin)",
+            "icon": "🍽️"
+          },
+          {
+            "time": "10.20-11.35",
+            "description": "Penerbangan Kuala Lumpur, Malaysia (Terminal 2) > Singapore (Terminal 4)",
+            "icon": "✈️"
+          },
+          {
+            "time": "13.00",
+            "description": "Checkin V Lavender (3 Malam. CO: 17 Juni)",
+            "icon": "🛎️"
+          },
+          {
+            "time": "",
+            "description": "Makan malam di Food Court PLO Mall, Paya Lebar",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sen, 15 Jun",
+        "title": "Pemeriksaan ",
+        "activities": [
+          {
+            "time": "9.34-9.38",
+            "description": "Perjalanan ke Farrer Park Hospital",
+            "icon": "📍"
+          },
+          {
+            "time": "9.41",
+            "description": "Tes Darah di Icon Cancer Centre Farrer Park",
+            "icon": "🩺"
+          },
+          {
+            "time": "10.10",
+            "description": "Daftar antri pemeriksaan USG Breast dan X-Ray Thorax",
+            "icon": "🩺"
+          },
+          {
+            "time": "",
+            "description": "Makan siang di basement Lucky Plaza (Roast Duck and Crispy Pork set)",
+            "icon": "🍽️"
+          },
+          {
+            "time": "15.00",
+            "description": "Beli koper kecil (~Rp2.5jt) di Takashimaya Department Store",
+            "icon": "🏷️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sel, 16 Jun",
+        "title": "Review Hasil Pemeriksaan",
+        "activities": [
+          {
+            "time": "9.00",
+            "description": "Review with Dr Whang",
+            "icon": "🩺"
+          },
+          {
+            "time": "",
+            "description": "Makan siang di Monster Curry, ION Orchard",
+            "icon": "🍽️"
+          },
+          {
+            "time": "16.10-16.24",
+            "description": "Perjalanan ke V Hotel Lavender",
+            "icon": "🚗"
+          }
+        ]
+      },
+      {
+        "date_display": "Rab, 17 Jun",
+        "title": "Penerbangan Singapura - Manado",
+        "activities": [
+          {
+            "time": "5.30",
+            "description": "Checkout V Hotel Lavender",
+            "icon": "🛎️"
+          },
+          {
+            "time": "5.35-5.55",
+            "description": "Perjalanan ke Terminal 1 Changi Airport",
+            "icon": "🚗"
+          },
+          {
+            "time": "9.20-13.00",
+            "description": "Penerbangan Scoot(Booking no.ABF8PG) Singapore (Terminal 1) > Manado",
+            "icon": "✈️"
+          },
+          {
+            "time": "",
+            "description": "Pesawat sulit turun karena cuaca kurang baik",
+            "icon": "⏳"
+          },
+          {
+            "time": "14.15",
+            "description": "Dijemput Maxi",
+            "icon": "📍"
+          }
+        ]
+      }
+    ]
+  },
+  "reservasi": {
+    "hotels": [
+      {
+        "name": "Soho Suites KLCC, Jalan Perak, Kuala Lumpur, 50450 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur, Malaysia",
+        "check_in": "Sel, 9 Juni",
+        "check_out": "Min, 14 Jun (5 Malam - 2 Unit Apartemen3 Kamar)",
+        "guests": "Papa, Mama, Jerry, Henoch, Mei, Titin",
+        "payment_info": "💵 Tunai @ RM1400 (~Rp6.266.288. Kurs: 4.475.92)",
+        "airport_distance": "Est. Hotel ➔ Airport: 1 jam",
+        "vouchers": [],
+        "notes": "Titin book apartemen 2 unit 2 bedroom via AirBnb"
+      },
+      {
+        "name": "V Lavender, Singapore (Booking no.1362824741)",
+        "check_in": "Min, 14 Jun",
+        "check_out": "Rab, 17 Jun (3 Malam - 1 Kamar)",
+        "guests": "Papa, Mama, Jerry",
+        "payment_info": "💳 Pembayaran 9.548.407 via KK DBS Mama",
+        "airport_distance": "Est. Hotel ➔ Airport: 30 menit",
+        "vouchers": [],
+        "notes": "70 Jellicoe Road, Lavender, Singapore, 208767"
+      }
+    ],
+    "flights": [
+      {
+        "title": "Sel, 9 Jun - Penerbangan Manado - Kuala Lumpur",
+        "summary": "Scoot SQ-8521 | 08.00 - 17.35",
+        "details": [
+          "MDC ➔ SIN : 08.00 - 11.30 (3 Jam 30 Min)",
+          "Transit (4 Jam 30 Min)",
+          "SIN ➔ KUL : 16.20 - 17.35 (1 Jam 25 Min)",
+          "💳 Pembayaran via KK DBS Mama"
+        ],
+        "vouchers": [],
+        "flight_time": "2026-06-09T08:59"
+      },
+      {
+        "title": "Min, 14 Jun - Penerbangan Kuala Lumpur - SIngapura",
+        "flight_time": "2026-06-14T10:20",
+        "summary": "AirAsia AK 707",
+        "details": [
+          "Kuala Lumpur, Malaysia (Terminal 2) > Singapore (Terminal 4)",
+          "Penumpang: Papa, Mama & Jerry",
+          "10.20 - 11.35 (1j15m)",
+          "💳 Pakai KK DBS Mama"
+        ],
+        "vouchers": []
+      },
+      {
+        "title": "Rab, 17 Jun - Penerbangan Singapura - Manado",
+        "flight_time": "2026-06-17T09:20",
+        "summary": "Scoot TR-216 (Booking Code: ABF8PG)",
+        "details": [
+          "Singapore (Terminal 1) > Manado",
+          "9.20 - 13.00 (3j40m)",
+          "💳 Pakai KK Mandiri Charlie"
+        ],
+        "vouchers": []
+      }
+    ]
+  },
+  "catatan": {
+    "contacts": [
+      {
+        "name": "Soho Suites, Bukit Bintang",
+        "details": "G4, Soho Suites KLCC, 20, Jalan Perak, Kuala Lumpur, 50450 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur, Malaysia"
+      },
+      {
+        "name": "V Hotel Lavender",
+        "details": "70 Jellicoe Rd, Singapore 208767"
+      }
+    ],
+    "immigration": [
+      {
+        "country": "Malaysia",
+        "label": "Malaysia Digital Arrival Card (MDAC)",
+        "url": "https://imigresen-online.imi.gov.my/mdac/main"
+      },
+      {
+        "country": "Singapore",
+        "label": "Singapore Arrival Card (SGAC)",
+        "url": "https://eservices.ica.gov.wsg/sgarrivalcard/"
+      }
+    ],
+    "tour_guide_notes": [
+      "Dokumen Reservasi",
+      "Sel, 9 Juni 2026 - Penerbangan Manado - KL",
+      "https://inijo.vercel.app/jurnal/view95231.html?id=36fa7d88-a25a-81ce-ae79-c2e2757f16b4",
+      "Min, 14 Juni 2026 - Penerbangan KL-Singapura",
+      "https://inijo.vercel.app/jurnal/view95231.html?id=36fa7d88-a25a-8131-8aca-d126522c9932",
+      "Rabu, 17 Juni 2026 - Penerbangan Singapura-Manado",
+      "https://inijo.vercel.app/jurnal/view95231.html?id=375a7d88-a25a-81fd-a3e0-d8439816aa1c",
+      "V Hotel Lavender",
+      "14-17 Jun 2026 (3 Malam)",
+      "https://inijo.vercel.app/jurnal/view95231.html?id=376a7d88-a25a-8187-b0e4-f7a904d06237"
+    ],
+    "travel_checklist": []
+  }
+}
