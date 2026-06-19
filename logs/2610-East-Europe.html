@@ -504,11 +504,25 @@
 			.checklist-content a {
 			    color: var(--accent);
 				text-decoration: none;
+				padding: 0;           /* Menghapus padding jika ada */
+			    display: inline;      /* Memastikan link tidak berperilaku seperti blok */
+			    margin: 0;            /* Menghapus margin jika ada */
 			}
 			
 			/* Menambahkan icon kecil (Opsional) */
 			.note-content a::before {
 			    content: "🔗 "; /* Bisa diganti dengan icon font-awesome jika mau */
+			}
+
+			/* Menghapus margin dan padding bawaan browser pada paragraf dan daftar */
+			.note-content p, 
+			.checklist-content p,
+			.note-content ul,
+			.checklist-content ul,
+			.note-content ol,
+			.checklist-content ol {
+			    margin: 0;
+			    padding: 0;
 			}
         </style>
     <body data-theme="light">
