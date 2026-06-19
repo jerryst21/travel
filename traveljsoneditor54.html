@@ -305,8 +305,8 @@
             currentData.trip_info.last_update = document.getElementById('trip_last_update').value;
 
             // Textarea mapping split by newline
-            currentData.catatan.tour_guide_notes = document.getElementById('tour_guide_notes').value.split('\n').filter(s => s.trim() !== '');
-            currentData.catatan.travel_checklist = document.getElementById('travel_checklist').value.split('\n').filter(s => s.trim() !== '');
+            currentData.catatan.tour_guide_notes = document.getElementById('tour_guide_notes').value;
+            currentData.catatan.travel_checklist = document.getElementById('travel_checklist').value;
 
             updateJSONPreview();
         }
