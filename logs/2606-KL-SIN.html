@@ -497,7 +497,19 @@
 			.back-to-top:hover {
 				opacity: 0.8;
 			}
-
+			
+			/* Styling untuk Link agar terlihat seperti tombol */
+			/* Menargetkan tag <a> yang ada di dalam konten (catatan/checklist) */
+			.note-content a, 
+			.checklist-content a {
+			    color: var(--accent);
+				text-decoration: none;
+			}
+			
+			/* Menambahkan icon kecil (Opsional) */
+			.note-content a::before {
+			    content: "🔗 "; /* Bisa diganti dengan icon font-awesome jika mau */
+			}
         </style>
     <body data-theme="light">
         <div class="container">
@@ -591,12 +603,12 @@
 		</button>
         
         <script>
-      			function scrollToDay(id) {
-      				const element = document.getElementById(id);
-      				if (element) {
-      					element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      				}
-      			}
+			function scrollToDay(id) {
+				const element = document.getElementById(id);
+				if (element) {
+					element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			}
 		
             /* ======================================================
             THEME MANAGEMENT
@@ -791,7 +803,7 @@
 				const notesList = document.getElementById('tour-guide-list');
 				if (notesList) {
 					notesList.innerHTML = data.catatan.tour_guide_notes.map(note => 
-						`${marked.parse(note)}`
+						`<div class="note-content">${marked.parse(note)}</div>`
 					).join('');
 				}
 
@@ -799,7 +811,7 @@
 				const checklistList = document.getElementById('checklist-list');
 				if (checklistList) {
 					checklistList.innerHTML = data.catatan.travel_checklist.map(item => 
-						`${marked.parse(item)}`
+						`<div class="note-content">${marked.parse(item)}</div>`
 					).join('');
 				}
 
