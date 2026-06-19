@@ -334,21 +334,7 @@
         "url": "https://eservices.ica.gov.wsg/sgarrivalcard/"
       }
     ],
-    "tour_guide_notes": [
-      "### Dokumen Reservasi",
-      "Sel, 9 Juni 2026 - Penerbangan Manado - KL",
-      "https://inijo.vercel.app/jurnal/view95231.html?id=36fa7d88-a25a-81ce-ae79-c2e2757f16b4",
-      "\\",
-      "Min, 14 Juni 2026 - Penerbangan KL-Singapura",
-      "https://inijo.vercel.app/jurnal/view95231.html?id=36fa7d88-a25a-8131-8aca-d126522c9932",
-      "\\",
-      "Rabu, 17 Juni 2026 - Penerbangan Singapura-Manado",
-      "https://inijo.vercel.app/jurnal/view95231.html?id=375a7d88-a25a-81fd-a3e0-d8439816aa1c",
-      "\\",
-      "V Hotel Lavender",
-      "14-17 Jun 2026 (3 Malam)",
-      "https://inijo.vercel.app/jurnal/view95231.html?id=376a7d88-a25a-8187-b0e4-f7a904d06237"
-    ],
-    "travel_checklist": []
+    "tour_guide_notes": "### Dokumen Reservasi\nSel, 9 Juni 2026 - Penerbangan Manado - KL\nhttps://inijo.vercel.app/jurnal/view95231.html?id=36fa7d88-a25a-81ce-ae79-c2e2757f16b4\n\nMin, 14 Juni 2026 - Penerbangan KL-Singapura\nhttps://inijo.vercel.app/jurnal/view95231.html?id=36fa7d88-a25a-8131-8aca-d126522c9932\n\nRabu, 17 Juni 2026 - Penerbangan Singapura-Manado\nhttps://inijo.vercel.app/jurnal/view95231.html?id=375a7d88-a25a-81fd-a3e0-d8439816aa1c\n\nV Hotel Lavender\n14-17 Jun 2026 (3 Malam)\nhttps://inijo.vercel.app/jurnal/view95231.html?id=376a7d88-a25a-8187-b0e4-f7a904d06237",
+    "travel_checklist": ""
   }
 }
