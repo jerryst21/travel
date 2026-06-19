@@ -532,7 +532,22 @@
 			.note-content ol {
 			    margin: 0;
 			    padding: 0;
-				display: inline;
+				display: block;
+			}
+
+			/* Target list item (li) */
+			.note-content li {
+			    margin: 0 !important;
+			    padding: 0 !important;
+			    display: list-item;
+			}
+
+			/* PENTING: Target paragraf di dalam list */
+			/* Markdown sering menambah <p> di dalam <li>, ini penyebab gap sering terjadi */
+			.note-content li p {
+			    margin: 0 !important;
+			    padding: 0 !important;
+			    display: inline; /* Menjaga teks tetap dalam satu baris item list */
 			}
         </style>
     <body data-theme="light">
