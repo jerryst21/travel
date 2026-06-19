@@ -522,6 +522,22 @@
 			.note-content a::before {
 			    content: "🔗 "; /* Bisa diganti dengan icon font-awesome jika mau */
 			}
+
+			/* Menghapus margin dan padding bawaan browser pada paragraf dan daftar */
+			.note-content p, 
+			.note-content ul,
+			.note-content ol,
+			.note-content h1,
+			.note-content h2,
+			.note-content h3,
+			.checklist-content p,
+			.checklist-content ul,
+			.checklist-content ol {
+				margin-top: 0 !important;
+				margin-bottom: 0 !important;
+				margin: 0 !important;
+			    padding: 0 !important;
+			}
         </style>
     <body data-theme="light">
         <div class="container">
