@@ -282,7 +282,7 @@
             document.getElementById('trip_last_update').value = currentData.trip_info.last_update || '';
 
             // Textarea notes & checklist array mapping
-            document.getElementById('tour_guide_notes').value = (currentData.catatan.tour_guide_notes || []).join('\n');
+            document.getElementById('tour_guide_notes').value = currentData.catatan.tour_guide_notes;
             document.getElementById('travel_checklist').value = (currentData.catatan.travel_checklist || []).join('\n');
 
             // Render komponen dinamis
