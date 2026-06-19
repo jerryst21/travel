@@ -502,9 +502,11 @@
 			/* Menargetkan tag <a> yang ada di dalam konten (catatan/checklist) */
 			.note-content {
 			    white-space: pre-line;
-				padding: 0;
-			    display: inline;
-			    margin: 0;
+			    display: block;
+			    margin-top: 0 !important;
+				margin-bottom: 0 !important;
+				margin: 0 !important;
+			    padding: 0 !important;
 			}
 			
 			.note-content a, 
@@ -519,21 +521,6 @@
 			/* Menambahkan icon kecil (Opsional) */
 			.note-content a::before {
 			    content: "🔗 "; /* Bisa diganti dengan icon font-awesome jika mau */
-			}
-
-			/* Menghapus margin dan padding bawaan browser pada paragraf dan daftar */
-			.note-content p, 
-			.note-content ul,
-			.note-content ol,
-			.note-content h1,
-			.note-content h2,
-			.note-content h3,
-			.checklist-content p,
-			.checklist-content ul,
-			.checklist-content ol {
-			    margin: 0 !important;
-			    padding: 0 !important;
-				line-height: 1.2; /* Mengurangi ruang vertikal di dalam teks */
 			}
         </style>
     <body data-theme="light">
