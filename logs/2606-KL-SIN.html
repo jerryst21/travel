@@ -501,10 +501,10 @@
 			/* Styling untuk Link agar terlihat seperti tombol */
 			/* Menargetkan tag <a> yang ada di dalam konten (catatan/checklist) */
 			.note-content {
-			    white-space: pre-line; /* Memastikan baris baru dihormati */
-				padding: 0;           /* Menghapus padding jika ada */
-			    display: inline;      /* Memastikan link tidak berperilaku seperti blok */
-			    margin: 0;            /* Menghapus margin jika ada */
+			    white-space: pre-line;
+				padding: 0;
+			    display: block;
+			    margin: 0;
 			}
 			
 			.note-content a, 
@@ -531,10 +531,9 @@
 			.checklist-content p,
 			.checklist-content ul,
 			.checklist-content ol {
-			    margin: 0;
-			    padding: 0;
-				margin-bottom: 0px !important; /* Menghapus jarak bawah */
-   				margin-top: 0px;              /* Sesuaikan jarak atas jika perlu */
+			    margin: 0 !important;
+			    padding: 0 !important;
+				line-height: 1.2; /* Mengurangi ruang vertikal di dalam teks */
 			}
         </style>
     <body data-theme="light">
