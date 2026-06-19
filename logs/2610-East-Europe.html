@@ -816,19 +816,17 @@
                 `).join('') : '';
 				
 				// 7. Render Tour Guide Notes
-				const notesList = document.getElementById('tour-guide-list');
-				if (notesList) {
-					notesList.innerHTML = data.catatan.tour_guide_notes.map(note => 
-						`${marked.parse(note)}`
-					).join('');
+				const noteContainer = document.getElementById('tour-guide-notes');
+				if (noteContainer) {
+				    // Pastikan ada class="note-content" di pembungkusnya
+				    noteContainer.innerHTML = `<div class="note-content">${marked.parse(data.tour_guide_notes.join('\n'))}</div>`;
 				}
 
 				// 8. Render Checklist
-				const checklistList = document.getElementById('checklist-list');
-				if (checklistList) {
-					checklistList.innerHTML = data.catatan.travel_checklist.map(item => 
-						`${marked.parse(item)}`
-					).join('');
+				const noteContainer = document.getElementById('checklist-list');
+				if (noteContainer) {
+				    // Pastikan ada class="note-content" di pembungkusnya
+				    noteContainer.innerHTML = `<div class="note-content">${marked.parse(data.travel_checklist.join('\n'))}</div>`;
 				}
 
                 // Inisialisasi fitur interaktif pasca render data
