@@ -498,46 +498,37 @@
 				opacity: 0.8;
 			}
 			
-			/* Styling untuk .note-content */
+			/* Styling untuk Link agar terlihat seperti tombol */
+			/* Menargetkan tag <a> yang ada di dalam konten (catatan/checklist) */
 			.note-content {
 			    white-space: pre-line;
 			    display: block;
-			    margin: 0 !important;
-			    padding: 0 !important;
+			    margin-top: 0 !important;
+				margin-bottom: 0 !important;
+				margin: 0 !important;
 			}
 			
-			/* Target daftar (ul/ol) - Gunakan block, bukan inline */
-			.note-content ul, 
-			.note-content ol {
-			    margin: 0 !important;
-			    padding: 0 0 0 20px !important; /* Memberikan indentasi agar bullet/angka terlihat */
-			    display: block;
-			}
-			
-			/* Target list item (li) */
-			.note-content li {
-			    margin: 0 !important;
-			    padding: 0 !important;
-			    display: list-item;
-			}
-			
-			/* PENTING: Target paragraf di dalam list */
-			/* Markdown sering menambah <p> di dalam <li>, ini penyebab gap sering terjadi */
-			.note-content li p {
-			    margin: 0 !important;
-			    padding: 0 !important;
-			    display: inline; /* Menjaga teks tetap dalam satu baris item list */
-			}
-			
-			/* Styling untuk Link */
 			.note-content a {
 			    color: var(--accent);
-			    text-decoration: none;
-			    display: inline;
+				text-decoration: none;
+			    display: inline;      /* Memastikan link tidak berperilaku seperti blok */
 			}
 			
+			/* Menambahkan icon kecil (Opsional) */
 			.note-content a::before {
-			    content: "🔗 ";
+			    content: "🔗 "; /* Bisa diganti dengan icon font-awesome jika mau */
+			}
+
+			/* Menghapus margin dan padding bawaan browser pada paragraf dan daftar */
+			.note-content * {
+				margin-top: 0 !important;
+				margin-bottom: 0 !important;
+				margin: 0 !important;
+			    padding: 0 !important;
+			}
+
+			.note-content li {
+				line-height: 0.8;
 			}
         </style>
     <body data-theme="light">
