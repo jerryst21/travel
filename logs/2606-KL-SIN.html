@@ -816,17 +816,14 @@
 				// 7. Render Tour Guide Notes
 				const notesList = document.getElementById('tour-guide-list');
 				if (notesList) {
-					notesList.innerHTML = data.catatan.tour_guide_notes.map(note => 
-						`<div class="note-content">${marked.parse(note)}</div>`
-					).join('');
+				    // Kita langsung parse string tersebut tanpa perlu .map()
+				    notesList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.tour_guide_notes)}</div>`;
 				}
 
 				// 8. Render Checklist
 				const checklistList = document.getElementById('checklist-list');
 				if (checklistList) {
-					checklistList.innerHTML = data.catatan.travel_checklist.map(item => 
-						`<div class="note-content">${marked.parse(item)}</div>`
-					).join('');
+					checklistList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.travel_checklist)}</div>`;
 				}
 
                 // Inisialisasi fitur interaktif pasca render data
