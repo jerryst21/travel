@@ -816,17 +816,17 @@
                 `).join('') : '';
 				
 				// 7. Render Tour Guide Notes
-				const noteContainer = document.getElementById('tour-guide-notes');
-				if (noteContainer) {
+				const notesList = document.getElementById('tour-guide-notes');
+				if (notesList) {
 				    // Pastikan ada class="note-content" di pembungkusnya
-				    noteContainer.innerHTML = `<div class="note-content">${marked.parse(data.tour_guide_notes.join('\n'))}</div>`;
+				    notesList.innerHTML = `<div class="note-content">${marked.parse(data.tour_guide_notes.join('\n'))}</div>`;
 				}
 
 				// 8. Render Checklist
-				const noteContainer = document.getElementById('checklist-list');
-				if (noteContainer) {
+				const checklistList = document.getElementById('checklist-list');
+				if (checklistList) {
 				    // Pastikan ada class="note-content" di pembungkusnya
-				    noteContainer.innerHTML = `<div class="note-content">${marked.parse(data.travel_checklist.join('\n'))}</div>`;
+				    checklistList.innerHTML = `<div class="note-content">${marked.parse(data.travel_checklist.join('\n'))}</div>`;
 				}
 
                 // Inisialisasi fitur interaktif pasca render data
