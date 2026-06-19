@@ -500,13 +500,18 @@
 			
 			/* Styling untuk Link agar terlihat seperti tombol */
 			/* Menargetkan tag <a> yang ada di dalam konten (catatan/checklist) */
-			.note-content a, 
-			.checklist-content a {
+			.note-content {
+			    white-space: pre-line;
+			    display: block;
+			    margin-top: 0 !important;
+				margin-bottom: 0 !important;
+				margin: 0 !important;
+			}
+			
+			.note-content a {
 			    color: var(--accent);
 				text-decoration: none;
-				padding: 0;           /* Menghapus padding jika ada */
 			    display: inline;      /* Memastikan link tidak berperilaku seperti blok */
-			    margin: 0;            /* Menghapus margin jika ada */
 			}
 			
 			/* Menambahkan icon kecil (Opsional) */
@@ -515,14 +520,11 @@
 			}
 
 			/* Menghapus margin dan padding bawaan browser pada paragraf dan daftar */
-			.note-content p, 
-			.checklist-content p,
-			.note-content ul,
-			.checklist-content ul,
-			.note-content ol,
-			.checklist-content ol {
-			    margin: 0;
-			    padding: 0;
+			.note-content * {
+				margin-top: 0 !important;
+				margin-bottom: 0 !important;
+				margin: 0 !important;
+			    padding: 0 !important;
 			}
         </style>
     <body data-theme="light">
@@ -690,7 +692,7 @@
             AJAX LOAD DATA & RENDER
             ====================================================== */
             document.addEventListener("DOMContentLoaded", () => {
-                fetch('/json/2610-East-Europe.json')
+                fetch('/json/2610-East-Europe-HB.json')
                     .then(response => response.json())
                     .then(data => {
                         renderApp(data);
@@ -816,17 +818,14 @@
 				// 7. Render Tour Guide Notes
 				const notesList = document.getElementById('tour-guide-list');
 				if (notesList) {
-					notesList.innerHTML = data.catatan.tour_guide_notes.map(note => 
-						`<div class="note-content">${marked.parse(note)}</div>`
-					).join('');
+				    // Kita langsung parse string tersebut tanpa perlu .map()
+				    notesList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.tour_guide_notes, { breaks: true })}</div>`;
 				}
 
 				// 8. Render Checklist
 				const checklistList = document.getElementById('checklist-list');
 				if (checklistList) {
-					checklistList.innerHTML = data.catatan.travel_checklist.map(item => 
-						`<div class="note-content">${marked.parse(item)}</div>`
-					).join('');
+					checklistList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.travel_checklist, { breaks: true })}</div>`;
 				}
 
                 // Inisialisasi fitur interaktif pasca render data
