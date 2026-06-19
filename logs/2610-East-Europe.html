@@ -8,7 +8,7 @@
         <link rel="icon" href="../uploads/2026-03-08-travelicon.png" type="image/png" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/lucide@latest"></script>
-		<script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" />
         <style>
@@ -816,17 +816,19 @@
                 `).join('') : '';
 				
 				// 7. Render Tour Guide Notes
-				const notesList = document.getElementById('tour-guide-notes');
+				const notesList = document.getElementById('tour-guide-list');
 				if (notesList) {
-				    // Pastikan ada class="note-content" di pembungkusnya
-				    notesList.innerHTML = `<div class="note-content">${marked.parse(data.tour_guide_notes.join('\n'))}</div>`;
+					notesList.innerHTML = data.catatan.tour_guide_notes.map(note => 
+						`<div class="note-content">${marked.parse(note)}</div>`
+					).join('');
 				}
 
 				// 8. Render Checklist
 				const checklistList = document.getElementById('checklist-list');
 				if (checklistList) {
-				    // Pastikan ada class="note-content" di pembungkusnya
-				    checklistList.innerHTML = `<div class="note-content">${marked.parse(data.travel_checklist.join('\n'))}</div>`;
+					checklistList.innerHTML = data.catatan.travel_checklist.map(item => 
+						`<div class="note-content">${marked.parse(item)}</div>`
+					).join('');
 				}
 
                 // Inisialisasi fitur interaktif pasca render data
