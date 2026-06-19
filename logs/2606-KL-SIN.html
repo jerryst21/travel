@@ -500,6 +500,13 @@
 			
 			/* Styling untuk Link agar terlihat seperti tombol */
 			/* Menargetkan tag <a> yang ada di dalam konten (catatan/checklist) */
+			.note-content {
+			    white-space: pre-line; /* Memastikan baris baru dihormati */
+				padding: 0;           /* Menghapus padding jika ada */
+			    display: inline;      /* Memastikan link tidak berperilaku seperti blok */
+			    margin: 0;            /* Menghapus margin jika ada */
+			}
+			
 			.note-content a, 
 			.checklist-content a {
 			    color: var(--accent);
@@ -817,13 +824,13 @@
 				const notesList = document.getElementById('tour-guide-list');
 				if (notesList) {
 				    // Kita langsung parse string tersebut tanpa perlu .map()
-				    notesList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.tour_guide_notes)}</div>`;
+				    notesList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.tour_guide_notes, { breaks: true })}</div>`;
 				}
 
 				// 8. Render Checklist
 				const checklistList = document.getElementById('checklist-list');
 				if (checklistList) {
-					checklistList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.travel_checklist)}</div>`;
+					checklistList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.travel_checklist, { breaks: true })}</div>`;
 				}
 
                 // Inisialisasi fitur interaktif pasca render data
