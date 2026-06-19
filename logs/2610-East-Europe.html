@@ -832,13 +832,13 @@
 				const notesList = document.getElementById('tour-guide-list');
 				if (notesList) {
 				    // Kita langsung parse string tersebut tanpa perlu .map()
-				    notesList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.tour_guide_notes, { breaks: true })}</div>`;
+				    notesList.innerHTML = `<div class="note-content">${marked.parseInline(data.catatan.tour_guide_notes)}</div>`;
 				}
 
 				// 8. Render Checklist
 				const checklistList = document.getElementById('checklist-list');
 				if (checklistList) {
-					checklistList.innerHTML = `<div class="note-content">${marked.parse(data.catatan.travel_checklist, { breaks: true })}</div>`;
+					checklistList.innerHTML = `<div class="note-content">${marked.parseInline(data.catatan.travel_checklist)}</div>`;
 				}
 
                 // Inisialisasi fitur interaktif pasca render data
