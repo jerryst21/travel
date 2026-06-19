@@ -502,24 +502,20 @@
 			/* Menargetkan tag <a> yang ada di dalam konten (catatan/checklist) */
 			.note-content a, 
 			.checklist-content a {
-			    display: inline-block;
-			    padding: 6px 12px;
-			    background-color: var(--accent); /* Mengambil warna tema utama Anda */
-			    color: #ffffff !important;
-			    border-radius: 6px;
-			    text-decoration: none !important;
-			    font-size: 0.9em;
+				background-color: transparent !important; /* Menghilangkan warna latar belakang */
+			    color: #1d4ed8; /* Biru profesional */
+			    border: 1px solid #e5e7eb; /* Border halus agar tetap terlihat wadahnya */
+			    padding: 8px;
+			    width: 100%;
+			    border-radius: 4px;
 			    font-weight: 500;
-			    transition: all 0.3s ease;
-			    margin: 4px 0;
 			}
 			
 			/* Efek saat mouse diarahkan ke link */
 			.note-content a:hover, 
 			.checklist-content a:hover {
-			    background-color: #1e40af; /* Warna sedikit lebih gelap */
-			    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-			    transform: translateY(-1px);
+				outline: none;
+			    border-color: #1d4ed8; /* Highlight biru saat diklik */
 			}
 			
 			/* Menambahkan icon kecil (Opsional) */
