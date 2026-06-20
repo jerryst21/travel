@@ -671,8 +671,14 @@
                     const target = new Date(datetime).getTime();
                     const diff = target - now;
                     if (diff <= 0) {
-                        el.innerHTML = '<i class="fa-solid fa-plane-departure awe-icon"></i> Started / Passed';
-                        return;
+						const absDiff = Math.abs(diff); // Mengubah nilai negatif menjadi positif
+				        const days = Math.floor(absDiff / (1000 * 60 * 60 * 24));
+				        const hours = Math.floor((absDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				        const minutes = Math.floor((absDiff % (1000 * 60 * 60)) / (1000 * 60));
+				        const seconds = Math.floor((absDiff % (1000 * 60)) / 1000);
+				        
+				        el.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s lalu`;
+				        return;
                     }
                     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 					const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
