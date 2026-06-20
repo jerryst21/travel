@@ -38,7 +38,28 @@
       {
         "date_display": "Rab, 24 Jun",
         "title": "Bebas",
-        "activities": []
+        "activities": [
+          {
+            "time": "00.00",
+            "description": "Jalan pagi di Megamas",
+            "icon": "📍"
+          },
+          {
+            "time": "00.00",
+            "description": "Makan pagi di Sparta",
+            "icon": "📍"
+          },
+          {
+            "time": "00.00",
+            "description": "Makan siang di 🤔❓",
+            "icon": "🍽️"
+          },
+          {
+            "time": "00.00",
+            "description": "Makan malam di 🤔❓",
+            "icon": "🍽️"
+          }
+        ]
       },
       {
         "date_display": "Kam, 25 Jun",
