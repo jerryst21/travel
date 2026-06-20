@@ -713,8 +713,6 @@
                     document.getElementById('trip-title').innerText = "Error: ID Itinerary tidak ditemukan.";
                     return;
                 }
-				
-				document.title = tripId;
             
                 // Menggunakan tripId untuk menentukan file JSON
                 fetch(`/json/${tripId}.json`)
@@ -723,6 +721,7 @@
                         return response.json();
                     })
                     .then(data => {
+						document.title = tripId + " | " + data.trip_info.title";
                         renderApp(data);
                     })
                     .catch(error => {
