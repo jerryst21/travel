@@ -721,7 +721,7 @@
                         return response.json();
                     })
                     .then(data => {
-						document.title = tripId + " | " + data.trip_info.title";
+						document.title = tripId + " | " + data.trip_info.title;
                         renderApp(data);
                     })
                     .catch(error => {
