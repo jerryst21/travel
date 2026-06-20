@@ -29,29 +29,9 @@
             "icon": "🚗"
           },
           {
-            "time": "05.00",
-            "description": "Tiba di Airport dan proses Checkin",
-            "icon": "🛫"
-          },
-          {
-            "time": "08.00-11.30",
-            "description": "Penerbangan Manado ➔ Singapore",
-            "icon": "✈️"
-          },
-          {
-            "time": "11.30-16.00",
-            "description": "Transit di Changi Airport (4 jam 30 min)",
-            "icon": "🔄"
-          },
-          {
-            "time": "18.00-19.00",
-            "description": "Perjalanan ke Banyan Tree KL (Samping Mall Pavilion) Est. 30 menit",
-            "icon": "🚗"
-          },
-          {
-            "time": "00.00",
-            "description": "Detail agenda baru",
-            "icon": "📍"
+            "time": "",
+            "description": "Makan malam di Dabu-dabu Lemong",
+            "icon": "🍽️"
           }
         ]
       },
