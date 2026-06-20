@@ -1,0 +1,208 @@
+{
+  "trip_info": {
+    "title": "Trip Manado",
+    "subtitle": "Merayakan Ultah Twin V",
+    "start_date": "2026-06-23",
+    "end_date": "2026-06-29",
+    "date_display": "Sel, 23 Jun - Sen, 29 Jun 2026",
+    "participants": [
+      "Henry",
+      "Monny",
+      "Robby dan Fonny"
+    ],
+    "last_update": "20 Juni 2026"
+  },
+  "perjalanan": {
+    "daily_details": [
+      {
+        "date_display": "Sel, 23 Jun",
+        "title": "Penerbangan Makassar - Manado",
+        "activities": [
+          {
+            "time": "14.10-15.55",
+            "description": "Penerbangan BatikAir ID6762 (Kode Booking: UJQJAI). UP 14.10 - MDC 15.55 (1j45m)",
+            "icon": "✈️"
+          },
+          {
+            "time": "16.30",
+            "description": "Jemput di airport. Pulang rumah",
+            "icon": "🚗"
+          },
+          {
+            "time": "05.00",
+            "description": "Tiba di Airport dan proses Checkin",
+            "icon": "🛫"
+          },
+          {
+            "time": "08.00-11.30",
+            "description": "Penerbangan Manado ➔ Singapore",
+            "icon": "✈️"
+          },
+          {
+            "time": "11.30-16.00",
+            "description": "Transit di Changi Airport (4 jam 30 min)",
+            "icon": "🔄"
+          },
+          {
+            "time": "18.00-19.00",
+            "description": "Perjalanan ke Banyan Tree KL (Samping Mall Pavilion) Est. 30 menit",
+            "icon": "🚗"
+          },
+          {
+            "time": "00.00",
+            "description": "Detail agenda baru",
+            "icon": "📍"
+          }
+        ]
+      },
+      {
+        "date_display": "Rab, 24 Jun",
+        "title": "Bebas",
+        "activities": []
+      },
+      {
+        "date_display": "Kam, 25 Jun",
+        "title": "Acara Ultah Twin V",
+        "activities": [
+          {
+            "time": "11.00",
+            "description": "Foto-foto di XO dengan dekor",
+            "icon": "🖼️"
+          },
+          {
+            "time": "12.00",
+            "description": "Makan siang XO",
+            "icon": "🍽️"
+          },
+          {
+            "time": "13.30",
+            "description": "Mulai perjalanan ke The Nice Park Manado, Sawangan",
+            "icon": "🚗"
+          },
+          {
+            "time": "13.50",
+            "description": "Tiba di The Nice Park. Atur tiket masuk dll",
+            "icon": "📍"
+          },
+          {
+            "time": "",
+            "description": "Check-In Hotel Amaris di kawasan Megamas",
+            "icon": "🛎️"
+          },
+          {
+            "time": "",
+            "description": "Makan malam 🤔❓",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Jum, 26 Jun",
+        "title": "Bebas",
+        "activities": []
+      },
+      {
+        "date_display": "Sab, 27 Jun",
+        "title": "Bebas",
+        "activities": []
+      },
+      {
+        "date_display": "Min, 28 Jun",
+        "title": "Gereja",
+        "activities": [
+          {
+            "time": "8.00",
+            "description": "Gereja pagi",
+            "icon": "📍"
+          },
+          {
+            "time": "10.00",
+            "description": "Sekolah minggu",
+            "icon": "📍"
+          },
+          {
+            "time": "12.00",
+            "description": "Makan siang di 🤔❓",
+            "icon": "🍽️"
+          }
+        ]
+      },
+      {
+        "date_display": "Sen, 29 Jun",
+        "title": "Penerbangan pulang ke Makassar",
+        "activities": [
+          {
+            "time": "11.00",
+            "description": "Checkout dari Hotel Amaris",
+            "icon": "🛎️"
+          },
+          {
+            "time": "12.00",
+            "description": "Makan siang di 🤔❓",
+            "icon": "🍽️"
+          },
+          {
+            "time": "14.45",
+            "description": "Tiba di airport",
+            "icon": "📍"
+          },
+          {
+            "time": "16.45-18.30",
+            "description": "Penerbangan BatikAir ID 6763 (Kode Booking: UKCXXM): Manado - Ujung Pandang (1j45m)",
+            "icon": "✈️"
+          }
+        ]
+      }
+    ]
+  },
+  "reservasi": {
+    "hotels": [
+      {
+        "name": "Amaris Hotel, Megamas",
+        "check_in": "Kam, 25 Jun",
+        "check_out": "Sen, 29 Jun (2 Kamar, 4 Malam)",
+        "guests": "Henry, Monny, Robby dan Fonny",
+        "payment_info": "",
+        "airport_distance": "Kawasan Mega Mas Manado, Jl. K.H. Abdurrahman Wahid Wahid Blok 2A2, Kota Manado, Sulawesi Utara 95111",
+        "vouchers": []
+      }
+    ],
+    "flights": [
+      {
+        "title": "Sel, 23 Jun - Penerbangan Ujung Pandang - Manado",
+        "summary": "BatikAir ID6762. UP 14.10 - MDC 15.55 (1j45m)",
+        "details": [
+          "Kode Booking: UJQJAI",
+          "Bagasi: 20kg per penumpang"
+        ],
+        "vouchers": [],
+        "flight_time": "2026-06-23T02:10"
+      },
+      {
+        "title": "Sen, 29 Jun - Penerbangan Manado - Ujung Pandang",
+        "flight_time": "2026-06-29T16:45",
+        "summary": "BatikAir ID 6763: MDC 16.45 - UPG 18.30 (1j45m)",
+        "details": [
+          "Kode Booking: UKCXXM",
+          "Bagasi: 20kg per penumpang"
+        ],
+        "vouchers": []
+      }
+    ]
+  },
+  "catatan": {
+    "contacts": [
+      {
+        "name": "Amaris Hotel Manado",
+        "details": "Kawasan Mega Mas Manado, Jl. K.H. Abdurrahman Wahid Wahid Blok 2A2, Kota Manado, Sulawesi Utara 95111"
+      },
+      {
+        "name": "The Nice Park Manado, Sawangan",
+        "details": "Jl. Sawangan, jaga 4, Kec. Tombulu, Kabupaten Minahasa, Sulawesi Utara"
+      }
+    ],
+    "immigration": [],
+    "tour_guide_notes": "- Kelapa 17\n- Coto Boke",
+    "travel_checklist": ""
+  }
+}
