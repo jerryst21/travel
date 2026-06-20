@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="id">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>2610-East-Europe-HB</title>
+        <link rel="icon" href="../uploads/2026-03-08-travelicon.png" type="image/png" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" />
+        <style>
+            /* =========================================================
+            CSS VARIABLES
+            ========================================================= */
+
+            :root {
+                --bg-body: #f8f9fc;
+                --card-bg: #ffffff;
+                --text-primary: #111827;
+                --text-secondary: #4b5563;
+                --accent: #1d4ed8;
+                --accent-dark: #1e40af;
+                --headerBg: #4b5563;
+                --headerTxt: #f8f9fc;
+                --border: #e5e7eb;
+                --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                --status-ok: #15803d;
+                --warning-bg: #fef2f2;
+                --warning-border: #fecaca;
+                --warning-text: #991b1b;
+            }
+
+            [data-theme="dark"] {
+                --bg-body: #0f172a;
+                --card-bg: #4b5563;
+                --text-primary: #f1f5f9;
+                --text-secondary: #94a3b8;
+                --accent: #60a5fa;
+                --accent-dark: #3b82f6;
+                --border: #334155;
+                --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+                --status-ok: #4ade80;
+                --warning-bg: #7f1d1d;
+                --warning-border: #991b1b;
+                --warning-text: #fecaca;
+            }
+            /* =========================================================
+            BASE
+            ========================================================= */
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background: var(--bg-body);
+                color: var(--text-primary);
+                margin: 0;
+                padding: clamp(12px, 4vw, 20px);
+                line-height: 1.6;
+                min-height: 100vh;
+                transition: background 0.3s, color 0.3s;
+            }
+
+            .container {
+                max-width: 760px;
+                margin: auto;
+            }
+            /* =========================================================
+            HEADER
+            ========================================================= */
+
+            .header-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 24px;
+            }
+
+            .main-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--headerBg);
+                color: var(--headerTxt);
+                padding: clamp(10px, 2.5vw, 20px) 20px;
+                border-radius: 12px;
+                box-shadow: var(--shadow);
+                flex: 1;
+            }
+
+            .main-header h1 {
+                margin: 0;
+                font-size: clamp(1.6rem, 5vw, 2rem);
+                font-weight: 700;
+            }
+
+            .main-header p {
+                margin: 4px 0 0;
+                opacity: 0.95;
+                font-size: clamp(0.95rem, 3vw, 1.05rem);
+            }
+
+            /* Style khusus untuk subtitle agar tampil manis */
+            .trip-subtitle-text {
+                font-style: italic;
+                opacity: 0.85 !important;
+                font-size: clamp(0.9rem, 3vw, 1rem) !important;
+            }
+
+            .theme-toggle {
+                width: 44px;
+                height: 44px;
+                border: none;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                font-size: 1.4rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s;
+            }
+
+            .theme-toggle:hover {
+                background: rgba(255, 255, 255, 0.35);
+            }
+			
+			/* Styling untuk baris yang bisa diklik */
+			.timeline-row {
+				transition: all 0.2s ease;
+			}
+
+			.timeline-row:hover {
+				color: var(--accent);      /* Warna teks berubah sesuai warna utama web */
+				font-weight: 500;
+			}
+			
+            /* =========================================================
+            CARD
+            ========================================================= */
+
+            .card {
+                background: var(--card-bg);
+                border-radius: 12px;
+                padding: clamp(16px, 4vw, 22px);
+                margin-bottom: 24px;
+                box-shadow: var(--shadow);
+                border-left: 4px solid transparent;
+                transition: background 0.3s, box-shadow 0.3s;
+            }
+
+            .border-neutral {
+                border-left-color: #334155;
+            }
+
+            .border-flight {
+                border-left-color: #b91c1c;
+            }
+
+            .border-hotel {
+                border-left-color: var(--status-ok);
+            }
+
+            .border-activity {
+                border-left-color: var(--accent);
+            }
+
+            .border-catatan {
+                border-left-color: var(--status-ok);
+            }
+
+            .card-title {
+                display: flex;
+                align-items: center;
+                height: 36px;
+                font-size: clamp(1.2rem, 4vw, 1.35rem);
+                font-weight: 700;
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .card-title span {
+                margin-right: 10px;
+                font-size: 1.3rem;
+            }
+
+            .card-title-icon {
+                font-size: 1.8rem;
+                padding-bottom: 0px;
+            }
+
+            .title-text {
+                font-size: 1.2rem;
+                font-weight: 700;
+                padding-bottom: 6px;
+            }
+
+            .note-text {
+                margin-top: 15px;
+                font-style: italic;
+                color: var(--text-secondary);
+            }
+            
+            .important-note {
+                vertical-align: middle;
+                align-items: center;
+            }
+            /* =========================================================
+            CONTENT ELEMENTS
+            ========================================================= */
+
+            .info-box {
+                background: rgba(0, 0, 0, 0.03);
+                border-left: 4px solid var(--border);
+                padding: 14px 16px;
+                margin: 12px 0;
+                border-radius: 8px;
+                font-size: 0.97rem;
+            }
+
+            [data-theme="dark"] .info-box {
+                background: rgba(255, 255, 255, 0.06);
+            }
+
+            .status-ok {
+                color: var(--status-ok);
+                font-weight: 600;
+            }
+            /* =========================================================
+            SCHEDULE
+            ========================================================= */
+
+            .schedule-item {
+                display: flex;
+                margin-bottom: 12px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border);
+                font-size: clamp(0.95rem, 3.5vw, 1rem);
+            }
+
+            .schedule-item:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .time {
+                min-width: 105px;
+                flex-shrink: 0;
+                font-weight: 600;
+                color: var(--accent);
+            }
+
+            .activity {
+                flex: 1;
+            }
+            /* =========================================================
+            TABLE
+            ========================================================= */
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 12px 0;
+                font-size: clamp(0.9rem, 3.2vw, 0.95rem);
+            }
+
+            th {
+                background: rgba(0, 0, 0, 0.04);
+                text-align: left;
+                padding: 12px;
+                font-weight: 600;
+            }
+
+            [data-theme="dark"] th {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            td {
+                padding: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+            /* =========================================================
+            LINK STYLES
+            ========================================================= */
+
+            .pdf-link {
+                color: var(--accent);
+                font-weight: 600;
+                text-decoration: underline;
+            }
+
+            .pdf-link i {
+                font-size: 1.15rem;
+                margin-right: 6px;
+                vertical-align: middle;
+            }
+
+            .pdf-link:hover i {
+                color: #e74c3c;
+            }
+
+            .wa-link {
+                color: #25d366;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .wa-link:hover {
+                color: #128c7e;
+                text-decoration: underline;
+            }
+            
+            .web-link {
+                color: #B8860B;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+                vertical-align: middle;
+                flex: 1;
+                justify-content: center;
+            }
+            
+            [data-theme="dark"] .web-link {
+                color: #FFCC00;
+            }
+            
+            .highlight {
+                color: #B8860B;
+                font-weight: bold;
+                text-decoration: none;
+                transition: color 0.3s;
+                vertical-align: middle;
+            }
+            
+            [data-theme="dark"] .highlight {
+                color: #FFCC00;
+            }
+
+            /* =========================================================
+            COUNTDOWN
+            ========================================================= */
+
+            .countdown {
+                margin: 15px 0;
+                background: var(--card-bg);
+                color: var(--accent);
+                padding: 12px 16px;
+                border-radius: 8px;
+                font-weight: 600;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+            }
+
+            #flightCountdown {
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+            /* =========================================================
+            BOTTOM NAV
+            ========================================================= */
+
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 760px;
+                margin: auto;
+                display: flex;
+                height: 64px;
+                background: var(--card-bg);
+                border-top: 1px solid var(--border);
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.12);
+                z-index: 100;
+            }
+
+            .bottom-nav button {
+                flex: 1;
+                border: none;
+                background: none;
+                color: var(--text-primary);
+                font-size: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+
+            .bottom-nav button.active {
+                color: var(--accent);
+                font-weight: 600;
+                border-top: 3px solid #94a3b8;
+            }
+
+            .bottom-nav .icon {
+                font-size: 1.5rem;
+                margin-bottom: 2px;
+            }
+
+            .footer-note {
+                text-align: center;
+                color: var(--text-secondary);
+                font-size: 0.85rem;
+                margin-bottom: 20px;
+            }
+            /* =========================================================
+            SPA
+            ========================================================= */
+
+            .page-spa {
+                display: none;
+                animation: fadeIn 0.25s ease;
+            }
+
+            .page-spa.active {
+                display: block;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(6px);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+
+            .body-spacer {
+                height: 50px;
+            }
+            /* =========================================================
+            ICON UTILITY
+            ========================================================= */
+
+            .awe-icon {
+                font-size: 1.15rem;
+                vertical-align: middle;
+                color: var(--accent);
+                margin-right: 8px;
+            }
+
+            .awe-icon-h {
+                font-size: 1.9rem;
+                color: white;
+                margin-right: 10px;
+            }
+            
+            .emoji-link {
+                font-size: 1.1rem;
+                vertical-align: top;
+                margin-right: 10px;
+            }
+            /* =========================================================
+            MOBILE
+            ========================================================= */
+
+            @media (max-width: 480px) {
+                .time {
+                    min-width: 100px;
+                    font-size: 0.92rem;
+                }
+                .schedule-item {
+                    font-size: 0.94rem;
+                }
+                .bottom-nav button {
+                    font-size: 0.82rem;
+                }
+                .bottom-nav .icon {
+                    font-size: 1.35rem;
+                }
+            }
+			
+			/* Back to Top Button */
+			.back-to-top {
+				position: fixed;
+				bottom: 80px; /* Sesuaikan agar tidak tertutup bottom nav */
+				right: 20px;
+				display: none; /* Tersembunyi secara default */
+				z-index: 1000;
+				background-color: var(--accent);
+				color: white;
+				border: none;
+				padding: 12px 15px;
+				border-radius: 50%;
+				cursor: pointer;
+				box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+				transition: opacity 0.3s;
+			}
+			.back-to-top:hover {
+				opacity: 0.8;
+			}
+			
+			/* Styling untuk Link agar terlihat seperti tombol */
+			/* Menargetkan tag <a> yang ada di dalam konten (catatan/checklist) */
+			.note-content {
+			    white-space: pre-line;
+			    display: block;
+			    margin-top: 0 !important;
+				margin-bottom: 0 !important;
+				margin: 0 !important;
+			}
+			
+			.note-content a {
+			    color: var(--accent);
+				text-decoration: none;
+			    display: inline;      /* Memastikan link tidak berperilaku seperti blok */
+			}
+			
+			/* Menambahkan icon kecil (Opsional) */
+			.note-content a::before {
+			    content: "🔗 "; /* Bisa diganti dengan icon font-awesome jika mau */
+			}
+
+			/* Menghapus margin dan padding bawaan browser pada paragraf dan daftar */
+			.note-content * {
+				margin-top: 0 !important;
+				margin-bottom: 0 !important;
+				margin: 0 !important;
+			    padding: 0 !important;
+			}
+
+			.note-content ul, 
+			.note-content ol {
+			    margin: 0;
+			    padding-inline-start: 20px; /* Mengurangi indentasi dari 40px bawaan browser */
+			}
+
+			.note-content li {
+				line-height: 1.4;
+				margin: 0 !important;
+			    padding: 0 !important;
+			    display: list-item;
+			}
+        </style>
+    <body data-theme="light">
+        <div class="container">
+            <div class="header-wrapper">
+                <div class="main-header">
+                    <div class="activity">
+                        <h1 id="trip-title">Membuka Data...</h1>
+                        <p id="trip-subtitle" class="trip-subtitle-text"></p>
+                        <p id="trip-dates"></p>
+                    </div>
+                    <div style="min-width: 60px">
+                        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema"><i class="fa-solid fa-moon"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="page-perjalanan" class="page-spa active">
+                <div class="card border-neutral">
+                    <div class="card-title"><span>📊</span>Ringkasan Timeline</div>
+                    <p style="margin-top:10px;" id="trip-participants"></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Agenda Utama</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timeline-table-body">
+                            </tbody>
+                    </table>
+                </div>
+                
+                <div id="itinerary-cards-container">
+                    </div>
+            </div>
+            
+            <div id="page-reservasi" class="page-spa">
+                <div id="reservations-container">
+                    </div>
+            </div>
+            
+            <div id="page-catatan" class="page-spa">
+                <div class="card border-catatan">
+                    <div class="card-title"><span><i class="fa-regular fa-address-card card-title-icon"></i></span><span class="title-text">Kontak</span></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contact-table-body">
+                            </tbody>
+                    </table>
+                </div>
+                <div class="card border-catatan">
+                    <div class="card-title"><span><i class="fa-solid fa-person-military-pointing card-title-icon"></i></span><span class="title-text">Imigrasi</span></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Negara</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="immigration-table-body">
+                            </tbody>
+                    </table>
+                </div>
+				<div class="card border-catatan">
+					<div class="card-title"><span><i class="fa-solid fa-clipboard-list card-title-icon"></i></span><span class="title-text">Catatan Tour Guide</span></div>
+					<ul id="tour-guide-list" style="padding-left: 20px;"></ul>
+				</div>
+
+				<div class="card border-catatan">
+					<div class="card-title"><span><i class="fa-solid fa-check-double card-title-icon"></i></span><span class="title-text">Travel Checklist</span></div>
+					<ul id="checklist-list" style="padding-left: 20px;"></ul>
+				</div>
+            </div>
+        </div>
+        
+        <div class="footer-note"><span>Update terakhir: <span id="last-update">01 April 2026</span><br>Safe Flight & Stay Healthy!</span></div>
+        <div class="body-spacer"></div>
+        <nav class="bottom-nav" id="nav">
+            <button class="active" data-page="perjalanan"><span class="icon"><i data-lucide="calendar-days" style="width:24px;height:24px;vertical-align:bottom"></i></span> Perjalanan</button>
+            <button data-page="reservasi"><span class="icon"><i data-lucide="tickets" style="width:24px;height:24px;vertical-align:bottom"></i></span> Reservasi</button>
+            <button data-page="catatan"><span class="icon"><i data-lucide="notebook-pen" style="width:24px;height:24px;vertical-align:bottom"></i></span> Catatan</button>
+        </nav>
+		
+		<button id="backToTopBtn" class="back-to-top" title="Kembali ke atas">
+			<i class="fas fa-arrow-up"></i>
+		</button>
+        
+        <script>
+			function scrollToDay(id) {
+				const element = document.getElementById(id);
+				if (element) {
+					element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			}
+		
+            /* ======================================================
+            THEME MANAGEMENT
+            ====================================================== */
+            const html = document.documentElement;
+            const themeToggle = document.getElementById("themeToggle");
+            const setTheme = (theme) => {
+                html.setAttribute("data-theme", theme);
+                localStorage.setItem("theme", theme);
+                themeToggle.innerHTML = theme === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            };
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (window.matchMedia("(prefers-color-scheme:dark)").matches) {
+                setTheme("dark");
+            }
+            themeToggle.addEventListener("click", () => {
+                const current = html.getAttribute("data-theme") || "light";
+                setTheme(current === "light" ? "dark" : "light");
+            });
+
+            /* ======================================================
+            COUNTDOWN TIMER
+            ====================================================== */
+            function startCountdown(id, datetime) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const update = () => {
+                    const now = Date.now();
+                    const target = new Date(datetime).getTime();
+                    const diff = target - now;
+                    if (diff <= 0) {
+                        el.innerHTML = '<i class="fa-solid fa-plane-departure awe-icon"></i> Started / Passed';
+                        return;
+                    }
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    el.innerHTML = `${days}h ${hours}j ${minutes}m ${seconds}d`;
+                };
+                update();
+                setInterval(update, 1000);
+            }
+
+            /* ======================================================
+            MAPS LINK CONVERTER
+            ====================================================== */
+            function convertLocationsToMaps() {
+                document.querySelectorAll(".map-location").forEach((el) => {
+                    const place = el.textContent.trim();
+                    const a = document.createElement("a");
+                    /* PERBAIKAN: Memperbaiki sintaks string literal (${}) dan URL pencarian resmi Google Maps */
+                    a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
+                    a.target = "_blank";
+                    a.style.color = "var(--accent)";
+                    a.style.textDecoration = "underline";
+                    a.textContent = place;
+                    el.replaceWith(a);
+                });
+            }
+
+            /* ======================================================
+               AJAX LOAD DATA & RENDER (UPDATED)
+               ====================================================== */
+            document.addEventListener("DOMContentLoaded", () => {
+                // Mengambil parameter 'trip' dari URL (contoh: template.html?trip=2610-East-Europe)
+                const urlParams = new URLSearchParams(window.location.search);
+                const tripId = urlParams.get('trip');
+            
+                if (!tripId) {
+                    document.getElementById('trip-title').innerText = "Error: ID Itinerary tidak ditemukan.";
+                    return;
+                }
+            
+                // Menggunakan tripId untuk menentukan file JSON
+                fetch(`/json/${tripId}.json`)
+                    .then(response => {
+                        if (!response.ok) throw new Error("File JSON tidak ditemukan");
+                        return response.json();
+                    })
+                    .then(data => {
+                        renderApp(data);
+                    })
+                    .catch(error => {
+                        console.error('Error loading data:', error);
+                        document.getElementById('trip-title').innerText = "Gagal memuat data itinerary.";
+                    });
+            });
+
+            function renderApp(data) {
+                // 1. Render Trip Info (Termasuk Subtitle baru)
+                document.getElementById('trip-title').innerText = data.trip_info.title;
+                document.getElementById('trip-subtitle').innerText = data.trip_info.subtitle || "";
+                document.getElementById('trip-dates').innerHTML = data.trip_info.date_display;
+                document.getElementById('last-update').innerText = data.trip_info.last_update || "01 April 2026";
+                document.getElementById('trip-participants').innerText = "Peserta: " + (Array.isArray(data.trip_info.participants) ? data.trip_info.participants.join(', ') : data.trip_info.participants);
+
+				// 2. Render Timeline Summary Table
+				const timelineContainer = document.getElementById('timeline-table-body'); 
+
+				if (timelineContainer) {
+					timelineContainer.innerHTML = data.perjalanan.daily_details.map((day, index) => `
+						<tr class="timeline-row" onclick="scrollToDay('day-${index}')">
+							<td class="timeline-date">${day.date_display}</td>
+							<td class="timeline-title">${day.title}</td>
+						</tr>
+					`).join('');
+				}
+				
+				// 3. Render Daily Itinerary Cards
+				const itineraryContainer = document.getElementById('itinerary-cards-container');
+
+				// Tambahkan (card, index) agar index bisa dikenal di dalam fungsi
+				itineraryContainer.innerHTML = data.perjalanan.daily_details.map((card, index) => `
+					<div id="day-${index}" class="card border-activity">
+						<div class="card-title">
+							<span>📅</span>${card.date_display} - ${card.title}
+						</div>
+						
+						${card.activities && card.activities.length > 0 ? card.activities.map(item => `
+							<div class="schedule-item">
+								<div class="time">${item.time}</div>
+								<div class="activity">
+									${item.icon ? `<span class="emoji-link">${item.icon}</span>` : ''}
+									${item.description}
+								</div>
+							</div>
+						`).join('') : '<p class="note-text">Belum ada detail aktivitas untuk hari ini.</p>'}
+					</div>
+				`).join('');
+
+                // 4. Render Reservations
+                const resContainer = document.getElementById('reservations-container');
+                
+                // 4a. Render Penerbangan
+                const flightHtml = data.reservasi.flights ? data.reservasi.flights.map((flight, idx) => `
+                    <div class="card border-flight">
+                        <div class="card-title"><span>✈️</span>${flight.title}</div>
+                        <div class="info-box">
+                            <span class="highlight" style="font-size:1.1rem">${flight.summary}</span>
+                            
+                            <p style="margin: 8px 0; padding-left: 10px;">
+                                ${flight.details.map(d => `• ${d}<br>`).join('')}
+                            </p>
+                            <p>
+                                ${flight.vouchers ? flight.vouchers.map(v => `
+                                    <a class="pdf-link" href="${v.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i>${v.filename}</a><br />
+                                `).join('') : ''}
+                            </p>
+                            <div class="countdown">
+                                <div>Berangkat dalam: <span id="flight-cd-${idx}">--</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('') : '';
+
+				// 4b. Render Hotel
+				const hotelHtml = data.reservasi.hotels ? data.reservasi.hotels.map(hotel => `
+					<div class="card border-hotel">
+						<div class="card-title"><span>🏨</span>${hotel.name}</div>
+						<p>
+							${hotel.notes ? `📋 <strong>${hotel.notes}</strong><br />` : ''}
+							${hotel.check_in ? `🛎️ <strong>Check-in:</strong> ${hotel.check_in}<br />` : ''}
+							${hotel.check_out ? `👋 <strong>Check-out:</strong> ${hotel.check_out}<br />` : ''}
+							${hotel.guests ? `👥 <strong>Tamu:</strong> ${hotel.guests}<br />` : ''}
+						</p>
+
+						<p class="important-note">
+							${hotel.vouchers && hotel.vouchers.length > 0 ? `
+								📍 <strong>Hotel E-Voucher & Bukti: <br /></strong>
+								${hotel.vouchers.map(v => `
+									<a class="pdf-link" href="${v.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i>${v.filename}</a><br />
+								`).join('')}
+							` : ''}
+							${hotel.payment_info ? `<span class="note-text">${hotel.payment_info}</span>` : ''}
+						</p>
+
+						${hotel.airport_distance ? `⏱️ Jarak Ke Bandara: <span class="map-location">${hotel.airport_distance}</span>` : ''}
+					</div>
+				`).join('') : '';
+
+                resContainer.innerHTML = flightHtml + hotelHtml;
+
+                // 5. Render Contacts
+                const contactBody = document.getElementById('contact-table-body');
+                contactBody.innerHTML = data.catatan.contacts ? data.catatan.contacts.map(c => `
+                    <tr>
+                        <td><strong>${c.name}</strong></td>
+                        <td><span class="map-location">${c.details}</span></td>
+                    </tr>
+                `).join('') : '';
+
+                // 6. Render Immigration
+                const immigrationBody = document.getElementById('immigration-table-body');
+                immigrationBody.innerHTML = data.catatan.immigration ? data.catatan.immigration.map(i => `
+                    <tr>
+                        <td><strong>${i.country}</strong></td>
+                        <td><a href="${i.url}" class="web-link" target="_blank">${i.label}</a></td>
+                    </tr>
+                `).join('') : '';
+				
+				// 7. Render Tour Guide Notes
+				const notesList = document.getElementById('tour-guide-list');
+				if (notesList) {
+				    // Kita langsung parse string tersebut tanpa perlu .map()
+				    notesList.innerHTML = `<div class="note-content">${marked.parseInline(data.catatan.tour_guide_notes)}</div>`;
+				}
+
+				// 8. Render Checklist
+				const checklistList = document.getElementById('checklist-list');
+				if (checklistList) {
+					checklistList.innerHTML = `<div class="note-content">${marked.parseInline(data.catatan.travel_checklist)}</div>`;
+				}
+
+                // Inisialisasi fitur interaktif pasca render data
+                initThirdPartyFeatures(data);
+            }
+
+            function initThirdPartyFeatures(data) {
+                // Initialize Lucide Icons
+                lucide.createIcons();
+                
+                // Mengubah teks lokasi ber-class menjadi Link Google Maps otomatis
+                convertLocationsToMaps();
+                
+				if (data.reservasi && data.reservasi.flights) {
+					data.reservasi.flights.forEach((flight, index) => {
+						if (flight.flight_time) {
+							startCountdown(`flight-cd-${index}`, flight.flight_time);
+						}
+					});
+				}
+                
+                // Navigasi Halaman SPA (Single Page Application)
+                const navBtns = document.querySelectorAll(".bottom-nav button");
+                const pages = document.querySelectorAll(".page-spa");
+                navBtns.forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        navBtns.forEach((b) => b.classList.remove("active"));
+                        btn.classList.add("active");
+                        const pageId = "page-" + btn.dataset.page;
+                        pages.forEach((p) => p.classList.toggle("active", p.id === pageId));
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+                    });
+                });
+            }
+			
+			// Logic untuk Back to Top Button
+			const backToTopBtn = document.getElementById("backToTopBtn");
+
+			// Munculkan tombol saat scroll sejauh 300px
+			window.addEventListener("scroll", () => {
+				if (window.pageYOffset > 300) {
+					backToTopBtn.style.display = "block";
+				} else {
+					backToTopBtn.style.display = "none";
+				}
+			});
+
+			// Scroll ke atas saat tombol diklik
+			backToTopBtn.addEventListener("click", () => {
+				window.scrollTo({
+					top: 0,
+					behavior: "smooth"
+				});
+			});
+        </script>
+    </body>
+</html>
