@@ -15,7 +15,8 @@
             
             // Menambahkan timestamp unik agar browser tidak mengambil dari cache
             // Hasilnya akan seperti: logs/2604-SIN-KUL.html?v=1711756800
-            const cacheBuster = "?v=" + new Date().getTime();
+            // const cacheBuster = "?v=" + new Date().getTime();
+            const cacheBuster = "";
             
             window.location.href = destination + cacheBuster;
         }
