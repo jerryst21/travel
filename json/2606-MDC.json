@@ -32,6 +32,11 @@
             "time": "",
             "description": "Makan malam di Dabu-dabu Lemong",
             "icon": "🍽️"
+          },
+          {
+            "time": "",
+            "description": "menginap di rumah Wonasa",
+            "icon": " 🛌"
           }
         ]
       },
@@ -40,24 +45,29 @@
         "title": "Bebas",
         "activities": [
           {
-            "time": "00.00",
+            "time": "",
             "description": "Jalan pagi di Megamas",
             "icon": "📍"
           },
           {
-            "time": "00.00",
+            "time": "",
             "description": "Makan pagi di Sparta",
             "icon": "📍"
           },
           {
-            "time": "00.00",
+            "time": "",
             "description": "Makan siang di 🤔❓",
             "icon": "🍽️"
           },
           {
-            "time": "00.00",
+            "time": "",
             "description": "Makan malam di 🤔❓",
             "icon": "🍽️"
+          },
+          {
+            "time": "",
+            "description": "menginap di rumah Wonasa",
+            "icon": " 🛌"
           }
         ]
       },
