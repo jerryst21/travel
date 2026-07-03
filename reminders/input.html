@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Input Pengingat Otomatis</title>
+  <link rel="icon" href="uploads/2026-07-04-notification-bell.png" type="image/png" />
   <style>
     :root {
       --primary: #2563eb;
@@ -179,6 +180,80 @@
       font-weight: 600;
       cursor: pointer;
     }
+
+    /* --- STYLE DASHBOARD ANTRIAN & RIWAYAT (FASE 2) --- */
+    .dashboard-section {
+      margin-top: 20px;
+      border-top: 2px dashed #e2e8f0;
+      padding-top: 16px;
+    }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .tab-btn {
+      flex: 1;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--text);
+      color: white;
+      border-color: var(--text);
+    }
+    .list-container {
+      display: none;
+      max-height: 260px; /* Membatasi tinggi agar tidak banyak scrolling di HP */
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .list-container.active {
+      display: block;
+    }
+    .reminder-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .item-meta {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .item-header {
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .item-msg {
+      color: var(--text-muted);
+      white-space: pre-wrap;
+      font-size: 12.5px;
+      background: #ffffff;
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+      margin-top: 4px;
+    }
+    .empty-state {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      padding: 20px 0;
+    }
   </style>
 </head>
 <body>
@@ -221,6 +296,21 @@
 
       <button type="submit" class="btn" id="btn-submit" disabled>💾 Simpan Pengingat</button>
     </form>
+
+    <div class="dashboard-section">
+      <div class="tabs">
+        <button type="button" class="tab-btn active" onclick="switchTab('pending-list', this)">⏳ Antrean Pending</button>
+        <button type="button" class="tab-btn" onclick="switchTab('sent-list', this)">✅ 20 Terakhir Terkirim</button>
+      </div>
+      
+      <div id="pending-list" class="list-container active">
+        <div class="empty-state">🔄 Memuat antrean aktif...</div>
+      </div>
+      
+      <div id="sent-list" class="list-container">
+        <div class="empty-state">🔄 Memuat riwayat kirim...</div>
+      </div>
+    </div>
   </div>
 
   <div class="modal-overlay" id="success-modal">
@@ -319,6 +409,70 @@
         cekKoneksiDasar();
       }
     });
+
+    // --- LOGIKA DASHBOARD FETCH & TABS (FASE 2) ---
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.list-container').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function formatWaktuTampilan(isoString) {
+      if (!isoString) return '-';
+      const d = new Date(isoString);
+      return d.toLocaleString('id-ID', { 
+        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' 
+      }).replace(',', '') + ' WITA';
+    }
+
+    async function muatDaftarPengingat() {
+      const pendingCont = document.getElementById('pending-list');
+      const sentCont = document.getElementById('sent-list');
+      
+      try {
+        const res = await fetch('/api/list-reminders');
+        const data = await res.json();
+        
+        if (!res.ok) throw new Error(data.error || 'Gagal memuat data dashboard');
+
+        // Render Antrean Pending
+        if (data.pending && data.pending.length > 0) {
+          pendingCont.innerHTML = data.pending.map(item => `
+            <div class="reminder-item">
+              <div class="item-meta">
+                <span>📅 ${formatWaktuTampilan(item.scheduled_time)}</span>
+                <span>👤 ${item.recipient}</span>
+              </div>
+              <div class="item-header">📌 ${item.msg_header}</div>
+              <div class="item-msg">${item.message}</div>
+            </div>
+          `).join('');
+        } else {
+          pendingCont.innerHTML = '<div class="empty-state">🎉 Semua pengingat aman, antrean kosong!</div>';
+        }
+
+        // Render 20 Terakhir Terkirim
+        if (data.sent && data.sent.length > 0) {
+          sentCont.innerHTML = data.sent.map(item => `
+            <div class="reminder-item" style="border-left: 3px solid var(--success);">
+              <div class="item-meta">
+                <span style="color: var(--success)">✅ Terkirim: ${formatWaktuTampilan(item.date_sent || item.scheduled_time)}</span>
+                <span>👤 ${item.recipient}</span>
+              </div>
+              <div class="item-header">📌 ${item.msg_header}</div>
+              <div class="item-msg">${item.message}</div>
+            </div>
+          `).join('');
+        } else {
+          sentCont.innerHTML = '<div class="empty-state">Belum ada riwayat pesan terkirim.</div>';
+        }
+
+      } catch (err) {
+        pendingCont.innerHTML = `<div class="empty-state" style="color:red;">⚠️ ${err.message}</div>`;
+        sentCont.innerHTML = `<div class="empty-state" style="color:red;">⚠️ ${err.message}</div>`;
+      }
+    }
 
     // 4. FUNGSI MENUTUP MODAL POP UP
     function tutupModal() {
