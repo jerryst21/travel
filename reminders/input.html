@@ -396,6 +396,7 @@
           form.reset();
           // Kembalikan ukuran tinggi textarea ke semula
           textarea.style.height = 'auto';
+          muatDaftarPengingat();
         } else {
           const errData = await response.json();
           alert('Gagal menyimpan: ' + (errData.error || 'Terjadi kesalahan pada server'));
@@ -480,7 +481,11 @@
     }
 
     // Jalankan verifikasi koneksi saat halaman siap
-    window.onload = cekKoneksiDasar;
+    // penanganan onload memuat kedua fungsi sekaligus
+    window.onload = function() {
+      cekKoneksiDasar();
+      muatDaftarPengingat();
+    };
   </script>
 
 </body>
