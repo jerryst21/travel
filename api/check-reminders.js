@@ -15,6 +15,15 @@ export default async function handler(req, res) {
   try {
     // Fase 2 & 3: Ambil properti data, filter waktu, dan URUTKAN (Oldest First)
     const currentTime = new Date().toISOString();
+
+    // DEBUG: Ambil 1 data pending terlama tanpa filter waktu untuk cek timezone
+    const { data: cekWaktuDB } = await supabase
+      .from('reminders')
+      .select('scheduled_time')
+      .eq('status', 'pending')
+      .order('scheduled_time', { ascending: true })
+      .limit(1);
+    
     const { data, error } = await supabase
       .from('reminders')
       .select('id, phone_number, message, scheduled_time, status')
@@ -58,10 +67,11 @@ export default async function handler(req, res) {
       }
     }
 
-    // Response Akhir
+    // Response Akhir dengan info Debug
     return res.status(200).json({
       message: "Proses reminder selesai",
-      waktu_pengecekan: currentTime,
+      waktu_server_utc: currentTime,
+      jadwal_database_terdekat: cekWaktuDB?.[0]?.scheduled_time || "Tidak ada data pending",
       total_diproses: data.length,
       detail_proses: hasilProses
     });
