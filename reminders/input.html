@@ -421,7 +421,13 @@
 
     function formatWaktuTampilan(isoString) {
       if (!isoString) return '-';
-      const d = new Date(isoString);
+      
+      // Ambil karakter tanggal & jam saja (YYYY-MM-DDTHH:mm), buang embel-embel +00 atau Z
+      const waktuLokalMurni = isoString.replace('Z', '').split('+')[0].replace(' ', 'T').substring(0, 16);
+      
+      // Paksa browser membaca angka jam asli dari database tanpa konversi/pergeseran UTC
+      const d = new Date(waktuLokalMurni);
+      
       return d.toLocaleString('id-ID', { 
         day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' 
       }).replace(',', '') + ' WITA';
