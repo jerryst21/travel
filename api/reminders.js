@@ -77,6 +77,11 @@ export default async function handler(req, res) {
             const time = d.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' });
             const waktuFormatted = `${weekday}, ${day} ${month} ${year} ${time}`;
 
+            const { count: totalPendingDatabase } = await supabase
+              .from('reminders')
+              .select('*', { count: 'exact', head: true })
+              .eq('status', 'pending');
+
             const templatePesan = `📢 ini adalah pengingat otomatis\nWaktu : ${waktuFormatted}\nPerihal: ${reminder.msg_header || '-'}\nPesan :\n${reminder.message}`;
 
             const whapiResponse = await fetch('https://gate.whapi.cloud/messages/text', {
@@ -107,6 +112,7 @@ export default async function handler(req, res) {
         return res.status(200).json({
           message: "Pengecekan Selesai",
           waktu_sekarang_manado: waktuTampilanManado,
+          total_antrean_pending: totalPendingDatabase || 0, // <-- LINE BARU: Menampilkan semua sisa antrean
           total_siap_kirim: data.length,
           detail_proses: hasilProses
         });
