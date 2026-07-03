@@ -31,9 +31,9 @@ export default async function handler(req, res) {
     // 3. QUERY UTAMA: Cari data pending yang waktunya <= waktu WITA sekarang
     const { data, error } = await supabase
       .from('reminders')
-      .select('id, phone_number, message, scheduled_time, status')
+      .select('id, phone_number, message, msg_header, scheduled_time, status')
       .eq('status', 'pending')
-      .lte('scheduled_time', waktuSesuaiTampilan) // <-- UBAH DI BARIS INI
+      .lte('scheduled_time', waktuSesuaiTampilan)
       .order('scheduled_time', { ascending: true })
       .limit(5);
 
@@ -49,6 +49,19 @@ export default async function handler(req, res) {
     const hasilProses = [];
     for (const reminder of data) {
       try {
+        // --- TAMBAHKAN PROSES FORMATTING WAKTU DI SINI ---
+        const d = new Date(reminder.scheduled_time);
+        const weekday = d.toLocaleString('en-US', { weekday: 'short', timeZone: 'UTC' });
+        const day = d.toLocaleString('en-US', { day: '2-digit', timeZone: 'UTC' });
+        const month = d.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
+        const year = d.toLocaleString('en-US', { year: 'numeric', timeZone: 'UTC' });
+        const time = d.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' });
+        const waktuFormatted = `${weekday}, ${day} ${month} ${year} ${time}`;
+
+        // SUSUN TEMPLATE PESAN BARU
+        const templatePesan = `📢 ini adalah pengingat otomatis\nWaktu : ${waktuFormatted}\nPerihal: ${reminder.msg_header || '-'}\nPesan :\n${reminder.message}`;
+        // ------------------------------------------------
+
         const whapiResponse = await fetch('https://gate.whapi.cloud/messages/text', {
           method: 'POST',
           headers: {
@@ -57,7 +70,7 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             to: reminder.phone_number,
-            body: reminder.message
+            body: templatePesan // <-- UBAH DARI reminder.message MENJADI templatePesan
           })
         });
 
