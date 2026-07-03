@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Pengingat Otomatis</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      min-height: 100vh;
+    }
+    .card {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 450px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 14px;
+      border: 1px solid var(--border);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    .header h1 {
+      font-size: 15px;
+      font-weight: 600;
+    }
+    /* Fase 1: Banner Validasi Koneksi */
+    .status-banner {
+      background-color: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 7px 9px;
+      font-size: 13px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      background: #fff;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 65px;
+    }
+    .btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 9px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="header">
+      <span>📢</span>
+      <h1>Tambah Pengingat Baru</h1>
+    </div>
+
+    <div class="status-banner" id="connection-status">
+      🔄 Memvalidasi koneksi ke server...
+    </div>
+
+    <form id="reminder-form" onsubmit="event.preventDefault();">
+      <div class="form-group">
+        <label for="scheduled_time">Jadwal Tanggal & Jam</label>
+        <input type="datetime-local" id="scheduled_time" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="msg_header">Perihal</label>
+        <input type="text" id="msg_header" class="form-control" placeholder="Contoh: Appointment drg Dinar" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-select">Dikirim Ke</label>
+        <select id="contact-select" class="form-control" required>
+          <option value="" disabled selected>-- Pilih Kontak / Grup --</option>
+          <option value="6282178609889-1478937044@g.us|Keluarga">Keluarga</option>
+          <option value="628114340889-1490322038@g.us|Jerry & Siska">Jerry & Siska</option>
+          <option value="628118955508|Linda">Linda</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Isi Pesan</label>
+        <textarea id="message" class="form-control" placeholder="Tulis pesan pengingat di sini..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn" id="btn-submit" disabled>💾 Simpan Pengingat</button>
+    </form>
+  </div>
+
+  <script>
+    // FASE 1: Validasi Koneksi Dasar ke API Anda
+    async function cekKoneksiDasar() {
+      const statusBanner = document.getElementById('connection-status');
+      const btnSubmit = document.getElementById('btn-submit');
+      
+      try {
+        // Menembak API check-reminders untuk membaca properti antrean saat ini
+        const response = await fetch('/api/check-reminders?secret=123456');
+        const data = await response.json();
+        
+        if (response.ok) {
+          // Sukses menampilkan properti data sederhana
+          statusBanner.style.backgroundColor = '#ecfdf5';
+          statusBanner.style.borderColor = '#a7f3d0';
+          statusBanner.style.color = '#065f46';
+          statusBanner.innerHTML = `✅ <strong>Koneksi Aman.</strong> Sisa antrean di database: ${data.total_antrean_pending || 0} data.`;
+          btnSubmit.disabled = false; // Aktifkan tombol jika koneksi terverifikasi aman
+        } else {
+          throw new Error(data.error || 'Gagal memverifikasi token');
+        }
+      } catch (error) {
+        statusBanner.style.backgroundColor = '#fef2f2';
+        statusBanner.style.borderColor = '#fca5a5';
+        statusBanner.style.color = '#991b1b';
+        statusBanner.innerHTML = `❌ <strong>Koneksi Gagal:</strong> ${error.message}`;
+      }
+    }
+
+    // Jalankan pengecekan otomatis saat halaman dibuka
+    window.onload = cekKoneksiDasar;
+  </script>
+
+</body>
+</html>
