@@ -19,7 +19,6 @@ export default async function handler(req, res) {
     const currentTimeWITA = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+08:00";
     const waktuTampilanManado = now.toLocaleString("id-ID", { timeZone: "Asia/Makassar" });
 
-    // TENTUKAN BARIS BARU DI BAWAH INI:
     // Menghasilkan teks jam Manado tapi diberi label "+00:00" agar cocok dengan teks di Supabase
     const waktuSesuaiTampilan = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+00:00";
 
@@ -66,7 +65,10 @@ export default async function handler(req, res) {
         
         await supabase
           .from('reminders')
-          .update({ status: statusBaru })
+          .update({ 
+            status: statusBaru,
+            date_sent: statusBaru === 'sent' ? waktuSesuaiTampilan : null // Menggunakan jam tampilan Manado
+          })
           .eq('id', reminder.id);
 
         hasilProses.push({ id: reminder.id, status: statusBaru });
