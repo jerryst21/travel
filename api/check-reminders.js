@@ -13,33 +13,33 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Fase 2 & 3: Ambil properti data, filter waktu, dan URUTKAN (Oldest First)
-    const currentTime = new Date().toISOString();
+    // 1. Ambil waktu sekarang langsung dalam format lokal WITA (Manado)
+    const now = new Date();
+    const currentTimeUTC = now.toISOString();
+    const currentTimeWITA = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+08:00";
+    const waktuTampilanManado = now.toLocaleString("id-ID", { timeZone: "Asia/Makassar" });
 
-    // DEBUG: Ambil 1 data pending terlama tanpa filter waktu untuk cek timezone
-    const { data: cekWaktuDB } = await supabase
+    // 2. DEBUG BACA: Ketahui apakah RLS memblokir skrip kita
+    const { data: cekAksesTabel, error: errorAkses } = await supabase
       .from('reminders')
-      .select('scheduled_time')
-      .eq('status', 'pending')
-      .order('scheduled_time', { ascending: true })
-      .limit(1);
-    
+      .select('id, status')
+      .limit(3);
+
+    // 3. QUERY UTAMA: Cari data pending yang waktunya <= waktu WITA sekarang
     const { data, error } = await supabase
       .from('reminders')
       .select('id, phone_number, message, scheduled_time, status')
       .eq('status', 'pending')
-      .lte('scheduled_time', currentTime)
-      .order('scheduled_time', { ascending: true }) // Fase 3: Antrean terlama diproses duluan
-      .limit(5); // Batasi 5 pesan per menit agar aman dari rate limit
+      .lte('scheduled_time', currentTimeUTC) // Tetap aman membandingkan segala jenis format timestamp
+      .order('scheduled_time', { ascending: true })
+      .limit(5);
 
     if (error) throw error;
 
-    // Fase 4: Aksi Kirim Whapi & Update Status ke Supabase
+    // 4. PROSES KIRIM WHAPI & UPDATE STATUS (CRUD)
     const hasilProses = [];
-
     for (const reminder of data) {
       try {
-        // 1. Kirim ke Whapi
         const whapiResponse = await fetch('https://gate.whapi.cloud/messages/text', {
           method: 'POST',
           headers: {
@@ -52,7 +52,6 @@ export default async function handler(req, res) {
           })
         });
 
-        // 2. Update status di Supabase berdasarkan hasil kirim Whapi
         const statusBaru = whapiResponse.ok ? 'sent' : 'failed';
         
         await supabase
@@ -67,12 +66,16 @@ export default async function handler(req, res) {
       }
     }
 
-    // Response Akhir dengan info Debug
+    // Response Akhir dengan info Transparan Waktu Manado & Debug RLS
     return res.status(200).json({
-      message: "Proses reminder selesai",
-      waktu_server_utc: currentTime,
-      jadwal_database_terdekat: cekWaktuDB?.[0]?.scheduled_time || "Tidak ada data pending",
-      total_diproses: data.length,
+      message: "Pengecekan Selesai",
+      waktu_sekarang_manado: waktuTampilanManado,
+      status_internal_database: {
+        pesan_error: errorAkses ? errorAkses.message : "Tidak ada",
+        jumlah_data_terbaca: cekAksesTabel ? cekAksesTabel.length : 0,
+        keterangan: (cekAksesTabel && cekAksesTabel.length === 0) ? "RLS Memblokir / Token Salah sehingga data terbaca 0" : "Koneksi Aman"
+      },
+      total_siap_kirim: data.length,
       detail_proses: hasilProses
     });
 
