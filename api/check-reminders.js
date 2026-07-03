@@ -19,6 +19,10 @@ export default async function handler(req, res) {
     const currentTimeWITA = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+08:00";
     const waktuTampilanManado = now.toLocaleString("id-ID", { timeZone: "Asia/Makassar" });
 
+    // TENTUKAN BARIS BARU DI BAWAH INI:
+    // Menghasilkan teks jam Manado tapi diberi label "+00:00" agar cocok dengan teks di Supabase
+    const waktuSesuaiTampilan = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+00:00";
+
     // 2. DEBUG BACA: Ketahui apakah RLS memblokir skrip kita
     const { data: cekAksesTabel, error: errorAkses } = await supabase
       .from('reminders')
@@ -30,7 +34,7 @@ export default async function handler(req, res) {
       .from('reminders')
       .select('id, phone_number, message, scheduled_time, status')
       .eq('status', 'pending')
-      .lte('scheduled_time', currentTimeUTC) // Tetap aman membandingkan segala jenis format timestamp
+      .lte('scheduled_time', waktuSesuaiTampilan) // <-- UBAH DI BARIS INI
       .order('scheduled_time', { ascending: true })
       .limit(5);
 
