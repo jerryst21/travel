@@ -1,0 +1,9 @@
+{
+  "name": "supabase-whatsapp-reminder",
+  "version": "1.0.0",
+  "description": "Automated reminder using Supabase, Vercel, and Whapi",
+  "main": "api/check-reminders.js",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.43.0"
+  }
+}
