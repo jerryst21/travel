@@ -246,7 +246,7 @@
     async function cekKoneksiDasar() {
       try {
         // Melakukan ping cek token dasar, aman tanpa mengembalikan sisa antrean ke layar publik
-        const response = await fetch('/api/check-reminders?secret=123456');
+        const response = await fetch('/api/reminders?secret=123456');
         
         if (response.ok) {
           statusBanner.style.backgroundColor = '#ecfdf5';
