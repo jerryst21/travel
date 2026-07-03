@@ -34,6 +34,12 @@ export default async function handler(req, res) {
       .order('scheduled_time', { ascending: true })
       .limit(5);
 
+    // 3b. HITUNG TOTAL PENDING GLOBAL: Menghitung semua data antrean yang tersisa
+    const { count: totalPendingDatabase } = await supabase
+      .from('reminders')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'pending');
+
     if (error) throw error;
 
     // 4. PROSES KIRIM WHAPI & UPDATE STATUS (CRUD)
@@ -75,6 +81,7 @@ export default async function handler(req, res) {
         jumlah_data_terbaca: cekAksesTabel ? cekAksesTabel.length : 0,
         keterangan: (cekAksesTabel && cekAksesTabel.length === 0) ? "RLS Memblokir / Token Salah sehingga data terbaca 0" : "Koneksi Aman"
       },
+      total_antrean_pending: totalPendingDatabase || 0, // <-- LINE BARU: Menampilkan semua sisa antrean
       total_siap_kirim: data.length,
       detail_proses: hasilProses
     });
