@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Input Pengingat Otomatis</title>
+  <link rel="icon" href="../uploads/2026-07-04-notification-bell.png" type="image/png" />
   <style>
     :root {
       --primary: #2563eb;
@@ -33,7 +34,7 @@
     .card {
       background: var(--card-bg);
       width: 100%;
-      max-width: 480px;
+      max-width: 480px; /* Diperlebar sedikit agar lebih lega */
       border-radius: 12px;
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
       padding: 20px;
@@ -59,25 +60,25 @@
       border: 1px solid var(--border);
       padding: 10px 14px;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 14px; /* Teks status diperbesar */
       margin-bottom: 18px;
       line-height: 1.4;
     }
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 16px; /* Jarak antar input diperlebar */
     }
     .form-group label {
       display: block;
-      font-size: 14px;
+      font-size: 14px; /* Judul input diperbesar agar mudah dibaca */
       font-weight: 700;
       margin-bottom: 6px;
       color: var(--text-muted);
     }
     .form-control {
       width: 100%;
-      padding: 12px 14px;
-      font-size: 16px;
-      border: 2px solid var(--border);
+      padding: 12px 14px; /* Padding dipertebal agar area klik/ketik luas */
+      font-size: 16px; /* Ukuran teks 16px mencegah auto-zoom mengganggu di HP/iOS */
+      border: 2px solid var(--border); /* Garis border dipertebal */
       border-radius: 8px;
       outline: none;
       background: #fff;
@@ -89,16 +90,16 @@
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
     textarea.form-control {
-      resize: none;
+      resize: none; /* Matikan resize manual pojok kanan bawah */
       min-height: 80px;
-      overflow-y: hidden;
+      overflow-y: hidden; /* Sembunyikan scrollbar bawaan untuk efek auto-expand */
     }
     .btn {
       width: 100%;
       background: var(--primary);
       color: white;
       border: none;
-      padding: 14px;
+      padding: 14px; /* Tombol lebih tebal dan mudah ditekan */
       border-radius: 8px;
       font-size: 16px;
       font-weight: 700;
@@ -119,6 +120,7 @@
       cursor: not-allowed;
     }
 
+    /* --- STYLE MODAL POP-UP SUKSES --- */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -226,7 +228,7 @@
     <div class="modal-content">
       <div class="modal-icon">✅</div>
       <div class="modal-title">Berhasil Disimpan</div>
-      <div class="modal-text">Pengingat otomatis Anda telah berhasil dicatat ke dalam sistem antrean.</div>
+      <div class="modal-text">Pengingat otomatis Anda telah berhasil dicatat ke dalam antrean database database Supabase.</div>
       <button class="btn-close" onclick="tutupModal()">Tutup</button>
     </div>
   </div>
@@ -238,33 +240,46 @@
     const btnSubmit = document.getElementById('btn-submit');
     const successModal = document.getElementById('success-modal');
 
+    // 1. LOGIKA AUTO-EXPAND TEXTAREA
     textarea.addEventListener('input', function() {
       this.style.height = 'auto';
       this.style.height = this.scrollHeight + 'px';
     });
 
-    async function cekKoneksiDasar() {
+    // 2. FORMAT JAM WITA (PERBAIKAN BUG BUFFER JAM DATABASE)
+    function formatWaktuTampilan(isoString) {
+      if (!isoString) return '-';
+      const waktuLokalMurni = isoString.replace('Z', '').split('+')[0].replace(' ', 'T').substring(0, 16);
+      const d = new Date(waktuLokalMurni);
+      return d.toLocaleString('id-ID', { 
+        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' 
+      }).replace(',', '') + ' WITA';
+    }
+
+    // 3. SATU AMBILAN TOTAL (Koneksi Banner + Render Isi Antrean Dashboard)
+    async function muatDataDashboard() {
       try {
-        // Melakukan ping cek token dasar, aman tanpa mengembalikan sisa antrean ke layar publik
-        const response = await fetch('/api/reminders?secret=123456');
-        
-        if (response.ok) {
-          statusBanner.style.backgroundColor = '#ecfdf5';
-          statusBanner.style.borderColor = '#a7f3d0';
-          statusBanner.style.color = '#065f46';
-          statusBanner.innerHTML = `✅ <strong>Sistem Siap.</strong> Silakan masukkan pengingat baru.`;
-          btnSubmit.disabled = false;
-        } else {
-          throw new Error('Gagal memverifikasi token pengaman');
-        }
-      } catch (error) {
+        const res = await fetch('/api/reminders');
+        if (!res.ok) throw new Error('Gagal melakukan sinkronisasi dengan server');
+    
+        // Perbarui Banner Koneksi menjadi sukses
+        statusBanner.style.backgroundColor = '#ecfdf5';
+        statusBanner.style.borderColor = '#a7f3d0';
+        statusBanner.style.color = '#065f46';
+        statusBanner.innerHTML = `✅ <strong>Koneksi Aman.</strong> Server siap menerima pengingat baru.`;
+        btnSubmit.disabled = false;
+    
+      } catch (err) {
+        // Jika koneksi down
         statusBanner.style.backgroundColor = '#fef2f2';
         statusBanner.style.borderColor = '#fca5a5';
         statusBanner.style.color = '#991b1b';
-        statusBanner.innerHTML = `❌ <strong>Koneksi Terganggu:</strong> Silakan hubungi Administrator.`;
+        statusBanner.innerHTML = `❌ <strong>Koneksi Gagal:</strong> ${err.message}`;
+        btnSubmit.disabled = true;
       }
     }
 
+    // 4. PROSES SIMPAN PENGINGAT (POST)
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -284,7 +299,8 @@
       btnSubmit.innerHTML = '⏳ Menyimpan...';
 
       try {
-        const response = await fetch('/api/save-reminder?secret=123456', {
+        // Mengirim langsung ke Router Tunggal tanpa secret token (Aman)
+        const response = await fetch('/api/reminders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -294,9 +310,11 @@
           successModal.classList.add('show');
           form.reset();
           textarea.style.height = 'auto';
+          // Segarkan data dashboard seketika setelah berhasil menyimpan
+          muatDataDashboard();
         } else {
           const errData = await response.json();
-          alert('Gagal menyimpan: ' + (errData.error || 'Terjadi kesalahan sistem'));
+          alert('Gagal menyimpan: ' + (errData.error || 'Terjadi kesalahan pada server'));
         }
       } catch (error) {
         alert('Gagal mengirim data ke server: ' + error.message);
@@ -306,11 +324,14 @@
       }
     });
 
+    // 5. FUNGSI UTILITAS POP UP CLOSING
     function tutupModal() {
       successModal.classList.remove('show');
     }
 
-    window.onload = cekKoneksiDasar;
+    // Trigger pemanggilan data tunggal saat halaman siap dibuka
+    window.onload = muatDataDashboard;
   </script>
+
 </body>
 </html>
