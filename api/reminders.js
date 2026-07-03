@@ -55,7 +55,7 @@ export default async function handler(req, res) {
         const waktuSesuaiTampilan = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+00:00";
         const waktuTampilanManado = now.toLocaleString("id-ID", { timeZone: "Asia/Makassar" });
 
-        // Ambil data antrean pending yang jatuh tempo
+        // 1. Ambil data antrean pending yang jatuh tempo (Maksimal 5 data per batch eksekusi)
         const { data, error } = await supabase
           .from('reminders')
           .select('id, phone_number, message, msg_header, scheduled_time, status')
@@ -65,6 +65,12 @@ export default async function handler(req, res) {
           .limit(5);
 
         if (error) throw error;
+
+        // 2. HITUNG TOTAL PENDING GLOBAL (Menghitung sisa seluruh antrean aktif di database secara efisien)
+        const { count: totalPendingDatabase } = await supabase
+          .from('reminders')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'pending');
 
         const hasilProses = [];
         for (const reminder of data) {
@@ -76,11 +82,6 @@ export default async function handler(req, res) {
             const year = d.toLocaleString('en-US', { year: 'numeric', timeZone: 'UTC' });
             const time = d.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' });
             const waktuFormatted = `${weekday}, ${day} ${month} ${year} ${time}`;
-
-            const { count: totalPendingDatabase } = await supabase
-              .from('reminders')
-              .select('*', { count: 'exact', head: true })
-              .eq('status', 'pending');
 
             const templatePesan = `📢 ini adalah pengingat otomatis\nWaktu : ${waktuFormatted}\nPerihal: ${reminder.msg_header || '-'}\nPesan :\n${reminder.message}`;
 
@@ -109,10 +110,11 @@ export default async function handler(req, res) {
           }
         }
 
+        // Output JSON hasil Cron dengan tambahan total_antrean_pending
         return res.status(200).json({
           message: "Pengecekan Selesai",
           waktu_sekarang_manado: waktuTampilanManado,
-          total_antrean_pending: totalPendingDatabase || 0, // <-- LINE BARU: Menampilkan semua sisa antrean
+          total_antrean_pending: totalPendingDatabase || 0, // <-- Properti berhasil disematkan kembali!
           total_siap_kirim: data.length,
           detail_proses: hasilProses
         });
@@ -124,7 +126,6 @@ export default async function handler(req, res) {
 
     // --- SUB-AKSI B: DASHBOARD LIST & KONEKSI (Default / ?action=list) ---
     try {
-      // 1. Ambil data pending
       const { data: pendingData, error: errorPending } = await supabase
         .from('reminders')
         .select('id, scheduled_time, msg_header, message, phone_number, recipient, status')
@@ -133,7 +134,6 @@ export default async function handler(req, res) {
 
       if (errorPending) throw errorPending;
 
-      // 2. Ambil 20 riwayat sent terakhir
       const { data: sentData, error: errorSent } = await supabase
         .from('reminders')
         .select('id, scheduled_time, msg_header, message, phone_number, recipient, status, date_sent')
@@ -143,12 +143,11 @@ export default async function handler(req, res) {
 
       if (errorSent) throw errorSent;
 
-      // Kembalikan semua data dashboard sekaligus beserta informasi total sisa antrean
       return res.status(200).json({
         success: true,
         pending: pendingData,
         sent: sentData,
-        total_antrean_pending: pendingData.length // Menghemat kuota query dengan menghitung panjang array pending langsung
+        total_antrean_pending: pendingData.length
       });
 
     } catch (error) {
@@ -156,6 +155,5 @@ export default async function handler(req, res) {
     }
   }
 
-  // Jika dipanggil di luar POST & GET
   return res.status(405).json({ error: "Method Not Allowed" });
 }
