@@ -13,24 +13,57 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Fase 2: Ambil semua properti data & filter berdasarkan waktu sekarang
+    // Fase 2 & 3: Ambil properti data, filter waktu, dan URUTKAN (Oldest First)
     const currentTime = new Date().toISOString();
-
     const { data, error } = await supabase
       .from('reminders')
       .select('id, phone_number, message, scheduled_time, status')
       .eq('status', 'pending')
-      .lte('scheduled_time', currentTime) // Mengambil yang scheduled_time <= waktu sekarang
-      .limit(10); // Batasi 10 data per menit agar tidak overload
+      .lte('scheduled_time', currentTime)
+      .order('scheduled_time', { ascending: true }) // Fase 3: Antrean terlama diproses duluan
+      .limit(5); // Batasi 5 pesan per menit agar aman dari rate limit
 
     if (error) throw error;
 
-    // Response untuk memvalidasi data yang siap kirim
+    // Fase 4: Aksi Kirim Whapi & Update Status ke Supabase
+    const hasilProses = [];
+
+    for (const reminder of data) {
+      try {
+        // 1. Kirim ke Whapi
+        const whapiResponse = await fetch('https://gate.whapi.cloud/messages/text', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.WHAPI_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            to: reminder.phone_number,
+            body: reminder.message
+          })
+        });
+
+        // 2. Update status di Supabase berdasarkan hasil kirim Whapi
+        const statusBaru = whapiResponse.ok ? 'sent' : 'failed';
+        
+        await supabase
+          .from('reminders')
+          .update({ status: statusBaru })
+          .eq('id', reminder.id);
+
+        hasilProses.push({ id: reminder.id, status: statusBaru });
+
+      } catch (err) {
+        hasilProses.push({ id: reminder.id, status: 'error', error: err.message });
+      }
+    }
+
+    // Response Akhir
     return res.status(200).json({
-      message: "Validasi Fase 2 Sukses!",
+      message: "Proses reminder selesai",
       waktu_pengecekan: currentTime,
-      total_siap_kirim: data.length,
-      data_siap_kirim: data
+      total_diproses: data.length,
+      detail_proses: hasilProses
     });
 
   } catch (error) {
