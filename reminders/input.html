@@ -329,89 +329,13 @@
     const btnSubmit = document.getElementById('btn-submit');
     const successModal = document.getElementById('success-modal');
 
-    // 1. LOGIKA AUTO-EXPAND TEXTAREA (Otomatis memanjang ke bawah saat teks banyak)
+    // 1. LOGIKA AUTO-EXPAND TEXTAREA
     textarea.addEventListener('input', function() {
       this.style.height = 'auto';
       this.style.height = this.scrollHeight + 'px';
     });
 
-    // 2. CEK KONEKSI DASAR SAAT HALAMAN DIBUKA
-    async function cekKoneksiDasar() {
-      try {
-        const response = await fetch('/api/check-reminders?secret=123456');
-        const data = await response.json();
-        
-        if (response.ok) {
-          statusBanner.style.backgroundColor = '#ecfdf5';
-          statusBanner.style.borderColor = '#a7f3d0';
-          statusBanner.style.color = '#065f46';
-          statusBanner.innerHTML = `✅ <strong>Koneksi Aman.</strong> Sisa antrean aktif: ${data.total_antrean_pending || 0} data.`;
-          btnSubmit.disabled = false;
-        } else {
-          throw new Error(data.error || 'Gagal memverifikasi token');
-        }
-      } catch (error) {
-        statusBanner.style.backgroundColor = '#fef2f2';
-        statusBanner.style.borderColor = '#fca5a5';
-        statusBanner.style.color = '#991b1b';
-        statusBanner.innerHTML = `❌ <strong>Koneksi Gagal:</strong> ${error.message}`;
-      }
-    }
-
-    // 3. PROSES SIMPAN PENGINGAT (CRUD POST KE BACKEND)
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      // Ambil nilai komposit dari dropdown kontak (Format: nomor|nama)
-      const contactValue = document.getElementById('contact-select').value;
-      const [phoneNumber, recipientName] = contactValue.split('|');
-
-      // Siapkan payload data sesuai struktur database Supabase Anda
-      const payload = {
-        scheduled_time: document.getElementById('scheduled_time').value + ':00+00', // Sesuai format waktu tampilan Anda
-        msg_header: document.getElementById('msg_header').value,
-        message: document.getElementById('message').value,
-        phone_number: phoneNumber,
-        recipient: recipientName,
-        status: 'pending'
-      };
-
-      btnSubmit.disabled = true;
-      btnSubmit.innerHTML = '⏳ Menyimpan...';
-
-      try {
-        // Mengirimkan data ke API Route Save Anda
-        const response = await fetch('/api/save-reminder?secret=123456', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-          // Jika sukses, munculkan Modal Pop Up
-          successModal.classList.add('show');
-          // Kosongkan form input
-          form.reset();
-          // Kembalikan ukuran tinggi textarea ke semula
-          textarea.style.height = 'auto';
-          muatDaftarPengingat();
-        } else {
-          const errData = await response.json();
-          alert('Gagal menyimpan: ' + (errData.error || 'Terjadi kesalahan pada server'));
-        }
-      } catch (error) {
-        alert('Gagal mengirim data ke server: ' + error.message);
-      } finally {
-        btnSubmit.disabled = false;
-        btnSubmit.innerHTML = '💾 Simpan Pengingat';
-        // Perbarui info sisa antrean di banner atas
-        cekKoneksiDasar();
-      }
-    });
-
-    // --- LOGIKA DASHBOARD FETCH & TABS (FASE 2) ---
+    // 2. LOGIKA SWITCHING TAB VISUAL
     function switchTab(tabId, btn) {
       document.querySelectorAll('.list-container').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -419,31 +343,36 @@
       btn.classList.add('active');
     }
 
+    // 3. FORMAT JAM WITA (PERBAIKAN BUG BUFFER JAM DATABASE)
     function formatWaktuTampilan(isoString) {
       if (!isoString) return '-';
-      
-      // Ambil karakter tanggal & jam saja (YYYY-MM-DDTHH:mm), buang embel-embel +00 atau Z
       const waktuLokalMurni = isoString.replace('Z', '').split('+')[0].replace(' ', 'T').substring(0, 16);
-      
-      // Paksa browser membaca angka jam asli dari database tanpa konversi/pergeseran UTC
       const d = new Date(waktuLokalMurni);
-      
       return d.toLocaleString('id-ID', { 
         day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' 
       }).replace(',', '') + ' WITA';
     }
 
-    async function muatDaftarPengingat() {
+    // 4. SATU AMBILAN TOTAL (Koneksi Banner + Render Isi Antrean Dashboard)
+    async function muatDataDashboard() {
       const pendingCont = document.getElementById('pending-list');
       const sentCont = document.getElementById('sent-list');
       
       try {
-        const res = await fetch('/api/list-reminders');
+        // Melakukan 1 single-fetch ke endpoint baru
+        const res = await fetch('/api/reminders');
         const data = await res.json();
         
-        if (!res.ok) throw new Error(data.error || 'Gagal memuat data dashboard');
+        if (!res.ok) throw new Error(data.error || 'Gagal sinkronisasi data');
 
-        // Render Antrean Pending
+        // A. Perbarui Banner Koneksi
+        statusBanner.style.backgroundColor = '#ecfdf5';
+        statusBanner.style.borderColor = '#a7f3d0';
+        statusBanner.style.color = '#065f46';
+        statusBanner.innerHTML = `✅ <strong>Koneksi Aman.</strong> Sisa antrean aktif: ${data.total_antrean_pending || 0} data.`;
+        btnSubmit.disabled = false;
+
+        // B. Render Tab Antrean Pending
         if (data.pending && data.pending.length > 0) {
           pendingCont.innerHTML = data.pending.map(item => `
             <div class="reminder-item">
@@ -459,7 +388,7 @@
           pendingCont.innerHTML = '<div class="empty-state">🎉 Semua pengingat aman, antrean kosong!</div>';
         }
 
-        // Render 20 Terakhir Terkirim
+        // C. Render Tab Riwayat Kirim (20 Data Terakhir)
         if (data.sent && data.sent.length > 0) {
           sentCont.innerHTML = data.sent.map(item => `
             <div class="reminder-item" style="border-left: 3px solid var(--success);">
@@ -476,22 +405,69 @@
         }
 
       } catch (err) {
+        // Jika koneksi down / Supabase error
+        statusBanner.style.backgroundColor = '#fef2f2';
+        statusBanner.style.borderColor = '#fca5a5';
+        statusBanner.style.color = '#991b1b';
+        statusBanner.innerHTML = `❌ <strong>Koneksi Gagal:</strong> ${err.message}`;
+        
         pendingCont.innerHTML = `<div class="empty-state" style="color:red;">⚠️ ${err.message}</div>`;
         sentCont.innerHTML = `<div class="empty-state" style="color:red;">⚠️ ${err.message}</div>`;
       }
     }
 
-    // 4. FUNGSI MENUTUP MODAL POP UP
+    // 5. PROSES SIMPAN PENGINGAT (POST)
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const contactValue = document.getElementById('contact-select').value;
+      const [phoneNumber, recipientName] = contactValue.split('|');
+
+      const payload = {
+        scheduled_time: document.getElementById('scheduled_time').value + ':00+00',
+        msg_header: document.getElementById('msg_header').value,
+        message: document.getElementById('message').value,
+        phone_number: phoneNumber,
+        recipient: recipientName,
+        status: 'pending'
+      };
+
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = '⏳ Menyimpan...';
+
+      try {
+        // Mengirim langsung ke Router Tunggal tanpa secret token (Aman)
+        const response = await fetch('/api/reminders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          successModal.classList.add('show');
+          form.reset();
+          textarea.style.height = 'auto';
+          // Segarkan data dashboard seketika setelah berhasil menyimpan
+          muatDataDashboard();
+        } else {
+          const errData = await response.json();
+          alert('Gagal menyimpan: ' + (errData.error || 'Terjadi kesalahan pada server'));
+        }
+      } catch (error) {
+        alert('Gagal mengirim data ke server: ' + error.message);
+      } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = '💾 Simpan Pengingat';
+      }
+    });
+
+    // 6. FUNGSI UTILITAS POP UP CLOSING
     function tutupModal() {
       successModal.classList.remove('show');
     }
 
-    // Jalankan verifikasi koneksi saat halaman siap
-    // penanganan onload memuat kedua fungsi sekaligus
-    window.onload = function() {
-      cekKoneksiDasar();
-      muatDaftarPengingat();
-    };
+    // Trigger pemanggilan data tunggal saat halaman siap dibuka
+    window.onload = muatDataDashboard;
   </script>
 
 </body>
