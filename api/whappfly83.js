@@ -125,30 +125,31 @@ export default async function handler(req, res) {
     }
 
     // --- SUB-AKSI B: DASHBOARD LIST & KONEKSI (Default / ?action=list) ---
-    // UPDATE: Mengubah target tabel dari 'reminders' ke 'wappfly1983reminders'
-    const { data: pendingData, error: errorPending } = await supabase
-      .from('wappfly1983reminders')
-      .select('id, scheduled_time, msg_header, message, phone_number, recipient, status')
-      .eq('status', 'pending')
-      .order('scheduled_time', { ascending: true });
-    
-    if (errorPending) throw errorPending;
-    
-    const { data: sentData, error: errorSent } = await supabase
-      .from('wappfly1983reminders')
-      .select('id, scheduled_time, msg_header, message, phone_number, recipient, status, date_sent')
-      .eq('status', 'sent')
-      .order('date_sent', { ascending: false })
-      .limit(20);
-
-      if (errorSent) throw errorSent;
-
-      return res.status(200).json({
-        success: true,
-        pending: pendingData,
-        sent: sentData,
-        total_antrean_pending: pendingData.length
-      });
+    try {
+      // UPDATE: Mengubah target tabel dari 'reminders' ke 'wappfly1983reminders'
+      const { data: pendingData, error: errorPending } = await supabase
+        .from('wappfly1983reminders')
+        .select('id, scheduled_time, msg_header, message, phone_number, recipient, status')
+        .eq('status', 'pending')
+        .order('scheduled_time', { ascending: true });
+      
+      if (errorPending) throw errorPending;
+      
+      const { data: sentData, error: errorSent } = await supabase
+        .from('wappfly1983reminders')
+        .select('id, scheduled_time, msg_header, message, phone_number, recipient, status, date_sent')
+        .eq('status', 'sent')
+        .order('date_sent', { ascending: false })
+        .limit(20);
+  
+        if (errorSent) throw errorSent;
+  
+        return res.status(200).json({
+          success: true,
+          pending: pendingData,
+          sent: sentData,
+          total_antrean_pending: pendingData.length
+        });
 
     } catch (error) {
       return res.status(500).json({ error: "Gagal mengambil daftar pengingat", details: error.message });
