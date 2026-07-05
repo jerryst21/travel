@@ -20,7 +20,7 @@ export default async function handler(req, res) {
           scheduled_time, 
           msg_header, 
           message, 
-          phone_number, \
+          phone_number,
           recipient, 
           status: status || 'pending' 
         }])
