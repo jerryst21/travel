@@ -404,23 +404,32 @@
         statusBanner.innerHTML = `✅ <strong>Koneksi Aman.</strong> Sisa antrean aktif: ${data.total_antrean_pending || 0} data.`;
         btnSubmit.disabled = false;
 
-        // B. Render Tab Antrean Pending
-        // UPDATE: Menyederhanakan render data pada Tab Antrean Pending (Fase 1)
+        // B. Render Tab Antrean Pending (Fase 2: Kelengkapan Properti Data)
         if (data.pending && data.pending.length > 0) {
           pendingCont.innerHTML = data.pending.map(item => `
             <div class="reminder-item">
-              <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'} (Status: ${item.status})</div>
+              <div class="item-meta">
+                <span>📅 ${formatWaktuTampilan(item.scheduled_time)}</span>
+                <span>👤 ${item.recipient || 'Tanpa Nama'} (${item.phone_number})</span>
+              </div>
+              <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'}</div>
+              <div class="item-msg">${item.message}</div>
             </div>
           `).join('');
         } else {
           pendingCont.innerHTML = '<div class="empty-state">🎉 Semua pengingat aman, antrean kosong!</div>';
         }
         
-        // UPDATE: Menyederhanakan render data pada Tab Riwayat Kirim (Fase 1)
+        // C. Render Tab Riwayat Kirim (Fase 2: Kelengkapan Properti Data)
         if (data.sent && data.sent.length > 0) {
           sentCont.innerHTML = data.sent.map(item => `
             <div class="reminder-item" style="border-left: 3px solid var(--success);">
-              <div class="item-header">✅ ${item.msg_header || 'Tanpa Perihal'} (Status: ${item.status})</div>
+              <div class="item-meta">
+                <span style="color: var(--success)">✅ Terkirim: ${formatWaktuTampilan(item.date_sent || item.scheduled_time)}</span>
+                <span>👤 ${item.recipient || 'Tanpa Nama'} (${item.phone_number})</span>
+              </div>
+              <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'}</div>
+              <div class="item-msg">${item.message}</div>
             </div>
           `).join('');
         } else {
