@@ -23,8 +23,9 @@ export default async function handler(req, res) {
           phone_number, 
           recipient, 
           status: status || 'pending',
-          grup: grup || '' // <-- Memasukkan data grup ke kolom Supabase
+          grup: grup || '' 
         }])
+        .select('id, msg_header, status');
 
       if (error) throw error;
 
