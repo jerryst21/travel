@@ -127,6 +127,33 @@ export default async function handler(req, res) {
       }
     }
 
+    // --- SUB-AKSI BARU (FASE 1): AMBIL LOG REALTIME DARI WAPPFLY ---
+    if (action === 'wappfly-logs') {
+      try {
+        const wappflyResponse = await fetch('https://wappfly.com/api/messages/recent?limit=50', {
+          method: 'GET',
+          headers: {
+            'X-API-Token': process.env.WHAPPFLY_API_KEY
+          }
+        });
+
+        if (!wappflyResponse.ok) {
+          const errorText = await wappflyResponse.text();
+          throw new Error(errorText);
+        }
+
+        const logsData = await wappflyResponse.json();
+        return res.status(200).json({
+          success: true,
+          total_log_ditemukan: logsData.length,
+          logs: logsData
+        });
+
+      } catch (error) {
+        return res.status(500).json({ error: "Gagal mengambil log Wappfly", details: error.message });
+      }
+    }
+
     // --- SUB-AKSI B: DASHBOARD LIST & KONEKSI (Default) ---
     const { grup } = req.query; 
     try {
