@@ -85,16 +85,15 @@ export default async function handler(req, res) {
 
             const templatePesan = `📢 ini adalah pengingat otomatis\nWaktu : ${waktuFormatted}\nPerihal: ${reminder.msg_header || '-'}\nPesan :\n${reminder.message}`;
 
-            // REVISI TOTAL: Migrasi dari Whapi Cloud ke Whappfly API Gateway
-            const whappflyResponse = await fetch('https://api.wappfly.com/v1/messages/send-text', {
+            const whappflyResponse = await fetch('https://wappfly.com/api/messages/send', {
               method: 'POST',
               headers: {
-                'x-api-token': process.env.WHAPPFLY_API_KEY, // Menggunakan token unik dari gambar dasbor Anda
+                'X-API-Token': process.env.WHAPPFLY_API_KEY, // Header harus 'X-API-Token' (sesuaikan kapitalisasi)
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({ 
-                number: reminder.phone_number, 
-                message: templatePesan 
+                to: reminder.phone_number + '@s.whatsapp.net', // Harus menyertakan format @s.whatsapp.net
+                text: templatePesan // Harus menggunakan key 'text' sesuai dokumentasi
               })
             });
 
