@@ -15,12 +15,12 @@ export default async function handler(req, res) {
       const { scheduled_time, msg_header, message, phone_number, recipient, status } = req.body;
 
       const { data, error } = await supabase
-        .from('reminders')
+        .from('wappfly1983reminders')
         .insert([{ 
           scheduled_time, 
           msg_header, 
           message, 
-          phone_number, 
+          phone_number, \
           recipient, 
           status: status || 'pending' 
         }])
