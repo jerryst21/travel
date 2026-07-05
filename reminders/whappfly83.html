@@ -452,8 +452,9 @@
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      const contactValue = document.getElementById('contact-select').value;
-      const [phoneNumber, recipientName] = contactValue.split('|');
+      // FIX: Ambil langsung dari input text manual, bukan dropdown yang sudah dihapus
+      const phoneNumber = document.getElementById('phone_number').value.trim();
+      const recipientName = document.getElementById('recipient').value.trim();
 
       const payload = {
         scheduled_time: document.getElementById('scheduled_time').value + ':00+00',
@@ -468,8 +469,8 @@
       btnSubmit.innerHTML = '⏳ Menyimpan...';
 
       try {
-        // Mengirim langsung ke Router Tunggal tanpa secret token (Aman)
-        const response = await fetch('/api/reminders', {
+        // FIX: Alamat fetch diubah dari /api/reminders ke /api/whappfly83
+        const response = await fetch('/api/whappfly83', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
