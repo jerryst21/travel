@@ -89,7 +89,7 @@ export default async function handler(req, res) {
               method: 'POST',
               headers: {
                 'X-API-Token': process.env.WHAPPFLY_API_KEY, // Header harus 'X-API-Token' (sesuaikan kapitalisasi)
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json; charset=utf-8'
               },
               body: JSON.stringify({ 
                 to: reminder.phone_number + '@s.whatsapp.net', // Harus menyertakan format @s.whatsapp.net
