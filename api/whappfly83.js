@@ -83,7 +83,7 @@ export default async function handler(req, res) {
             const time = d.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' });
             const waktuFormatted = `${weekday}, ${day} ${month} ${year} ${time}`;
 
-            const templatePesan = `📢 ini adalah pengingat otomatis\nWaktu : ${waktuFormatted}\nPerihal: ${reminder.msg_header || '-'}\nPesan :\n${reminder.message}`;
+            const templatePesan = `[INFO] Pengingat Otomatis\nWaktu : ${waktuFormatted}\nPerihal: ${reminder.msg_header || '-'}\nPesan :\n${reminder.message}`;
 
             const whappflyResponse = await fetch('https://wappfly.com/api/messages/send', {
               method: 'POST',
