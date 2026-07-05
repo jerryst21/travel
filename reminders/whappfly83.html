@@ -353,7 +353,7 @@
       <button class="btn-close" onclick="tutupModal()">Tutup</button>
     </div>
   </div>
-
+  
   <script>
     const form = document.getElementById('reminder-form');
     const textarea = document.getElementById('message');
@@ -385,13 +385,12 @@
       }).replace(',', '') + ' WITA';
     }
 
-    // 4. SATU AMBILAN TOTAL (Koneksi Banner + Render Isi Antrean Dashboard)
+    // 4. AMBIL DATA DASHBOARD SECARA DETAIL
     async function muatDataDashboard() {
       const pendingCont = document.getElementById('pending-list');
       const sentCont = document.getElementById('sent-list');
       
       try {
-        // Melakukan 1 single-fetch ke endpoint baru
         const res = await fetch('/api/whappfly83');
         const data = await res.json();
         
@@ -404,32 +403,32 @@
         statusBanner.innerHTML = `✅ <strong>Koneksi Aman.</strong> Sisa antrean aktif: ${data.total_antrean_pending || 0} data.`;
         btnSubmit.disabled = false;
 
-        // B. Render Tab Antrean Pending (Fase 2: Kelengkapan Properti Data)
+        // B. Render Tab Antrean Pending (Tampilan Detail Lengkap)
         if (data.pending && data.pending.length > 0) {
           pendingCont.innerHTML = data.pending.map(item => `
             <div class="reminder-item">
               <div class="item-meta">
                 <span>📅 ${formatWaktuTampilan(item.scheduled_time)}</span>
-                <span>👤 ${item.recipient || 'Tanpa Nama'} (${item.phone_number})</span>
+                <span>👤 ${item.recipient || 'Tanpa Nama'} (${item.phone_number || ''})</span>
               </div>
               <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'}</div>
-              <div class="item-msg">${item.message}</div>
+              <div class="item-msg">${item.message || ''}</div>
             </div>
           `).join('');
         } else {
           pendingCont.innerHTML = '<div class="empty-state">🎉 Semua pengingat aman, antrean kosong!</div>';
         }
         
-        // C. Render Tab Riwayat Kirim (Fase 2: Kelengkapan Properti Data)
+        // C. Render Tab Riwayat Kirim (Tampilan Detail Lengkap)
         if (data.sent && data.sent.length > 0) {
           sentCont.innerHTML = data.sent.map(item => `
             <div class="reminder-item" style="border-left: 3px solid var(--success);">
               <div class="item-meta">
                 <span style="color: var(--success)">✅ Terkirim: ${formatWaktuTampilan(item.date_sent || item.scheduled_time)}</span>
-                <span>👤 ${item.recipient || 'Tanpa Nama'} (${item.phone_number})</span>
+                <span>👤 ${item.recipient || 'Tanpa Nama'} (${item.phone_number || ''})</span>
               </div>
               <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'}</div>
-              <div class="item-msg">${item.message}</div>
+              <div class="item-msg">${item.message || ''}</div>
             </div>
           `).join('');
         } else {
@@ -437,7 +436,6 @@
         }
 
       } catch (err) {
-        // Jika koneksi down / Supabase error
         statusBanner.style.backgroundColor = '#fef2f2';
         statusBanner.style.borderColor = '#fca5a5';
         statusBanner.style.color = '#991b1b';
@@ -452,7 +450,7 @@
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      // FIX: Ambil langsung dari input text manual, bukan dropdown yang sudah dihapus
+      // FIX: Langsung mengambil data dari kolom input teks mandiri, bukan dari dropdown lama
       const phoneNumber = document.getElementById('phone_number').value.trim();
       const recipientName = document.getElementById('recipient').value.trim();
 
@@ -469,7 +467,7 @@
       btnSubmit.innerHTML = '⏳ Menyimpan...';
 
       try {
-        // FIX: Alamat fetch diubah dari /api/reminders ke /api/whappfly83
+        // FIX: Route fetch diarahkan langsung menuju endpoint Whappfly API baru
         const response = await fetch('/api/whappfly83', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -480,7 +478,6 @@
           successModal.classList.add('show');
           form.reset();
           textarea.style.height = 'auto';
-          // Segarkan data dashboard seketika setelah berhasil menyimpan
           muatDataDashboard();
         } else {
           const errData = await response.json();
@@ -499,9 +496,7 @@
       successModal.classList.remove('show');
     }
 
-    // Trigger pemanggilan data tunggal saat halaman siap dibuka
     window.onload = muatDataDashboard;
   </script>
-
 </body>
 </html>
