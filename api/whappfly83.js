@@ -1,4 +1,4 @@
-// File: api/reminders.js
+// File: api/whappfly83.js
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -8,19 +8,19 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export default async function handler(req, res) {
   
   // -------------------------------------------------------------------------
-  // [OPERASI 1] METHOD POST: Menyimpan Pengingat Baru (Berasal dari Form)
+  // [OPERASI 1] METHOD POST: Menyimpan Pengingat Baru ke Tabel Baru
   // -------------------------------------------------------------------------
   if (req.method === 'POST') {
     try {
       const { scheduled_time, msg_header, message, phone_number, recipient, status } = req.body;
 
       const { data, error } = await supabase
-        .from('wappfly1983reminders')
+        .from('wappfly1983reminders') // Konsisten menggunakan tabel baru
         .insert([{ 
           scheduled_time, 
           msg_header, 
           message, 
-          phone_number,
+          phone_number, 
           recipient, 
           status: status || 'pending' 
         }])
@@ -55,9 +55,9 @@ export default async function handler(req, res) {
         const waktuSesuaiTampilan = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+00:00";
         const waktuTampilanManado = now.toLocaleString("id-ID", { timeZone: "Asia/Makassar" });
 
-        // 1. Ambil data antrean pending yang jatuh tempo (Maksimal 5 data per batch eksekusi)
+        // 1. Ambil data antrean pending yang jatuh tempo dari tabel baru
         const { data, error } = await supabase
-          .from('reminders')
+          .from('wappfly1983reminders')
           .select('id, phone_number, message, msg_header, scheduled_time, status')
           .eq('status', 'pending')
           .lte('scheduled_time', waktuSesuaiTampilan)
@@ -66,9 +66,9 @@ export default async function handler(req, res) {
 
         if (error) throw error;
 
-        // 2. HITUNG TOTAL PENDING GLOBAL (Menghitung sisa seluruh antrean aktif di database secara efisien)
+        // 2. Hitung total sisa antrean aktif di database baru
         const { count: totalPendingDatabase } = await supabase
-          .from('reminders')
+          .from('wappfly1983reminders')
           .select('*', { count: 'exact', head: true })
           .eq('status', 'pending');
 
@@ -85,19 +85,24 @@ export default async function handler(req, res) {
 
             const templatePesan = `📢 ini adalah pengingat otomatis\nWaktu : ${waktuFormatted}\nPerihal: ${reminder.msg_header || '-'}\nPesan :\n${reminder.message}`;
 
-            const whapiResponse = await fetch('https://gate.whapi.cloud/messages/text', {
+            // REVISI TOTAL: Migrasi dari Whapi Cloud ke Whappfly API Gateway
+            const whappflyResponse = await fetch('https://api.whappfly.com/v1/messages/send-text', {
               method: 'POST',
               headers: {
-                'Authorization': `Bearer ${process.env.WHAPI_TOKEN}`,
+                'key': process.env.WHAPPFLY_API_KEY, // Menggunakan header 'key' sesuai regulasi Whappfly
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify({ to: reminder.phone_number, body: templatePesan })
+              body: JSON.stringify({ 
+                deviceID: process.env.WHAPPFLY_DEVICE_ID,
+                number: reminder.phone_number, 
+                message: templatePesan 
+              })
             });
 
-            const statusBaru = whapiResponse.ok ? 'sent' : 'failed';
+            const statusBaru = whappflyResponse.ok ? 'sent' : 'failed';
             
             await supabase
-              .from('reminders')
+              .from('wappfly1983reminders')
               .update({ 
                 status: statusBaru,
                 date_sent: statusBaru === 'sent' ? waktuSesuaiTampilan : null
@@ -110,11 +115,10 @@ export default async function handler(req, res) {
           }
         }
 
-        // Output JSON hasil Cron dengan tambahan total_antrean_pending
         return res.status(200).json({
-          message: "Pengecekan Selesai",
+          message: "Pengecekan Selesai (Whappfly Engine Active)",
           waktu_sekarang_manado: waktuTampilanManado,
-          total_antrean_pending: totalPendingDatabase || 0, // <-- Properti berhasil disematkan kembali!
+          total_antrean_pending: totalPendingDatabase || 0,
           total_siap_kirim: data.length,
           detail_proses: hasilProses
         });
@@ -124,9 +128,8 @@ export default async function handler(req, res) {
       }
     }
 
-    // --- SUB-AKSI B: DASHBOARD LIST & KONEKSI (Default / ?action=list) ---
+    // --- SUB-AKSI B: DASHBOARD LIST & KONEKSI (Default) ---
     try {
-      // UPDATE: Mengubah target tabel dari 'reminders' ke 'wappfly1983reminders'
       const { data: pendingData, error: errorPending } = await supabase
         .from('wappfly1983reminders')
         .select('id, scheduled_time, msg_header, message, phone_number, recipient, status')
@@ -141,15 +144,15 @@ export default async function handler(req, res) {
         .eq('status', 'sent')
         .order('date_sent', { ascending: false })
         .limit(20);
-  
-        if (errorSent) throw errorSent;
-  
-        return res.status(200).json({
-          success: true,
-          pending: pendingData,
-          sent: sentData,
-          total_antrean_pending: pendingData.length
-        });
+
+      if (errorSent) throw errorSent;
+
+      return res.status(200).json({
+        success: true,
+        pending: pendingData,
+        sent: sentData,
+        total_antrean_pending: pendingData.length
+      });
 
     } catch (error) {
       return res.status(500).json({ error: "Gagal mengambil daftar pengingat", details: error.message });
