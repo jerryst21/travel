@@ -391,7 +391,9 @@
       const sentCont = document.getElementById('sent-list');
       
       try {
-        const res = await fetch('/api/whappfly83');
+        const urlParams = new URLSearchParams(window.location.search);
+        const grupParam = urlParams.get('grup') || '';
+        const res = await fetch(`/api/whappfly83?grup=${encodeURIComponent(grupParam)}`);
         const data = await res.json();
         
         if (!res.ok) throw new Error(data.error || 'Gagal sinkronisasi data');
