@@ -127,30 +127,34 @@ export default async function handler(req, res) {
     }
 
     // --- SUB-AKSI B: DASHBOARD LIST & KONEKSI (Default) ---
-    const { grup } = req.query; // Menangkap parameter grup dari frontend
+    const { grup } = req.query; 
     try {
       let queryPending = supabase
         .from('wappfly1983reminders')
         .select('id, scheduled_time, msg_header, message, phone_number, recipient, status, grup')
         .eq('status', 'pending');
-      
+    
       let querySent = supabase
         .from('wappfly1983reminders')
         .select('id, scheduled_time, msg_header, message, phone_number, recipient, status, date_sent, grup')
-        .eq('status', 'sent')
-        .limit(20);
-      
-      // Logika Hak Akses: Jika BUKAN 'jay', lakukan filter berdasarkan parameter grup
+        .eq('status', 'sent'); // (.limit(20) dihapus dari sini agar urutannya benar di bawah)
+    
+      // Logika Hak Akses: Jika BUKAN 'jay', lakukan filter berdasarkan grup
       if (grup !== 'jay') {
         queryPending = queryPending.eq('grup', grup || '');
         querySent = querySent.eq('grup', grup || '');
       }
-      
-      // Eksekusi query setelah filter diterapkan
-      const { data: pendingData, error: errorPending } = await queryPending.order('scheduled_time', { ascending: true });
+    
+      // Eksekusi query dengan urutan Sort & Limit yang benar
+      const { data: pendingData, error: errorPending } = await queryPending
+        .order('scheduled_time', { ascending: true });
+        
       if (errorPending) throw errorPending;
-      
-      const { data: sentData, error: errorSent } = await querySent.order('date_sent', { ascending: false });
+    
+      const { data: sentData, error: errorSent } = await querySent
+        .order('date_sent', { ascending: false })
+        .limit(20); // (.limit(20) dipindahkan ke sini setelah .order)
+    
       if (errorSent) throw errorSent;
 
       return res.status(200).json({
