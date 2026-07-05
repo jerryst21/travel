@@ -127,6 +127,7 @@ export default async function handler(req, res) {
     }
 
     // --- SUB-AKSI B: DASHBOARD LIST & KONEKSI (Default) ---
+    const { grup } = req.query; // Menangkap parameter grup dari frontend
     try {
       const { data: pendingData, error: errorPending } = await supabase
         .from('wappfly1983reminders')
@@ -147,6 +148,7 @@ export default async function handler(req, res) {
 
       return res.status(200).json({
         success: true,
+        grup_terdeteksi: grup || 'tidak ada', // Validasi dasar Fase 1
         pending: pendingData,
         sent: sentData,
         total_antrean_pending: pendingData.length
