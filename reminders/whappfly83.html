@@ -456,13 +456,17 @@
       const phoneNumber = document.getElementById('phone_number').value.trim();
       const recipientName = document.getElementById('recipient').value.trim();
 
+      const urlParams = new URLSearchParams(window.location.search);
+      const grupParam = urlParams.get('grup') || '';
+      
       const payload = {
         scheduled_time: document.getElementById('scheduled_time').value + ':00+00',
         msg_header: document.getElementById('msg_header').value,
         message: document.getElementById('message').value,
         phone_number: phoneNumber,
         recipient: recipientName,
-        status: 'pending'
+        status: 'pending',
+        grup: grupParam // Otomatis mengirimkan data grup ke backend
       };
 
       btnSubmit.disabled = true;
