@@ -12,19 +12,19 @@ export default async function handler(req, res) {
   // -------------------------------------------------------------------------
   if (req.method === 'POST') {
     try {
-      const { scheduled_time, msg_header, message, phone_number, recipient, status } = req.body;
-
+      const { scheduled_time, msg_header, message, phone_number, recipient, status, grup } = req.body;
+      
       const { data, error } = await supabase
-        .from('wappfly1983reminders') // Konsisten menggunakan tabel baru
+        .from('wappfly1983reminders') 
         .insert([{ 
           scheduled_time, 
           msg_header, 
           message, 
           phone_number, 
           recipient, 
-          status: status || 'pending' 
+          status: status || 'pending',
+          grup: grup || '' // <-- Memasukkan data grup ke kolom Supabase
         }])
-        .select('id, msg_header, status');
 
       if (error) throw error;
 
