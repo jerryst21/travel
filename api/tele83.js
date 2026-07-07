@@ -106,12 +106,17 @@ export default async function handler(req, res) {
             const resJson = await teleResponse.json();
             const statusBaru = (teleResponse.ok && resJson.ok) ? 'sent' : 'failed';
             
+            // ==========================================
+            // BARIS UPDATE: baris 82 - 90
+            // ==========================================
             // Update status log antrean di database Supabase
+            const waktuSekarangWita = new Date().toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+08:00";
+            
             await supabase
               .from('telereminders')
               .update({ 
                 status: statusBaru,
-                date_sent: statusBaru === 'sent' ? now.toISOString() : null // UPDATE: Simpan waktu kirim real-time ISO UTC
+                date_sent: statusBaru === 'sent' ? waktuSekarangWita : null // Menggunakan format regional WITA asli (+08:00)
               })
               .eq('id', reminder.id);
 
