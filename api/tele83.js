@@ -41,9 +41,92 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { action, secret, grup } = req.query;
 
-    // Proteksi sementara untuk sub-aksi cron (akan diisi penuh di Fase 3)
+    // =========================================================================
+    // BARIS UPDATE: SUB-AKSI CRON JOB EKSEKUSI OTOMATIS (?action=cron&secret=...)
+    // =========================================================================
     if (action === 'cron') {
-      return res.status(200).json({ message: "Engine Cron Telegram siap dikonfigurasi pada Fase 3." });
+      if (secret !== process.env.MY_CRON_SECRET) {
+        return res.status(401).json({ error: "Unauthorized access" });
+      }
+
+      try {
+        const now = new Date();
+        const waktuSesuaiTampilan = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+00:00";
+        const waktuTampilanManado = now.toLocaleString("id-ID", { timeZone: "Asia/Makassar" });
+
+        // 1. Ambil data antrean pending yang jatuh tempo dari tabel telereminders
+        const { data, error } = await supabase
+          .from('telereminders')
+          .select('id, chat_id, message, msg_header, scheduled_time, status')
+          .eq('status', 'pending')
+          .lte('scheduled_time', waktuSesuaiTampilan)
+          .order('scheduled_time', { ascending: true })
+          .limit(5);
+
+        if (error) throw error;
+
+        // 2. Hitung total sisa antrean aktif di database telereminders
+        const { count: totalPendingDatabase } = await supabase
+          .from('telereminders')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'pending');
+
+        const hasilProses = [];
+        const botToken = process.env.TELEGRAM_BOT_TOKEN;
+
+        for (const reminder of data) {
+          try {
+            const d = new Date(reminder.scheduled_time);
+            const weekday = d.toLocaleString('en-US', { weekday: 'short', timeZone: 'UTC' });
+            const day = d.toLocaleString('en-US', { day: '2-digit', timeZone: 'UTC' });
+            const month = d.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
+            const year = d.toLocaleString('en-US', { year: 'numeric', timeZone: 'UTC' });
+            const time = d.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' });
+            const waktuFormatted = `${weekday}, ${day} ${month} ${year} ${time}`;
+
+            // Template pengingat otomatis rapi menggunakan Markdown style Telegram
+            const templatePesan = `📢 *[PENGINGAT OTOMATIS]*\n\n*Waktu* : ${waktuFormatted} WITA\n*Perihal*: ${reminder.msg_header || '-'}\n\n*Pesan* :\n${reminder.message}`;
+
+            // Eksekusi pengiriman data menuju Telegram Bot API endpoint
+            const teleResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id: reminder.chat_id,
+                text: templatePesan,
+                parse_mode: 'Markdown'
+              })
+            });
+
+            const resJson = await teleResponse.json();
+            const statusBaru = (teleResponse.ok && resJson.ok) ? 'sent' : 'failed';
+            
+            // Update status log antrean di database Supabase
+            await supabase
+              .from('telereminders')
+              .update({ 
+                status: statusBaru,
+                date_sent: statusBaru === 'sent' ? waktuSesuaiTampilan : null
+              })
+              .eq('id', reminder.id);
+
+            hasilProses.push({ id: reminder.id, status: statusBaru, telegram_status_ok: resJson.ok });
+          } catch (err) {
+            hasilProses.push({ id: reminder.id, status: 'error', error: err.message });
+          }
+        }
+
+        return res.status(200).json({
+          message: "Pengecekan Selesai (Telegram Engine Active)",
+          waktu_sekarang_manado: waktuTampilanManado,
+          total_antrean_pending: totalPendingDatabase || 0,
+          total_siap_kirim: data.length,
+          detail_proses: hasilProses
+        });
+
+      } catch (error) {
+        return res.status(500).json({ error: "Eksekusi cron telegram gagal", details: error.message });
+      }
     }
 
     try {
