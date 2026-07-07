@@ -12,10 +12,13 @@ export default async function handler(req, res) {
     try {
       const { scheduled_time, msg_header, message, chat_id, recipient, status, grup } = req.body;
       
+      // UPDATE: Ubah penanda offset +00 dari frontend menjadi +08:00 (WITA asli) agar tercatat rapi di Supabase
+      const adjustedTime = scheduled_time ? scheduled_time.replace('+00', '+08:00') : scheduled_time;
+      
       const { data, error } = await supabase
         .from('telereminders') 
         .insert([{ 
-          scheduled_time, 
+          scheduled_time: adjustedTime, // Menggunakan waktu dengan zona WITA yang benar
           msg_header, 
           message, 
           chat_id, 
@@ -51,7 +54,8 @@ export default async function handler(req, res) {
 
       try {
         const now = new Date();
-        const waktuSesuaiTampilan = now.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+00:00";
+        // UPDATE: Gunakan komparasi standar ISO UTC murni untuk memproses antrean jatuh tempo
+        const waktuIsotoCompare = now.toISOString(); 
         const waktuTampilanManado = now.toLocaleString("id-ID", { timeZone: "Asia/Makassar" });
 
         // 1. Ambil data antrean pending yang jatuh tempo dari tabel telereminders
@@ -59,7 +63,7 @@ export default async function handler(req, res) {
           .from('telereminders')
           .select('id, chat_id, message, msg_header, scheduled_time, status')
           .eq('status', 'pending')
-          .lte('scheduled_time', waktuSesuaiTampilan)
+          .lte('scheduled_time', waktuIsotoCompare) // Query pencocokan waktu UTC yang aman & presisi
           .order('scheduled_time', { ascending: true })
           .limit(5);
 
@@ -77,11 +81,12 @@ export default async function handler(req, res) {
         for (const reminder of data) {
           try {
             const d = new Date(reminder.scheduled_time);
-            const weekday = d.toLocaleString('en-US', { weekday: 'short', timeZone: 'UTC' });
-            const day = d.toLocaleString('en-US', { day: '2-digit', timeZone: 'UTC' });
-            const month = d.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
-            const year = d.toLocaleString('en-US', { year: 'numeric', timeZone: 'UTC' });
-            const time = d.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' });
+            // UPDATE: Set zona waktu format teks kiriman Telegram ke Asia/Makassar (WITA)
+            const weekday = d.toLocaleString('en-US', { weekday: 'short', timeZone: 'Asia/Makassar' });
+            const day = d.toLocaleString('en-US', { day: '2-digit', timeZone: 'Asia/Makassar' });
+            const month = d.toLocaleString('en-US', { month: 'short', timeZone: 'Asia/Makassar' });
+            const year = d.toLocaleString('en-US', { year: 'numeric', timeZone: 'Asia/Makassar' });
+            const time = d.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Makassar' });
             const waktuFormatted = `${weekday}, ${day} ${month} ${year} ${time}`;
 
             // Template pengingat otomatis rapi menggunakan Markdown style Telegram
@@ -106,7 +111,7 @@ export default async function handler(req, res) {
               .from('telereminders')
               .update({ 
                 status: statusBaru,
-                date_sent: statusBaru === 'sent' ? waktuSesuaiTampilan : null
+                date_sent: statusBaru === 'sent' ? now.toISOString() : null // UPDATE: Simpan waktu kirim real-time ISO UTC
               })
               .eq('id', reminder.id);
 
@@ -151,11 +156,32 @@ export default async function handler(req, res) {
       const { data: sentData, error: errorSent } = await querySent.order('date_sent', { ascending: false }).limit(20);
       if (errorSent) throw errorSent;
 
+      const { data: sentData, error: errorSent } = await querySent.order('date_sent', { ascending: false }).limit(20);
+      if (errorSent) throw errorSent;
+
+      // UPDATE: Transformasi balikan waktu dari DB (UTC) menjadi teks WITA literal (+00:00) agar dibaca 100% akurat oleh frontend lama
+      const keTeksWitaLiteral = (isoStr) => {
+        if (!isoStr) return null;
+        const dateObj = new Date(isoStr);
+        return dateObj.toLocaleString("sv-SE", { timeZone: "Asia/Makassar" }).replace(" ", "T") + "+00:00";
+      };
+
+      const formattedPending = pendingData.map(item => ({
+        ...item,
+        scheduled_time: keTeksWitaLiteral(item.scheduled_time)
+      }));
+
+      const formattedSent = sentData.map(item => ({
+        ...item,
+        scheduled_time: keTeksWitaLiteral(item.scheduled_time),
+        date_sent: keTeksWitaLiteral(item.date_sent)
+      }));
+
       return res.status(200).json({
         success: true,
         grup_terdeteksi: grup || 'tidak ada',
-        pending: pendingData,
-        sent: sentData,
+        pending: formattedPending, // Menggunakan data terformat
+        sent: formattedSent,       // Menggunakan data terformat
         total_antrean_pending: pendingData.length
       });
 
