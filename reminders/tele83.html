@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Input Pengingat Telegram</title>
   <style>
-    /* Menggunakan style dasar yang sama agar tetap kompak, modern, dan padat data */
     :root {
       --primary: #24a1de; /* Warna Khas Telegram Blue */
       --primary-hover: #1d82b2;
@@ -35,10 +34,21 @@
     .btn:disabled { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
     .btn-helper { display: inline-flex; align-items: center; gap: 6px; background: #e0f2fe; color: #0369a1; padding: 8px 12px; border-radius: 6px; font-size: 12.5px; font-weight: 600; text-decoration: none; margin-bottom: 12px; width: 100%; justify-content: center; border: 1px solid #bae6fd; transition: all 0.2s; }
     .btn-helper:hover { background: #bae6fd; }
+    
+    /* Style Kartu Pilihan Penerima Cepat (Chips Multiple Choice) */
+    .contact-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .chip-label { display: inline-flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid var(--border); padding: 10px 16px; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; color: var(--text); cursor: pointer; text-transform: uppercase; transition: all 0.2s ease; }
+    .chip-label input[type="radio"] { accent-color: var(--primary); margin: 0; cursor: pointer; scale: 1.1; }
+    .chip-label:hover { border-color: #cbd5e1; background: #f1f5f9; }
+    .chip-label.selected { background: #e0f2fe; border-color: var(--primary); color: #0369a1; }
+
+    /* Modal Styling */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.3); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .modal-overlay.show { opacity: 1; pointer-events: auto; }
     .modal-content { background: white; padding: 24px; border-radius: var(--radius-lg); width: 90%; max-width: 360px; text-align: center; }
     .btn-close { background: #0f172a; color: white; border: none; padding: 9px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    
+    /* Dashboard Tabs & Lists */
     .dashboard-section { margin-top: 18px; border-top: 1px dashed var(--border); padding-top: 16px; }
     .tabs { display: flex; gap: 4px; margin-bottom: 12px; background: #f1f5f9; padding: 4px; border-radius: 8px; }
     .tab-btn { flex: 1; background: transparent; border: none; padding: 6px 10px; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--text-muted); }
@@ -65,7 +75,7 @@
     </div>
 
     <a href="https://t.me/UsernameBotAnda" target="_blank" class="btn-helper">
-      🤖 1. Klik Sini & Tekan /start untuk Aktivasi Bot
+      🤖 Klik Sini & Tekan /start jika Belum Aktivasi Bot
     </a>
 
     <form id="reminder-form">
@@ -80,16 +90,17 @@
       </div>
 
       <div class="form-group">
-        <div class="form-group">
-          <label for="chat_id">2. Chat ID Telegram Penerima</label>
-          <input type="text" id="chat_id" class="form-control" placeholder="Contoh: 123456789" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="recipient">Nama Penerima</label>
-          <input type="text" id="recipient" class="form-control" placeholder="Contoh: Linda" required>
-        </div>
+        <label>Pilih Penerima</label>
+        <div class="contact-chips">
+          <label class="chip-label" id="chip-jerry">
+            <input type="radio" name="quick_recipient" value="7754794501" data-name="Jerry" onchange="pilihPenerimaOtomatis(this)">
+            <span>Jerry</span>
+          </label>
+          </div>
       </div>
+
+      <input type="hidden" id="chat_id">
+      <input type="hidden" id="recipient">
 
       <div class="form-group">
         <label for="message">Isi Pesan Pengingat</label>
@@ -143,6 +154,16 @@
       btn.classList.add('active');
     }
 
+    // Fungsi Auto-Fill & Highlight saat kartu diklik
+    function pilihPenerimaOtomatis(radio) {
+      document.querySelectorAll('.chip-label').forEach(el => el.classList.remove('selected'));
+      if (radio.checked) {
+        radio.parentElement.classList.add('selected');
+        document.getElementById('chat_id').value = radio.value;
+        document.getElementById('recipient').value = radio.getAttribute('data-name');
+      }
+    }
+
     function formatWaktuTampilan(isoString) {
       if (!isoString) return '-';
       const waktuLokalMurni = isoString.replace('Z', '').split('+')[0].replace(' ', 'T').substring(0, 16);
@@ -173,7 +194,7 @@
             <div class="reminder-item">
               <div class="item-meta">
                 <span>📅 ${formatWaktuTampilan(item.scheduled_time)}</span>
-                <span>🆔 ID: ${item.chat_id || ''} (${item.recipient || 'Tanpa Nama'})</span>
+                <span>👤 ${item.recipient || 'Tanpa Nama'}</span>
               </div>
               <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'}</div>
               <div class="item-msg">${item.message || ''}</div>
@@ -188,7 +209,7 @@
             <div class="reminder-item" style="border-left: 3px solid var(--success);">
               <div class="item-meta">
                 <span style="color: var(--success)">✅ Terkirim: ${formatWaktuTampilan(item.date_sent || item.scheduled_time)}</span>
-                <span>🆔 ID: ${item.chat_id || ''}</span>
+                <span>👤 ${item.recipient || 'Tanpa Nama'}</span>
               </div>
               <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'}</div>
               <div class="item-msg">${item.message || ''}</div>
@@ -211,6 +232,13 @@
       
       const chatId = document.getElementById('chat_id').value.trim();
       const recipientName = document.getElementById('recipient').value.trim();
+      
+      // Validasi proteksi jika user lupa memilih kartu nama
+      if (!chatId || !recipientName) {
+        alert('Silakan pilih salah satu penerima terlebih dahulu!');
+        return;
+      }
+
       const urlParams = new URLSearchParams(window.location.search);
       const grupParam = urlParams.get('grup') || '';
       
@@ -237,6 +265,7 @@
         if (response.ok) {
           successModal.classList.add('show');
           form.reset();
+          document.querySelectorAll('.chip-label').forEach(el => el.classList.remove('selected'));
           textarea.style.height = 'auto';
           muatDataDashboard();
         } else {
