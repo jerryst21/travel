@@ -152,9 +152,6 @@ export default async function handler(req, res) {
     
       const { data: pendingData, error: errorPending } = await queryPending.order('scheduled_time', { ascending: true });
       if (errorPending) throw errorPending;
-    
-      const { data: sentData, error: errorSent } = await querySent.order('date_sent', { ascending: false }).limit(20);
-      if (errorSent) throw errorSent;
 
       const { data: sentData, error: errorSent } = await querySent.order('date_sent', { ascending: false }).limit(20);
       if (errorSent) throw errorSent;
