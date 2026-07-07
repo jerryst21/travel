@@ -72,7 +72,7 @@ export default async function handler(req, res) {
           .eq('status', 'pending');
 
         const hasilProses = [];
-        const botToken = process.env.TELEGRAM_BOT_TOKEN;
+        const botToken = process.env.TELE_BOT_TOKEN;
 
         for (const reminder of data) {
           try {
