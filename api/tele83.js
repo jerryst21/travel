@@ -85,7 +85,7 @@ export default async function handler(req, res) {
             const waktuFormatted = `${weekday}, ${day} ${month} ${year} ${time}`;
 
             // Template pengingat otomatis rapi menggunakan Markdown style Telegram
-            const templatePesan = `📢 *[PENGINGAT OTOMATIS]*\n\n*Waktu* : ${waktuFormatted} WITA\n*Perihal*: ${reminder.msg_header || '-'}\n\n*Pesan* :\n${reminder.message}`;
+            const templatePesan = `📢 *[PENGINGAT OTOMATIS]*\n*Waktu* : ${waktuFormatted} WITA\n*Perihal*:\n${reminder.msg_header || '-'}\n\n*Pesan* :\n${reminder.message}`;
 
             // Eksekusi pengiriman data menuju Telegram Bot API endpoint
             const teleResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
