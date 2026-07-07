@@ -61,17 +61,27 @@
     .btn-close { background: #0f172a; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
     .btn-close:hover { background: #1e293b; }
     
-    /* Dense High-Data Dashboard Lists */
+    /* =========================================================================
+       BAGIAN PERBAIKAN: UKURAN FONT & PADDING DASHBOARD LIST (KONSISTEN 12px - 13px)
+       ========================================================================= */
     .dashboard-section { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 12px; }
     .tabs { display: flex; gap: 4px; margin-bottom: 10px; background: #f1f5f9; padding: 3px; border-radius: 8px; }
     .tab-btn { flex: 1; background: transparent; border: none; padding: 6px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; }
     .tab-btn.active { background: var(--card-bg); color: var(--text); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); }
+    
     .list-container { display: none; max-height: 240px; overflow-y: auto; padding-right: 2px; }
     .list-container.active { display: block; }
-    .reminder-item { background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 8px 10px; margin-bottom: 6px; font-size: 12.5px; }
-    .item-meta { display: flex; justify-content: space-between; font-weight: 600; color: var(--primary); margin-bottom: 3px; font-size: 11.5px; }
-    .item-header { font-weight: 700; color: #0f172a; margin-bottom: 2px; }
-    .item-msg { color: var(--text-muted); white-space: pre-wrap; font-size: 12px; background: #ffffff; padding: 4px 6px; border-radius: 4px; border: 1px solid #e2e8f0; margin-top: 2px; line-height: 1.3; }
+    
+    .reminder-item { background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 8px 10px; margin-bottom: 6px; }
+    
+    .item-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 12px; }
+    .item-meta .meta-left { display: flex; align-items: center; gap: 5px; color: var(--primary); font-weight: 600; }
+    .item-meta .meta-left.sent-status { color: var(--success); }
+    .item-meta .meta-right { display: flex; align-items: center; gap: 5px; color: var(--primary); font-weight: 600; }
+    
+    .item-header { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+    
+    .item-msg { color: var(--text-muted); white-space: pre-wrap; font-size: 12px; background: #ffffff; padding: 6px 8px; border-radius: 6px; border: 1px solid #e2e8f0; margin-top: 2px; line-height: 1.35; }
     .empty-state { text-align: center; color: var(--text-muted); font-size: 12px; padding: 16px 0; }
   </style>
 </head>
@@ -106,8 +116,12 @@
         <label><i class="fa-regular fa-user"></i> Pilih Nama Penerima</label>
         <div class="contact-chips">
           <label class="chip-label" id="chip-jerry">
-            <input type="radio" name="quick_recipient" value="7754794501" data-name="Jerry" onchange="pilihPenerimaOtomatis(this)">
+            <input type="radio" name="quick_recipient" value="2342352522" data-name="Jerry" onchange="pilihPenerimaOtomatis(this)">
             <span><i class="fa-solid fa-circle-user"></i> Jerry</span>
+          </label>
+          <label class="chip-label" id="chip-siska">
+            <input type="radio" name="quick_recipient" value="87928420" data-name="Siska" onchange="pilihPenerimaOtomatis(this)">
+            <span><i class="fa-solid fa-circle-user"></i> Siska</span>
           </label>
         </div>
       </div>
@@ -175,7 +189,6 @@
       btn.classList.add('active');
     }
 
-    // Fungsi Auto-Fill & Highlight saat kartu diklik
     function pilihPenerimaOtomatis(radio) {
       document.querySelectorAll('.chip-label').forEach(el => el.classList.remove('selected'));
       if (radio.checked) {
@@ -207,17 +220,29 @@
         statusBanner.style.backgroundColor = '#ecfdf5';
         statusBanner.style.borderColor = '#a7f3d0';
         statusBanner.style.color = '#065f46';
-        statusBanner.innerHTML = `✅ <strong>Database Telegram Aktif.</strong> Antrean pending: ${data.total_antrean_pending || 0} data.`;
+        statusBanner.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Database Telegram Aktif.</strong> Antrean pending: ${data.total_antrean_pending || 0} data.`;
         btnSubmit.disabled = false;
 
+        /* =========================================================================
+           BARIS UPDATE: RENDER LIST PENDING DENGAN FONT AWESOME RINGKAS (12px-13px)
+           ========================================================================= */
         if (data.pending && data.pending.length > 0) {
           pendingCont.innerHTML = data.pending.map(item => `
             <div class="reminder-item">
               <div class="item-meta">
-                <span>📅 ${formatWaktuTampilan(item.scheduled_time)}</span>
-                <span>👤 ${item.recipient || 'Tanpa Nama'}</span>
+                <div class="meta-left">
+                  <i class="fa-solid fa-calendar-days" style="color: #dc2626;"></i> 
+                  <span>${formatWaktuTampilan(item.scheduled_time)}</span>
+                </div>
+                <div class="meta-right">
+                  <i class="fa-solid fa-circle-user" style="color: #64748b;"></i> 
+                  <span>${item.recipient || 'Tanpa Nama'}</span>
+                </div>
               </div>
-              <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'}</div>
+              <div class="item-header">
+                <i class="fa-solid fa-thumbtack" style="color: #dc2626; transform: rotate(45deg);"></i> 
+                <span>${item.msg_header || 'Tanpa Perihal'}</span>
+              </div>
               <div class="item-msg">${item.message || ''}</div>
             </div>
           `).join('');
@@ -225,14 +250,26 @@
           pendingCont.innerHTML = '<div class="empty-state">🎉 Antrean Telegram bersih dan kosong!</div>';
         }
         
+        /* =========================================================================
+           BARIS UPDATE: RENDER LIST TERKIRIM DENGAN FONT AWESOME RINGKAS (12px-13px)
+           ========================================================================= */
         if (data.sent && data.sent.length > 0) {
           sentCont.innerHTML = data.sent.map(item => `
             <div class="reminder-item" style="border-left: 3px solid var(--success);">
               <div class="item-meta">
-                <span style="color: var(--success)">✅ Terkirim: ${formatWaktuTampilan(item.date_sent || item.scheduled_time)}</span>
-                <span>👤 ${item.recipient || 'Tanpa Nama'}</span>
+                <div class="meta-left sent-status">
+                  <i class="fa-solid fa-square-check"></i> 
+                  <span>Terkirim: ${formatWaktuTampilan(item.date_sent || item.scheduled_time)}</span>
+                </div>
+                <div class="meta-right">
+                  <i class="fa-solid fa-circle-user" style="color: #64748b;"></i> 
+                  <span>${item.recipient || 'Tanpa Nama'}</span>
+                </div>
               </div>
-              <div class="item-header">📌 ${item.msg_header || 'Tanpa Perihal'}</div>
+              <div class="item-header">
+                <i class="fa-solid fa-thumbtack" style="color: #dc2626; transform: rotate(45deg);"></i> 
+                <span>${item.msg_header || 'Tanpa Perihal'}</span>
+              </div>
               <div class="item-msg">${item.message || ''}</div>
             </div>
           `).join('');
@@ -244,7 +281,7 @@
         statusBanner.style.backgroundColor = '#fef2f2';
         statusBanner.style.borderColor = '#fca5a5';
         statusBanner.style.color = '#991b1b';
-        statusBanner.innerHTML = `❌ <strong>Koneksi Gagal:</strong> ${err.message}`;
+        statusBanner.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> <strong>Koneksi Gagal:</strong> ${err.message}`;
       }
     }
 
@@ -254,7 +291,6 @@
       const chatId = document.getElementById('chat_id').value.trim();
       const recipientName = document.getElementById('recipient').value.trim();
       
-      // Validasi proteksi jika user lupa memilih kartu nama
       if (!chatId || !recipientName) {
         alert('Silakan pilih salah satu penerima terlebih dahulu!');
         return;
@@ -297,7 +333,7 @@
         alert('Gagal mengirim data: ' + error.message);
       } finally {
         btnSubmit.disabled = false;
-        btnSubmit.innerHTML = '💾 Simpan ke Antrean Telegram';
+        btnSubmit.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Simpan ke Antrean Telegram';
       }
     });
 
