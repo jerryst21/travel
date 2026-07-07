@@ -202,7 +202,7 @@
       if (!isoString) return '-';
       const waktuLokalMurni = isoString.replace('Z', '').split('+')[0].replace(' ', 'T').substring(0, 16);
       const d = new Date(waktuLokalMurni);
-      return d.toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' WITA';
+      return d.toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true }) + ' WITA';
     }
 
     async function muatDataDashboard() {
